@@ -9,7 +9,8 @@
  "engine": "InnoDB",
  "field_order": [
   "test_title",
-  "test_note"
+  "test_note",
+  "pipeline_verified"
  ],
  "fields": [
   {
@@ -24,11 +25,17 @@
    "fieldname": "test_note",
    "fieldtype": "Small Text",
    "label": "Test Note"
+  },
+  {
+   "default": "0",
+   "fieldname": "pipeline_verified",
+   "fieldtype": "Check",
+   "label": "Pipeline Verified"
   }
  ],
  "index_web_pages_for_search": 0,
  "links": [],
- "modified": "2026-03-11 00:00:00.000000",
+ "modified": "2026-03-11 12:00:00.000000",
  "modified_by": "Administrator",
  "module": "Estimate",
  "name": "Infra Test",
