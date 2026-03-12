@@ -156,47 +156,58 @@ function render_scope_summary(frm) {
                 return;
             }
 
+            // Group scopes by scope_group
             let baseTotal = 0;
             let optionalTotal = 0;
+            const groups = {};
             scopes.forEach(s => {
                 const dc = flt(s.direct_cost);
-                if (s.is_optional) {
-                    optionalTotal += dc;
-                } else {
-                    baseTotal += dc;
-                }
+                if (s.is_optional) { optionalTotal += dc; } else { baseTotal += dc; }
+                const g = s.scope_group || "";
+                if (!groups[g]) groups[g] = [];
+                groups[g].push(s);
             });
 
-            const rows = scopes.map(s => {
-                const link = `/app/estimate-scope/${encodeURIComponent(s.name)}`;
-                const optFlag = s.is_optional ? "&#10003;" : "";
-                const dc = format_currency(flt(s.direct_cost), "PHP");
-                return `<tr>
-                    <td><a href="${link}">${frappe.utils.escape_html(s.scope_name || s.name)}</a></td>
-                    <td>${frappe.utils.escape_html(s.scope_group || "")}</td>
-                    <td style="text-align:center;">${optFlag}</td>
-                    <td style="text-align:right;">${dc}</td>
+            // Build grouped rows
+            let rows = "";
+            Object.keys(groups).sort().forEach(groupName => {
+                // Group header row
+                const label = groupName || __("Ungrouped");
+                rows += `<tr style="background:#f7f7f7;">
+                    <td colspan="3" style="font-weight:600;padding:6px 8px;">
+                        <span style="color:#888;margin-right:4px;">&#9656;</span>${frappe.utils.escape_html(label)}
+                    </td>
                 </tr>`;
-            }).join("");
+                // Scope rows under this group
+                groups[groupName].forEach(s => {
+                    const link = `/app/estimate-scope/${encodeURIComponent(s.name)}`;
+                    const optFlag = s.is_optional ? "&#10003;" : "";
+                    const dc = format_currency(flt(s.direct_cost), "PHP");
+                    rows += `<tr>
+                        <td style="padding-left:24px;"><a href="${link}">${frappe.utils.escape_html(s.scope_name || s.name)}</a></td>
+                        <td style="text-align:center;">${optFlag}</td>
+                        <td style="text-align:right;">${dc}</td>
+                    </tr>`;
+                });
+            });
 
             const html = `
 <table class="table table-bordered table-condensed" style="margin:0;font-size:13px;">
   <thead>
     <tr>
       <th>${__("Scope Name")}</th>
-      <th>${__("Group")}</th>
-      <th style="text-align:center;">${__("Opt")}</th>
-      <th style="text-align:right;">${__("Direct Cost")}</th>
+      <th style="text-align:center;width:50px;">${__("Opt")}</th>
+      <th style="text-align:right;width:150px;">${__("Direct Cost")}</th>
     </tr>
   </thead>
   <tbody>${rows}</tbody>
   <tfoot>
     <tr style="font-weight:bold;">
-      <td colspan="3">${__("Base Total")}</td>
+      <td colspan="2">${__("Base Total")}</td>
       <td style="text-align:right;">${format_currency(baseTotal, "PHP")}</td>
     </tr>
     <tr style="font-weight:bold;">
-      <td colspan="3">${__("Optional Total")}</td>
+      <td colspan="2">${__("Optional Total")}</td>
       <td style="text-align:right;">${format_currency(optionalTotal, "PHP")}</td>
     </tr>
   </tfoot>
