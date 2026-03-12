@@ -114,6 +114,24 @@ class Estimate(Document):
 
 
 @frappe.whitelist()
+def recalc_totals(estimate):
+    """Force recalculate and save Estimate totals from server side."""
+    est = frappe.get_doc("Estimate", estimate)
+    est.save()
+    frappe.db.commit()
+    return {
+        "direct_cost": est.direct_cost,
+        "ocm_amount": est.ocm_amount,
+        "profit_amount": est.profit_amount,
+        "subtotal": est.subtotal,
+        "vat_amount": est.vat_amount,
+        "grand_total": est.grand_total,
+        "base_direct_cost": est.base_direct_cost,
+        "base_grand_total": est.base_grand_total,
+    }
+
+
+@frappe.whitelist()
 def debug_totals(estimate):
     """Diagnostic: run the same query as _calculate_totals and return results."""
     scopes = frappe.db.sql("""
