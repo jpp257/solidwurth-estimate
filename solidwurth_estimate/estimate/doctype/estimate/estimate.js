@@ -17,7 +17,19 @@ frappe.ui.form.on("Estimate", {
         }
 
         render_scope_summary(frm);
+
+        // D30: Compute BP totals on form load so fields are populated
+        calculate_bp_totals(frm);
     },
+
+    /**
+     * BP field change handlers — trigger live bp_grand_total recalculation.
+     * Plan 13-03: D30 — browser-side approximation of BP total.
+     * Exact per-scope calculation runs at print time in Jinja (cost_proposal_bp.html).
+     */
+    bp_rate_factor(frm) { calculate_bp_totals(frm); },
+    bp_ocm_percent(frm) { calculate_bp_totals(frm); },
+    bp_profit_percent(frm) { calculate_bp_totals(frm); },
 });
 
 
@@ -125,6 +137,47 @@ function show_template_picker(frm) {
     });
 
     dialog.show();
+}
+
+
+/**
+ * Compute approximate BP totals in the browser for live field feedback.
+ *
+ * Plan 13-03: D30 — browser-side approximation.
+ * The exact per-scope BP calculation runs at print time in cost_proposal_bp.html
+ * (Jinja queries each scope's material rows and applies bp_rate_factor).
+ *
+ * Browser approximation: grand_total * bp_rate * extra_ocm_factor * extra_profit_factor
+ * This is an estimate — exact value appears when printing the BP format.
+ *
+ * Sets:
+ *   bp_effective_multiplier — ratio of BP total to standard grand_total (4 dp)
+ *   bp_grand_total          — approximate BP contract amount
+ */
+function calculate_bp_totals(frm) {
+    const bp_rate = flt(frm.doc.bp_rate_factor) || 1.0;
+    const bp_ocm = flt(frm.doc.bp_ocm_percent);
+    const bp_profit = flt(frm.doc.bp_profit_percent);
+    const std_ocm = flt(frm.doc.ocm_percent);
+    const std_profit = flt(frm.doc.profit_percent);
+    const grand_total = flt(frm.doc.grand_total);
+
+    if (!grand_total) {
+        // No grand total yet — nothing to compute
+        return;
+    }
+
+    // Approximate: scale grand_total by bp_rate on material component, then
+    // re-apply the delta between BP and standard OCM/profit percentages.
+    // This gives a quick browser estimate without fetching per-scope material rows.
+    const ocm_extra_factor = 1 + (bp_ocm - std_ocm) / 100;
+    const profit_extra_factor = 1 + (bp_profit - std_profit) / 100;
+    const multiplier = flt(bp_rate * ocm_extra_factor * profit_extra_factor, 4);
+
+    const bp_gt = flt(grand_total * multiplier, 2);
+
+    frappe.model.set_value(frm.doc.doctype, frm.doc.name, "bp_effective_multiplier", multiplier);
+    frappe.model.set_value(frm.doc.doctype, frm.doc.name, "bp_grand_total", bp_gt);
 }
 
 
