@@ -114,6 +114,32 @@ class Estimate(Document):
 
 
 @frappe.whitelist()
+def debug_totals(estimate):
+    """Diagnostic: run the same query as _calculate_totals and return results."""
+    scopes = frappe.db.sql("""
+        SELECT name, direct_cost, is_optional
+        FROM `tabEstimate Scope`
+        WHERE estimate = %s
+    """, estimate, as_dict=True)
+
+    est = frappe.get_doc("Estimate", estimate)
+    total_direct = flt(sum(flt(s.direct_cost) for s in scopes), 2)
+    base_direct = flt(sum(flt(s.direct_cost) for s in scopes if not s.is_optional), 2)
+
+    return {
+        "scope_count": len(scopes),
+        "scopes": [{"name": s.name, "direct_cost": s.direct_cost, "is_optional": s.is_optional} for s in scopes],
+        "total_direct": total_direct,
+        "base_direct": base_direct,
+        "ocm_percent": est.ocm_percent,
+        "profit_percent": est.profit_percent,
+        "vat_percent": est.vat_percent,
+        "vat_inclusive": est.vat_inclusive,
+        "current_grand_total": est.grand_total,
+    }
+
+
+@frappe.whitelist()
 def get_scope_summary(estimate):
     """Return linked Estimate Scope records for the scope summary table."""
     return frappe.db.sql("""

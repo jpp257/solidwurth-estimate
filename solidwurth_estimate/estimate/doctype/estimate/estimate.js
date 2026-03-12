@@ -173,9 +173,9 @@ function render_scope_summary(frm) {
             Object.keys(groups).sort().forEach(groupName => {
                 // Group header row
                 const label = groupName || __("Ungrouped");
-                rows += `<tr style="background:#f7f7f7;">
+                rows += `<tr class="scope-group-header" style="background:var(--bg-light-gray, var(--subtle-fg, #f7f7f7));">
                     <td colspan="3" style="font-weight:600;padding:6px 8px;">
-                        <span style="color:#888;margin-right:4px;">&#9656;</span>${frappe.utils.escape_html(label)}
+                        <span style="color:var(--text-muted);margin-right:4px;">&#9656;</span>${frappe.utils.escape_html(label)}
                     </td>
                 </tr>`;
                 // Scope rows under this group
