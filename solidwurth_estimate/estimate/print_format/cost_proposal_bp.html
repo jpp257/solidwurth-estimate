@@ -1,0 +1,247 @@
+{# BP VARIANT — shares structure with cost_proposal.html, accent color and BP computations differ #}
+{# COST PROPOSAL (BP) — Bank Purpose Variant Print Format (SolidWurth Corp.) #}
+{# Plan 13-01: Skeleton infrastructure. Content implemented in Plan 13-03. #}
+{# Accent color: #C89A2E (dark gold, D29) — no explicit "BANK PURPOSE" label (D28) #}
+
+{%- set logo_path = frappe.db.get_single_value("Website Settings", "banner_image") -%}
+{%- set fonts = methods.get_fonts() -%}
+{%- set prepared_by_name = frappe.db.get_value("User", doc.prepared_by, "full_name") if doc.prepared_by else "" -%}
+{%- set checked_by_name = frappe.db.get_value("User", doc.checked_by, "full_name") if doc.checked_by else "" -%}
+{%- set approved_by_name = frappe.db.get_value("User", doc.approved_by, "full_name") if doc.approved_by else "" -%}
+
+<style>
+  /* -----------------------------------------------------------------------
+     CSS Variables — SolidWurth Cost Proposal (BP Variant)
+     D29: Gold accent instead of red. Navy headers shared with standard.
+  ----------------------------------------------------------------------- */
+  :root {
+    --accent: #C89A2E;
+    --navy: #1B2E4A;
+    --sub-header: #2E5FA3;
+    --zebra: #F4F6F9;
+    --body-text: #2D3142;
+    --col-header: #3B5998;
+  }
+
+  /* -----------------------------------------------------------------------
+     Base64 Font Embedding (D40, AC-7)
+     Guarantees Montserrat/Inter/Roboto Mono render in wkhtmltopdf
+     without network access.
+  ----------------------------------------------------------------------- */
+  {% if fonts.montserrat_bold %}
+  @font-face {
+    font-family: 'Montserrat';
+    font-weight: 700;
+    font-style: normal;
+    src: url('data:font/woff2;base64,{{ fonts.montserrat_bold }}') format('woff2');
+  }
+  {% endif %}
+  {% if fonts.inter_regular %}
+  @font-face {
+    font-family: 'Inter';
+    font-weight: 400;
+    font-style: normal;
+    src: url('data:font/woff2;base64,{{ fonts.inter_regular }}') format('woff2');
+  }
+  {% endif %}
+  {% if fonts.roboto_mono %}
+  @font-face {
+    font-family: 'Roboto Mono';
+    font-weight: 400;
+    font-style: normal;
+    src: url('data:font/woff2;base64,{{ fonts.roboto_mono }}') format('woff2');
+  }
+  {% endif %}
+
+  /* -----------------------------------------------------------------------
+     Page Setup — A4 Portrait with binding-friendly margins (D9, D10)
+  ----------------------------------------------------------------------- */
+  @page {
+    size: A4 portrait;
+    margin: 15mm 15mm 18mm 20mm; /* T R B L — L:20mm for binding (D10) */
+  }
+
+  /* -----------------------------------------------------------------------
+     Global Reset & Base Typography (D6)
+  ----------------------------------------------------------------------- */
+  * {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+  }
+
+  body {
+    font-family: 'Inter', 'Helvetica Neue', Arial, sans-serif;
+    font-size: 10pt;
+    color: var(--body-text);
+    line-height: 1.4;
+  }
+
+  h1, h2, h3 {
+    font-family: 'Montserrat', 'Helvetica Neue', Arial, sans-serif;
+    font-weight: 700;
+  }
+
+  .amount-cell {
+    font-family: 'Roboto Mono', 'Courier New', monospace;
+    text-align: right;
+  }
+
+  /* -----------------------------------------------------------------------
+     Continuation Header — Fixed at top of every page after cover (D7, D36)
+     Thin navy bar: logo | "COST PROPOSAL — EST-XX-XXXX-BP | Rev N" | gold underline
+     BP distinction: gold underline (--accent: #C89A2E) instead of red
+  ----------------------------------------------------------------------- */
+  .continuation-header {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    background-color: var(--navy);
+    color: #ffffff;
+    padding: 4mm 5mm 3mm 5mm;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    font-size: 8pt;
+    border-bottom: 2px solid var(--accent);
+    z-index: 1000;
+  }
+
+  .continuation-header .header-logo {
+    max-height: 8mm;
+    width: auto;
+  }
+
+  .continuation-header .header-title {
+    font-family: 'Montserrat', 'Helvetica Neue', Arial, sans-serif;
+    font-weight: 700;
+    font-size: 9pt;
+    letter-spacing: 0.5px;
+    text-align: center;
+    flex: 1;
+    margin: 0 8mm;
+  }
+
+  .continuation-header .header-ref {
+    font-size: 7.5pt;
+    text-align: right;
+    white-space: nowrap;
+  }
+
+  /* -----------------------------------------------------------------------
+     Footer — Fixed at bottom of every page (D8)
+  ----------------------------------------------------------------------- */
+  .page-footer {
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    background-color: #f8f8f8;
+    border-top: 1px solid var(--navy);
+    padding: 2mm 5mm;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    font-size: 7.5pt;
+    color: #555;
+    z-index: 1000;
+  }
+
+  .page-footer .footer-company {
+    text-align: left;
+    font-weight: bold;
+  }
+
+  .page-footer .footer-confidential {
+    text-align: center;
+    flex: 1;
+    font-style: italic;
+    color: var(--accent);
+    font-size: 7pt;
+  }
+
+  .page-footer .footer-page {
+    text-align: right;
+  }
+
+  /* -----------------------------------------------------------------------
+     Content Body — main document area
+  ----------------------------------------------------------------------- */
+  .content-body {
+    /* Space reserved for fixed header/footer — wkhtmltopdf uses @page margins */
+  }
+
+  /* -----------------------------------------------------------------------
+     Table utilities
+  ----------------------------------------------------------------------- */
+  table {
+    width: 100%;
+    border-collapse: collapse;
+  }
+
+  thead {
+    display: table-header-group;
+  }
+
+  .waterfall-table {
+    page-break-inside: avoid;
+  }
+
+  .scope-page {
+    page-break-before: always;
+  }
+
+  .scope-waterfall {
+    page-break-inside: avoid;
+    margin-top: auto;
+  }
+</style>
+
+<!-- Fixed Continuation Header (D7) — BP variant has gold underline via --accent -->
+<div class="continuation-header">
+  <div>
+    {% if logo_path %}
+      <img src="{{ logo_path }}" class="header-logo" alt="SolidWurth" />
+    {% endif %}
+  </div>
+  <div class="header-title">
+    COST PROPOSAL &mdash; {{ doc.name }}-BP{% if doc.revision %} | Rev {{ doc.revision }}{% endif %}
+  </div>
+  <div class="header-ref">
+    {{ doc.estimate_date | frappe.utils.formatdate if doc.estimate_date else "" }}
+  </div>
+</div>
+
+<!-- Fixed Footer (D8) -->
+<div class="page-footer">
+  <div class="footer-company">SolidWurth Corp.</div>
+  <div class="footer-confidential">CONFIDENTIAL &mdash; FOR PROPOSAL PURPOSES ONLY</div>
+  <div class="footer-page"></div>
+</div>
+
+<!-- Main Content Body -->
+<div class="content-body">
+
+  {# COVER PAGE — implemented in Plan 13-03 #}
+  {# - Same structure as cost_proposal.html cover page #}
+  {# - Gold accent color applied to bands/underlines #}
+  {# - "-BP" appended to estimate number (D28) #}
+
+  {# SUMMARY PAGE — implemented in Plan 13-03 #}
+  {# - BP computation: bp_rate_factor, bp_ocm_percent, bp_profit_percent applied #}
+  {# - bp_grand_total displayed instead of grand_total #}
+  {# - methods.render_waterfall_block() called with gold accent #}
+
+  {# SCOPE DETAIL PAGES — implemented in Plan 13-03 #}
+  {# - Same DLIA structure as standard variant #}
+  {# - Material rates multiplied by doc.bp_rate_factor #}
+  {# - OCM and Profit use bp_ocm_percent, bp_profit_percent #}
+  {# - Waterfall rows recalculated with BP parameters #}
+  {# - Gold accent on total rows #}
+
+  <p style="padding: 20mm 0; text-align: center; color: #aaa; font-style: italic;">
+    BP variant skeleton — content implemented in Plan 13-03
+  </p>
+
+</div>
