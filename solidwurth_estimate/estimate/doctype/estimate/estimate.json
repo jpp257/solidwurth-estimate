@@ -44,6 +44,22 @@
   "cb_amended",
   "amended_from",
   "revision",
+  "sb_signatories",
+  "prepared_by",
+  "cb_checked",
+  "checked_by",
+  "cb_approved",
+  "approved_by",
+  "sb_display",
+  "cost_display_mode",
+  "sb_bp",
+  "bp_rate_factor",
+  "cb_bp_ocm",
+  "bp_ocm_percent",
+  "bp_profit_percent",
+  "cb_bp_computed",
+  "bp_effective_multiplier",
+  "bp_grand_total",
   "connections_tab"
  ],
  "fields": [
@@ -270,6 +286,95 @@
    "read_only": 1
   },
   {
+   "fieldname": "sb_signatories",
+   "fieldtype": "Section Break",
+   "label": "Signatories"
+  },
+  {
+   "fieldname": "prepared_by",
+   "fieldtype": "Link",
+   "label": "Prepared By",
+   "options": "User",
+   "default": "__user"
+  },
+  {
+   "fieldname": "cb_checked",
+   "fieldtype": "Column Break"
+  },
+  {
+   "fieldname": "checked_by",
+   "fieldtype": "Link",
+   "label": "Checked By",
+   "options": "User"
+  },
+  {
+   "fieldname": "cb_approved",
+   "fieldtype": "Column Break"
+  },
+  {
+   "fieldname": "approved_by",
+   "fieldtype": "Link",
+   "label": "Approved By",
+   "options": "User"
+  },
+  {
+   "fieldname": "sb_display",
+   "fieldtype": "Section Break",
+   "label": "Print Settings"
+  },
+  {
+   "fieldname": "cost_display_mode",
+   "fieldtype": "Select",
+   "label": "Display Mode",
+   "options": "Detailed (DPWH)\nSummary (Private)",
+   "default": "Detailed (DPWH)"
+  },
+  {
+   "fieldname": "sb_bp",
+   "fieldtype": "Section Break",
+   "label": "Bank Purpose (BP) Fields"
+  },
+  {
+   "fieldname": "bp_rate_factor",
+   "fieldtype": "Float",
+   "label": "BP Rate Factor",
+   "default": "1.0",
+   "description": "Multiplier applied to all material rates in BP variant"
+  },
+  {
+   "fieldname": "cb_bp_ocm",
+   "fieldtype": "Column Break"
+  },
+  {
+   "fieldname": "bp_ocm_percent",
+   "fieldtype": "Float",
+   "label": "BP OCM %",
+   "default": "0"
+  },
+  {
+   "fieldname": "bp_profit_percent",
+   "fieldtype": "Float",
+   "label": "BP Profit %",
+   "default": "0"
+  },
+  {
+   "fieldname": "cb_bp_computed",
+   "fieldtype": "Column Break"
+  },
+  {
+   "fieldname": "bp_effective_multiplier",
+   "fieldtype": "Float",
+   "label": "BP Effective Multiplier",
+   "read_only": 1,
+   "description": "Computed: bp_rate_factor * (1 + extra_ocm/100) * (1 + extra_profit/100)"
+  },
+  {
+   "fieldname": "bp_grand_total",
+   "fieldtype": "Currency",
+   "label": "BP Grand Total (\u20b1)",
+   "read_only": 1
+  },
+  {
    "fieldname": "connections_tab",
    "fieldtype": "Tab Break",
    "label": "Connections",
@@ -284,7 +389,7 @@
    "link_fieldname": "estimate"
   }
  ],
- "modified": "2026-03-12 01:00:00.000000",
+ "modified": "2026-03-12 13:16:00.000000",
  "modified_by": "Administrator",
  "module": "Estimate",
  "name": "Estimate",

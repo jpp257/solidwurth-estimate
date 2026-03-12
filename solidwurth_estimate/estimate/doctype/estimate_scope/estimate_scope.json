@@ -14,6 +14,7 @@
   "sb_scope_details",
   "scope_name",
   "scope_group",
+  "display_order",
   "cb_optional",
   "is_optional",
   "description",
@@ -87,7 +88,14 @@
    "in_list_view": 1,
    "in_standard_filter": 1,
    "label": "Scope Group",
-   "description": "Building or area grouping (e.g. Guard House, Main Building)"
+   "description": "Building or area grouping (e.g. Guard House, Main Building)",
+   "reqd": 1
+  },
+  {
+   "fieldname": "display_order",
+   "fieldtype": "Int",
+   "label": "Display Order",
+   "default": "0"
   },
   {
    "fieldname": "cb_optional",
@@ -193,14 +201,14 @@
    "fieldname": "total_labor_cost",
    "fieldtype": "Currency",
    "default": "0",
-   "label": "Labor Cost (₱)",
+   "label": "Labor Cost (\u20b1)",
    "read_only": 1
   },
   {
    "fieldname": "total_equipment_cost",
    "fieldtype": "Currency",
    "default": "0",
-   "label": "Equipment Cost (₱)",
+   "label": "Equipment Cost (\u20b1)",
    "read_only": 1
   },
   {
@@ -211,21 +219,21 @@
    "fieldname": "total_material_cost",
    "fieldtype": "Currency",
    "default": "0",
-   "label": "Material Cost (₱)",
+   "label": "Material Cost (\u20b1)",
    "read_only": 1
   },
   {
    "fieldname": "direct_cost",
    "fieldtype": "Currency",
    "default": "0",
-   "label": "Direct Cost (₱)",
+   "label": "Direct Cost (\u20b1)",
    "read_only": 1,
    "bold": 1
   }
  ],
  "index_web_pages_for_search": 0,
  "links": [],
- "modified": "2026-03-12 01:00:00.000000",
+ "modified": "2026-03-12 13:16:00.000000",
  "modified_by": "Administrator",
  "module": "Estimate",
  "name": "Estimate Scope",
