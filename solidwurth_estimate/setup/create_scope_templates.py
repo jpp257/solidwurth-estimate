@@ -761,6 +761,7 @@ def ensure_uoms():
     frappe.db.commit()
 
 
+@frappe.whitelist()
 def create_all():
     """
     Idempotent: creates Scope Template records that do not yet exist.
