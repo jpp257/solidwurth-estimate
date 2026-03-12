@@ -52,12 +52,6 @@ class Estimate(Document):
         self._validate_status_transition()
         self._calculate_totals()
 
-    def before_save(self):
-        """DEBUG: verify totals survive from validate to before_save. Remove after fix."""
-        frappe.msgprint(
-            f"before_save: direct_cost={self.direct_cost}, grand_total={self.grand_total}",
-            alert=True
-        )
 
     def _validate_status_transition(self):
         """Enforce valid status transitions (D30). Extracted from original validate."""
@@ -118,58 +112,6 @@ class Estimate(Document):
         _, _, _, _, base_grand = waterfall(base_direct)
         self.base_direct_cost = base_direct
         self.base_grand_total = base_grand
-
-        # DEBUG: verify values after assignment. Remove after fix.
-        frappe.msgprint(
-            f"_calculate_totals DONE: {len(scopes)} scopes | "
-            f"direct_cost={self.direct_cost} | grand_total={self.grand_total} | "
-            f"base_grand_total={self.base_grand_total}",
-            alert=True
-        )
-
-
-@frappe.whitelist()
-def recalc_totals(estimate):
-    """Force recalculate and save Estimate totals from server side."""
-    est = frappe.get_doc("Estimate", estimate)
-    est.save()
-    frappe.db.commit()
-    return {
-        "direct_cost": est.direct_cost,
-        "ocm_amount": est.ocm_amount,
-        "profit_amount": est.profit_amount,
-        "subtotal": est.subtotal,
-        "vat_amount": est.vat_amount,
-        "grand_total": est.grand_total,
-        "base_direct_cost": est.base_direct_cost,
-        "base_grand_total": est.base_grand_total,
-    }
-
-
-@frappe.whitelist()
-def debug_totals(estimate):
-    """Diagnostic: run the same query as _calculate_totals and return results."""
-    scopes = frappe.db.sql("""
-        SELECT name, direct_cost, is_optional
-        FROM `tabEstimate Scope`
-        WHERE estimate = %s
-    """, estimate, as_dict=True)
-
-    est = frappe.get_doc("Estimate", estimate)
-    total_direct = flt(sum(flt(s.direct_cost) for s in scopes), 2)
-    base_direct = flt(sum(flt(s.direct_cost) for s in scopes if not s.is_optional), 2)
-
-    return {
-        "scope_count": len(scopes),
-        "scopes": [{"name": s.name, "direct_cost": s.direct_cost, "is_optional": s.is_optional} for s in scopes],
-        "total_direct": total_direct,
-        "base_direct": base_direct,
-        "ocm_percent": est.ocm_percent,
-        "profit_percent": est.profit_percent,
-        "vat_percent": est.vat_percent,
-        "vat_inclusive": est.vat_inclusive,
-        "current_grand_total": est.grand_total,
-    }
 
 
 @frappe.whitelist()

@@ -15,6 +15,35 @@ class EstimateScope(Document):
         self._compute_material_rows()
         self._compute_scope_totals()
 
+    def on_update(self):
+        """Recalculate parent Estimate waterfall totals when a scope is saved."""
+        self._update_parent_totals()
+
+    def after_delete(self):
+        """Recalculate parent Estimate waterfall totals after a scope is deleted."""
+        self._update_parent_totals()
+
+    def _update_parent_totals(self):
+        """Load parent Estimate, recompute waterfall, write directly to DB."""
+        if not self.estimate:
+            return
+        try:
+            est = frappe.get_doc("Estimate", self.estimate)
+        except frappe.DoesNotExistError:
+            return  # Parent being cascade-deleted
+
+        est._calculate_totals()
+        frappe.db.set_value("Estimate", self.estimate, {
+            "direct_cost": est.direct_cost,
+            "ocm_amount": est.ocm_amount,
+            "profit_amount": est.profit_amount,
+            "subtotal": est.subtotal,
+            "vat_amount": est.vat_amount,
+            "grand_total": est.grand_total,
+            "base_direct_cost": est.base_direct_cost,
+            "base_grand_total": est.base_grand_total,
+        }, update_modified=False)
+
     def _compute_duration(self):
         quantity = flt(self.quantity)
         output_per_day = flt(self.output_per_day)
