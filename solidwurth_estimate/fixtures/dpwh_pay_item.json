@@ -1,32 +1,3977 @@
 [
-  {"doctype": "DPWH Pay Item", "name": "800(1)", "code": "800(1)", "description": "Clearing and Grubbing", "category": "800 - Clearing and Grubbing", "modified": "2026-03-11 00:00:00.000000"},
-  {"doctype": "DPWH Pay Item", "name": "801(1)", "code": "801(1)", "description": "Removal of Structures and Obstructions", "category": "800 - Clearing and Grubbing", "modified": "2026-03-11 00:00:00.000000"},
-  {"doctype": "DPWH Pay Item", "name": "900(1)", "code": "900(1)", "description": "Structural Concrete, Class A (28 days)", "category": "900 - Concrete Works", "modified": "2026-03-11 00:00:00.000000"},
-  {"doctype": "DPWH Pay Item", "name": "900(2)", "code": "900(2)", "description": "Structural Concrete, Class B (28 days)", "category": "900 - Concrete Works", "modified": "2026-03-11 00:00:00.000000"},
-  {"doctype": "DPWH Pay Item", "name": "900(3)", "code": "900(3)", "description": "Structural Concrete, Class C (28 days)", "category": "900 - Concrete Works", "modified": "2026-03-11 00:00:00.000000"},
-  {"doctype": "DPWH Pay Item", "name": "901(1)", "code": "901(1)", "description": "Lean Concrete", "category": "900 - Concrete Works", "modified": "2026-03-11 00:00:00.000000"},
-  {"doctype": "DPWH Pay Item", "name": "902(1)", "code": "902(1)", "description": "Concrete Pavement (Plain), 150mm thick", "category": "900 - Concrete Works", "modified": "2026-03-11 00:00:00.000000"},
-  {"doctype": "DPWH Pay Item", "name": "902(2)", "code": "902(2)", "description": "Concrete Pavement (Plain), 200mm thick", "category": "900 - Concrete Works", "modified": "2026-03-11 00:00:00.000000"},
-  {"doctype": "DPWH Pay Item", "name": "903(1)", "code": "903(1)", "description": "Formworks and Falseworks", "category": "900 - Concrete Works", "modified": "2026-03-11 00:00:00.000000"},
-  {"doctype": "DPWH Pay Item", "name": "904(1)", "code": "904(1)", "description": "Masonry, Split Face Concrete Hollow Blocks", "category": "900 - Concrete Works", "modified": "2026-03-11 00:00:00.000000"},
-  {"doctype": "DPWH Pay Item", "name": "1000(1)", "code": "1000(1)", "description": "Reinforcing Steel, Grade 33", "category": "1000 - Reinforcing Steel", "modified": "2026-03-11 00:00:00.000000"},
-  {"doctype": "DPWH Pay Item", "name": "1000(2)", "code": "1000(2)", "description": "Reinforcing Steel, Grade 40", "category": "1000 - Reinforcing Steel", "modified": "2026-03-11 00:00:00.000000"},
-  {"doctype": "DPWH Pay Item", "name": "1000(3)", "code": "1000(3)", "description": "Reinforcing Steel, Grade 60", "category": "1000 - Reinforcing Steel", "modified": "2026-03-11 00:00:00.000000"},
-  {"doctype": "DPWH Pay Item", "name": "1001(1)", "code": "1001(1)", "description": "Prestressed Concrete Piles", "category": "1000 - Reinforcing Steel", "modified": "2026-03-11 00:00:00.000000"},
-  {"doctype": "DPWH Pay Item", "name": "1002(1)", "code": "1002(1)", "description": "Metal Decking", "category": "1000 - Reinforcing Steel", "modified": "2026-03-11 00:00:00.000000"},
-  {"doctype": "DPWH Pay Item", "name": "1100(1)", "code": "1100(1)", "description": "Structural Steel", "category": "1100 - Structural Steel", "modified": "2026-03-11 00:00:00.000000"},
-  {"doctype": "DPWH Pay Item", "name": "1100(2)", "code": "1100(2)", "description": "Structural Steel (High Strength)", "category": "1100 - Structural Steel", "modified": "2026-03-11 00:00:00.000000"},
-  {"doctype": "DPWH Pay Item", "name": "1101(1)", "code": "1101(1)", "description": "Sheet Piles", "category": "1100 - Structural Steel", "modified": "2026-03-11 00:00:00.000000"},
-  {"doctype": "DPWH Pay Item", "name": "1200(1)", "code": "1200(1)", "description": "Waterproofing", "category": "1200 - Waterproofing", "modified": "2026-03-11 00:00:00.000000"},
-  {"doctype": "DPWH Pay Item", "name": "1301(1)", "code": "1301(1)", "description": "Doors, Frames and Accessories", "category": "1300 - Carpentry and Joinery", "modified": "2026-03-11 00:00:00.000000"},
-  {"doctype": "DPWH Pay Item", "name": "1302(1)", "code": "1302(1)", "description": "Windows, Frames and Accessories", "category": "1300 - Carpentry and Joinery", "modified": "2026-03-11 00:00:00.000000"},
-  {"doctype": "DPWH Pay Item", "name": "1401(1)", "code": "1401(1)", "description": "Electrical Works", "category": "1400 - Electrical", "modified": "2026-03-11 00:00:00.000000"},
-  {"doctype": "DPWH Pay Item", "name": "1501(1)", "code": "1501(1)", "description": "Plumbing Works", "category": "1500 - Plumbing", "modified": "2026-03-11 00:00:00.000000"},
-  {"doctype": "DPWH Pay Item", "name": "1502(1)", "code": "1502(1)", "description": "Sanitary Works", "category": "1500 - Plumbing", "modified": "2026-03-11 00:00:00.000000"},
-  {"doctype": "DPWH Pay Item", "name": "1600(1)", "code": "1600(1)", "description": "Painting Works", "category": "1600 - Painting", "modified": "2026-03-11 00:00:00.000000"},
-  {"doctype": "DPWH Pay Item", "name": "1700(1)", "code": "1700(1)", "description": "Floor Finishes (Tile)", "category": "1700 - Finishes", "modified": "2026-03-11 00:00:00.000000"},
-  {"doctype": "DPWH Pay Item", "name": "1701(1)", "code": "1701(1)", "description": "Wall Finishes (Tile)", "category": "1700 - Finishes", "modified": "2026-03-11 00:00:00.000000"},
-  {"doctype": "DPWH Pay Item", "name": "1702(1)", "code": "1702(1)", "description": "Ceiling Works", "category": "1700 - Finishes", "modified": "2026-03-11 00:00:00.000000"},
-  {"doctype": "DPWH Pay Item", "name": "1800(1)", "code": "1800(1)", "description": "Site Development Works", "category": "1800 - Site Development", "modified": "2026-03-11 00:00:00.000000"},
-  {"doctype": "DPWH Pay Item", "name": "1900(1)", "code": "1900(1)", "description": "Steel Roofing Works", "category": "1900 - Roofing", "modified": "2026-03-11 00:00:00.000000"}
+  {
+    "doctype": "DPWH Pay Item",
+    "name": "800(1)",
+    "code": "800(1)",
+    "description": "Clearing and Grubbing",
+    "category": "800 - Clearing and Grubbing",
+    "modified": "2026-03-11 00:00:00.000000"
+  },
+  {
+    "doctype": "DPWH Pay Item",
+    "name": "801(1)",
+    "code": "801(1)",
+    "description": "Removal of Structures and Obstructions",
+    "category": "800 - Clearing and Grubbing",
+    "modified": "2026-03-11 00:00:00.000000"
+  },
+  {
+    "doctype": "DPWH Pay Item",
+    "name": "900(1)",
+    "code": "900(1)",
+    "description": "Structural Concrete, Class A (28 days)",
+    "category": "900 - Concrete Works",
+    "modified": "2026-03-11 00:00:00.000000"
+  },
+  {
+    "doctype": "DPWH Pay Item",
+    "name": "900(2)",
+    "code": "900(2)",
+    "description": "Structural Concrete, Class B (28 days)",
+    "category": "900 - Concrete Works",
+    "modified": "2026-03-11 00:00:00.000000"
+  },
+  {
+    "doctype": "DPWH Pay Item",
+    "name": "900(3)",
+    "code": "900(3)",
+    "description": "Structural Concrete, Class C (28 days)",
+    "category": "900 - Concrete Works",
+    "modified": "2026-03-11 00:00:00.000000"
+  },
+  {
+    "doctype": "DPWH Pay Item",
+    "name": "901(1)",
+    "code": "901(1)",
+    "description": "Lean Concrete",
+    "category": "900 - Concrete Works",
+    "modified": "2026-03-11 00:00:00.000000"
+  },
+  {
+    "doctype": "DPWH Pay Item",
+    "name": "902(1)",
+    "code": "902(1)",
+    "description": "Concrete Pavement (Plain), 150mm thick",
+    "category": "900 - Concrete Works",
+    "modified": "2026-03-11 00:00:00.000000"
+  },
+  {
+    "doctype": "DPWH Pay Item",
+    "name": "902(2)",
+    "code": "902(2)",
+    "description": "Concrete Pavement (Plain), 200mm thick",
+    "category": "900 - Concrete Works",
+    "modified": "2026-03-11 00:00:00.000000"
+  },
+  {
+    "doctype": "DPWH Pay Item",
+    "name": "903(1)",
+    "code": "903(1)",
+    "description": "Formworks and Falseworks",
+    "category": "900 - Concrete Works",
+    "modified": "2026-03-11 00:00:00.000000"
+  },
+  {
+    "doctype": "DPWH Pay Item",
+    "name": "904(1)",
+    "code": "904(1)",
+    "description": "Masonry, Split Face Concrete Hollow Blocks",
+    "category": "900 - Concrete Works",
+    "modified": "2026-03-11 00:00:00.000000"
+  },
+  {
+    "doctype": "DPWH Pay Item",
+    "name": "1000(1)",
+    "code": "1000(1)",
+    "description": "Reinforcing Steel, Grade 33",
+    "category": "1000 - Reinforcing Steel",
+    "modified": "2026-03-11 00:00:00.000000"
+  },
+  {
+    "doctype": "DPWH Pay Item",
+    "name": "1000(2)",
+    "code": "1000(2)",
+    "description": "Reinforcing Steel, Grade 40",
+    "category": "1000 - Reinforcing Steel",
+    "modified": "2026-03-11 00:00:00.000000"
+  },
+  {
+    "doctype": "DPWH Pay Item",
+    "name": "1000(3)",
+    "code": "1000(3)",
+    "description": "Reinforcing Steel, Grade 60",
+    "category": "1000 - Reinforcing Steel",
+    "modified": "2026-03-11 00:00:00.000000"
+  },
+  {
+    "doctype": "DPWH Pay Item",
+    "name": "1001(1)",
+    "code": "1001(1)",
+    "description": "Prestressed Concrete Piles",
+    "category": "1000 - Reinforcing Steel",
+    "modified": "2026-03-11 00:00:00.000000"
+  },
+  {
+    "doctype": "DPWH Pay Item",
+    "name": "1002(1)",
+    "code": "1002(1)",
+    "description": "Metal Decking",
+    "category": "1000 - Reinforcing Steel",
+    "modified": "2026-03-11 00:00:00.000000"
+  },
+  {
+    "doctype": "DPWH Pay Item",
+    "name": "1100(1)",
+    "code": "1100(1)",
+    "description": "Structural Steel",
+    "category": "1100 - Structural Steel",
+    "modified": "2026-03-11 00:00:00.000000"
+  },
+  {
+    "doctype": "DPWH Pay Item",
+    "name": "1100(2)",
+    "code": "1100(2)",
+    "description": "Structural Steel (High Strength)",
+    "category": "1100 - Structural Steel",
+    "modified": "2026-03-11 00:00:00.000000"
+  },
+  {
+    "doctype": "DPWH Pay Item",
+    "name": "1101(1)",
+    "code": "1101(1)",
+    "description": "Sheet Piles",
+    "category": "1100 - Structural Steel",
+    "modified": "2026-03-11 00:00:00.000000"
+  },
+  {
+    "doctype": "DPWH Pay Item",
+    "name": "1200(1)",
+    "code": "1200(1)",
+    "description": "Waterproofing",
+    "category": "1200 - Waterproofing",
+    "modified": "2026-03-11 00:00:00.000000"
+  },
+  {
+    "doctype": "DPWH Pay Item",
+    "name": "1301(1)",
+    "code": "1301(1)",
+    "description": "Doors, Frames and Accessories",
+    "category": "1300 - Carpentry and Joinery",
+    "modified": "2026-03-11 00:00:00.000000"
+  },
+  {
+    "doctype": "DPWH Pay Item",
+    "name": "1302(1)",
+    "code": "1302(1)",
+    "description": "Windows, Frames and Accessories",
+    "category": "1300 - Carpentry and Joinery",
+    "modified": "2026-03-11 00:00:00.000000"
+  },
+  {
+    "doctype": "DPWH Pay Item",
+    "name": "1401(1)",
+    "code": "1401(1)",
+    "description": "Electrical Works",
+    "category": "1400 - Electrical",
+    "modified": "2026-03-11 00:00:00.000000"
+  },
+  {
+    "doctype": "DPWH Pay Item",
+    "name": "1501(1)",
+    "code": "1501(1)",
+    "description": "Plumbing Works",
+    "category": "1500 - Plumbing",
+    "modified": "2026-03-11 00:00:00.000000"
+  },
+  {
+    "doctype": "DPWH Pay Item",
+    "name": "1502(1)",
+    "code": "1502(1)",
+    "description": "Sanitary Works",
+    "category": "1500 - Plumbing",
+    "modified": "2026-03-11 00:00:00.000000"
+  },
+  {
+    "doctype": "DPWH Pay Item",
+    "name": "1600(1)",
+    "code": "1600(1)",
+    "description": "Painting Works",
+    "category": "1600 - Painting",
+    "modified": "2026-03-11 00:00:00.000000"
+  },
+  {
+    "doctype": "DPWH Pay Item",
+    "name": "1700(1)",
+    "code": "1700(1)",
+    "description": "Floor Finishes (Tile)",
+    "category": "1700 - Finishes",
+    "modified": "2026-03-11 00:00:00.000000"
+  },
+  {
+    "doctype": "DPWH Pay Item",
+    "name": "1701(1)",
+    "code": "1701(1)",
+    "description": "Wall Finishes (Tile)",
+    "category": "1700 - Finishes",
+    "modified": "2026-03-11 00:00:00.000000"
+  },
+  {
+    "doctype": "DPWH Pay Item",
+    "name": "1702(1)",
+    "code": "1702(1)",
+    "description": "Ceiling Works",
+    "category": "1700 - Finishes",
+    "modified": "2026-03-11 00:00:00.000000"
+  },
+  {
+    "doctype": "DPWH Pay Item",
+    "name": "1800(1)",
+    "code": "1800(1)",
+    "description": "Site Development Works",
+    "category": "1800 - Site Development",
+    "modified": "2026-03-11 00:00:00.000000"
+  },
+  {
+    "doctype": "DPWH Pay Item",
+    "name": "1900(1)",
+    "code": "1900(1)",
+    "description": "Steel Roofing Works",
+    "category": "1900 - Roofing",
+    "modified": "2026-03-11 00:00:00.000000"
+  },
+  {
+    "doctype": "DPWH Pay Item",
+    "name": "800(2)",
+    "code": "800(2)",
+    "description": "Clearing and Grubbing (Heavily Wooded Area)",
+    "category": "800 - Earthwork and Site Preparation",
+    "unit": "ha",
+    "modified": "2026-03-12 00:00:00.000000"
+  },
+  {
+    "doctype": "DPWH Pay Item",
+    "name": "800(3)",
+    "code": "800(3)",
+    "description": "Clearing and Grubbing (Lightly Wooded Area)",
+    "category": "800 - Earthwork and Site Preparation",
+    "unit": "ha",
+    "modified": "2026-03-12 00:00:00.000000"
+  },
+  {
+    "doctype": "DPWH Pay Item",
+    "name": "800(4)",
+    "code": "800(4)",
+    "description": "Removal of Trees (Diameter > 300mm)",
+    "category": "800 - Earthwork and Site Preparation",
+    "unit": "each",
+    "modified": "2026-03-12 00:00:00.000000"
+  },
+  {
+    "doctype": "DPWH Pay Item",
+    "name": "801(2)",
+    "code": "801(2)",
+    "description": "Removal of Concrete Pavement",
+    "category": "800 - Earthwork and Site Preparation",
+    "unit": "sq.m",
+    "modified": "2026-03-12 00:00:00.000000"
+  },
+  {
+    "doctype": "DPWH Pay Item",
+    "name": "801(3)",
+    "code": "801(3)",
+    "description": "Removal of Asphalt Pavement",
+    "category": "800 - Earthwork and Site Preparation",
+    "unit": "sq.m",
+    "modified": "2026-03-12 00:00:00.000000"
+  },
+  {
+    "doctype": "DPWH Pay Item",
+    "name": "801(4)",
+    "code": "801(4)",
+    "description": "Removal of Existing Structures (Masonry)",
+    "category": "800 - Earthwork and Site Preparation",
+    "unit": "cu.m",
+    "modified": "2026-03-12 00:00:00.000000"
+  },
+  {
+    "doctype": "DPWH Pay Item",
+    "name": "801(5)",
+    "code": "801(5)",
+    "description": "Removal of Drainage Structures",
+    "category": "800 - Earthwork and Site Preparation",
+    "unit": "each",
+    "modified": "2026-03-12 00:00:00.000000"
+  },
+  {
+    "doctype": "DPWH Pay Item",
+    "name": "802(1)a",
+    "code": "802(1)a",
+    "description": "Excavation Roadway/Drainage (Common Material)",
+    "category": "800 - Earthwork and Site Preparation",
+    "unit": "cu.m",
+    "modified": "2026-03-12 00:00:00.000000"
+  },
+  {
+    "doctype": "DPWH Pay Item",
+    "name": "802(1)b",
+    "code": "802(1)b",
+    "description": "Excavation Roadway/Drainage (Rock)",
+    "category": "800 - Earthwork and Site Preparation",
+    "unit": "cu.m",
+    "modified": "2026-03-12 00:00:00.000000"
+  },
+  {
+    "doctype": "DPWH Pay Item",
+    "name": "802(2)",
+    "code": "802(2)",
+    "description": "Structure Excavation",
+    "category": "800 - Earthwork and Site Preparation",
+    "unit": "cu.m",
+    "modified": "2026-03-12 00:00:00.000000"
+  },
+  {
+    "doctype": "DPWH Pay Item",
+    "name": "802(3)",
+    "code": "802(3)",
+    "description": "Muck Excavation",
+    "category": "800 - Earthwork and Site Preparation",
+    "unit": "cu.m",
+    "modified": "2026-03-12 00:00:00.000000"
+  },
+  {
+    "doctype": "DPWH Pay Item",
+    "name": "802(4)",
+    "code": "802(4)",
+    "description": "Borrow Excavation",
+    "category": "800 - Earthwork and Site Preparation",
+    "unit": "cu.m",
+    "modified": "2026-03-12 00:00:00.000000"
+  },
+  {
+    "doctype": "DPWH Pay Item",
+    "name": "802(5)",
+    "code": "802(5)",
+    "description": "Roadway Excavation (Soft Rock)",
+    "category": "800 - Earthwork and Site Preparation",
+    "unit": "cu.m",
+    "modified": "2026-03-12 00:00:00.000000"
+  },
+  {
+    "doctype": "DPWH Pay Item",
+    "name": "802(6)",
+    "code": "802(6)",
+    "description": "Roadway Excavation (Hard Rock)",
+    "category": "800 - Earthwork and Site Preparation",
+    "unit": "cu.m",
+    "modified": "2026-03-12 00:00:00.000000"
+  },
+  {
+    "doctype": "DPWH Pay Item",
+    "name": "803(1)",
+    "code": "803(1)",
+    "description": "Structure Backfill",
+    "category": "800 - Earthwork and Site Preparation",
+    "unit": "cu.m",
+    "modified": "2026-03-12 00:00:00.000000"
+  },
+  {
+    "doctype": "DPWH Pay Item",
+    "name": "803(2)",
+    "code": "803(2)",
+    "description": "Bridge Approach Embankment",
+    "category": "800 - Earthwork and Site Preparation",
+    "unit": "cu.m",
+    "modified": "2026-03-12 00:00:00.000000"
+  },
+  {
+    "doctype": "DPWH Pay Item",
+    "name": "803(3)",
+    "code": "803(3)",
+    "description": "Granular Backfill",
+    "category": "800 - Earthwork and Site Preparation",
+    "unit": "cu.m",
+    "modified": "2026-03-12 00:00:00.000000"
+  },
+  {
+    "doctype": "DPWH Pay Item",
+    "name": "804(1)",
+    "code": "804(1)",
+    "description": "Embankment from Roadway Excavation",
+    "category": "800 - Earthwork and Site Preparation",
+    "unit": "cu.m",
+    "modified": "2026-03-12 00:00:00.000000"
+  },
+  {
+    "doctype": "DPWH Pay Item",
+    "name": "804(1)a",
+    "code": "804(1)a",
+    "description": "Embankment from Borrow (Common Material)",
+    "category": "800 - Earthwork and Site Preparation",
+    "unit": "cu.m",
+    "modified": "2026-03-12 00:00:00.000000"
+  },
+  {
+    "doctype": "DPWH Pay Item",
+    "name": "804(1)b",
+    "code": "804(1)b",
+    "description": "Embankment from Borrow (Rock/Suitable)",
+    "category": "800 - Earthwork and Site Preparation",
+    "unit": "cu.m",
+    "modified": "2026-03-12 00:00:00.000000"
+  },
+  {
+    "doctype": "DPWH Pay Item",
+    "name": "804(2)",
+    "code": "804(2)",
+    "description": "Embankment Compaction (Ordinary)",
+    "category": "800 - Earthwork and Site Preparation",
+    "unit": "cu.m",
+    "modified": "2026-03-12 00:00:00.000000"
+  },
+  {
+    "doctype": "DPWH Pay Item",
+    "name": "804(3)",
+    "code": "804(3)",
+    "description": "Select Material Embankment",
+    "category": "800 - Earthwork and Site Preparation",
+    "unit": "cu.m",
+    "modified": "2026-03-12 00:00:00.000000"
+  },
+  {
+    "doctype": "DPWH Pay Item",
+    "name": "804(4)",
+    "code": "804(4)",
+    "description": "Compacted Embankment",
+    "category": "800 - Earthwork and Site Preparation",
+    "unit": "cu.m",
+    "modified": "2026-03-12 00:00:00.000000"
+  },
+  {
+    "doctype": "DPWH Pay Item",
+    "name": "805",
+    "code": "805",
+    "description": "Subgrade Preparation",
+    "category": "800 - Earthwork and Site Preparation",
+    "unit": "sq.m",
+    "modified": "2026-03-12 00:00:00.000000"
+  },
+  {
+    "doctype": "DPWH Pay Item",
+    "name": "806(1)a",
+    "code": "806(1)a",
+    "description": "Aggregate Subbase Course (Road Mix)",
+    "category": "800 - Earthwork and Site Preparation",
+    "unit": "cu.m",
+    "modified": "2026-03-12 00:00:00.000000"
+  },
+  {
+    "doctype": "DPWH Pay Item",
+    "name": "806(1)b",
+    "code": "806(1)b",
+    "description": "Aggregate Subbase Course (Plant Mix)",
+    "category": "800 - Earthwork and Site Preparation",
+    "unit": "cu.m",
+    "modified": "2026-03-12 00:00:00.000000"
+  },
+  {
+    "doctype": "DPWH Pay Item",
+    "name": "806(2)",
+    "code": "806(2)",
+    "description": "Cement Treated Subbase (CTB)",
+    "category": "800 - Earthwork and Site Preparation",
+    "unit": "cu.m",
+    "modified": "2026-03-12 00:00:00.000000"
+  },
+  {
+    "doctype": "DPWH Pay Item",
+    "name": "806(3)",
+    "code": "806(3)",
+    "description": "Lime Treated Subbase",
+    "category": "800 - Earthwork and Site Preparation",
+    "unit": "cu.m",
+    "modified": "2026-03-12 00:00:00.000000"
+  },
+  {
+    "doctype": "DPWH Pay Item",
+    "name": "807(1)",
+    "code": "807(1)",
+    "description": "Aggregate Base Course",
+    "category": "800 - Earthwork and Site Preparation",
+    "unit": "cu.m",
+    "modified": "2026-03-12 00:00:00.000000"
+  },
+  {
+    "doctype": "DPWH Pay Item",
+    "name": "807(2)",
+    "code": "807(2)",
+    "description": "Bituminous Treated Base Course",
+    "category": "800 - Earthwork and Site Preparation",
+    "unit": "cu.m",
+    "modified": "2026-03-12 00:00:00.000000"
+  },
+  {
+    "doctype": "DPWH Pay Item",
+    "name": "807(3)",
+    "code": "807(3)",
+    "description": "Crushed Concrete Aggregate Base",
+    "category": "800 - Earthwork and Site Preparation",
+    "unit": "cu.m",
+    "modified": "2026-03-12 00:00:00.000000"
+  },
+  {
+    "doctype": "DPWH Pay Item",
+    "name": "808",
+    "code": "808",
+    "description": "Bituminous Prime Coat",
+    "category": "800 - Earthwork and Site Preparation",
+    "unit": "sq.m",
+    "modified": "2026-03-12 00:00:00.000000"
+  },
+  {
+    "doctype": "DPWH Pay Item",
+    "name": "809",
+    "code": "809",
+    "description": "Bituminous Tack Coat",
+    "category": "800 - Earthwork and Site Preparation",
+    "unit": "sq.m",
+    "modified": "2026-03-12 00:00:00.000000"
+  },
+  {
+    "doctype": "DPWH Pay Item",
+    "name": "810(1)",
+    "code": "810(1)",
+    "description": "Bituminous Concrete Surface Course Type I",
+    "category": "800 - Earthwork and Site Preparation",
+    "unit": "sq.m",
+    "modified": "2026-03-12 00:00:00.000000"
+  },
+  {
+    "doctype": "DPWH Pay Item",
+    "name": "810(2)",
+    "code": "810(2)",
+    "description": "Bituminous Concrete Surface Course Type II",
+    "category": "800 - Earthwork and Site Preparation",
+    "unit": "sq.m",
+    "modified": "2026-03-12 00:00:00.000000"
+  },
+  {
+    "doctype": "DPWH Pay Item",
+    "name": "810(3)",
+    "code": "810(3)",
+    "description": "Asphalt Concrete (Hot Mix)",
+    "category": "800 - Earthwork and Site Preparation",
+    "unit": "sq.m",
+    "modified": "2026-03-12 00:00:00.000000"
+  },
+  {
+    "doctype": "DPWH Pay Item",
+    "name": "810(4)",
+    "code": "810(4)",
+    "description": "Asphalt Overlay",
+    "category": "800 - Earthwork and Site Preparation",
+    "unit": "sq.m",
+    "modified": "2026-03-12 00:00:00.000000"
+  },
+  {
+    "doctype": "DPWH Pay Item",
+    "name": "811",
+    "code": "811",
+    "description": "Bituminous Penetration Macadam",
+    "category": "800 - Earthwork and Site Preparation",
+    "unit": "sq.m",
+    "modified": "2026-03-12 00:00:00.000000"
+  },
+  {
+    "doctype": "DPWH Pay Item",
+    "name": "812(1)",
+    "code": "812(1)",
+    "description": "Crushed Aggregate Surface Course",
+    "category": "800 - Earthwork and Site Preparation",
+    "unit": "cu.m",
+    "modified": "2026-03-12 00:00:00.000000"
+  },
+  {
+    "doctype": "DPWH Pay Item",
+    "name": "813",
+    "code": "813",
+    "description": "Portland Cement Concrete Pavement (PCCP)",
+    "category": "800 - Earthwork and Site Preparation",
+    "unit": "sq.m",
+    "modified": "2026-03-12 00:00:00.000000"
+  },
+  {
+    "doctype": "DPWH Pay Item",
+    "name": "814",
+    "code": "814",
+    "description": "Gravel Surface Course",
+    "category": "800 - Earthwork and Site Preparation",
+    "unit": "cu.m",
+    "modified": "2026-03-12 00:00:00.000000"
+  },
+  {
+    "doctype": "DPWH Pay Item",
+    "name": "815",
+    "code": "815",
+    "description": "Gabion Mattress",
+    "category": "800 - Earthwork and Site Preparation",
+    "unit": "cu.m",
+    "modified": "2026-03-12 00:00:00.000000"
+  },
+  {
+    "doctype": "DPWH Pay Item",
+    "name": "815(1)",
+    "code": "815(1)",
+    "description": "Gabion Wall/Box",
+    "category": "800 - Earthwork and Site Preparation",
+    "unit": "cu.m",
+    "modified": "2026-03-12 00:00:00.000000"
+  },
+  {
+    "doctype": "DPWH Pay Item",
+    "name": "816",
+    "code": "816",
+    "description": "Geotextile Fabric",
+    "category": "800 - Earthwork and Site Preparation",
+    "unit": "sq.m",
+    "modified": "2026-03-12 00:00:00.000000"
+  },
+  {
+    "doctype": "DPWH Pay Item",
+    "name": "817",
+    "code": "817",
+    "description": "Soil Nailing",
+    "category": "800 - Earthwork and Site Preparation",
+    "unit": "each",
+    "modified": "2026-03-12 00:00:00.000000"
+  },
+  {
+    "doctype": "DPWH Pay Item",
+    "name": "817(1)",
+    "code": "817(1)",
+    "description": "Soil Nailing with Bearing Plate",
+    "category": "800 - Earthwork and Site Preparation",
+    "unit": "each",
+    "modified": "2026-03-12 00:00:00.000000"
+  },
+  {
+    "doctype": "DPWH Pay Item",
+    "name": "818",
+    "code": "818",
+    "description": "Erosion Control Matting",
+    "category": "800 - Earthwork and Site Preparation",
+    "unit": "sq.m",
+    "modified": "2026-03-12 00:00:00.000000"
+  },
+  {
+    "doctype": "DPWH Pay Item",
+    "name": "818(1)",
+    "code": "818(1)",
+    "description": "Hydraulic Seeding (Hydroseeding)",
+    "category": "800 - Earthwork and Site Preparation",
+    "unit": "sq.m",
+    "modified": "2026-03-12 00:00:00.000000"
+  },
+  {
+    "doctype": "DPWH Pay Item",
+    "name": "819",
+    "code": "819",
+    "description": "Dewatering (Pumping)",
+    "category": "800 - Earthwork and Site Preparation",
+    "unit": "day",
+    "modified": "2026-03-12 00:00:00.000000"
+  },
+  {
+    "doctype": "DPWH Pay Item",
+    "name": "819(1)",
+    "code": "819(1)",
+    "description": "Deep Well Dewatering System",
+    "category": "800 - Earthwork and Site Preparation",
+    "unit": "day",
+    "modified": "2026-03-12 00:00:00.000000"
+  },
+  {
+    "doctype": "DPWH Pay Item",
+    "name": "820",
+    "code": "820",
+    "description": "Temporary Shoring and Bracing",
+    "category": "800 - Earthwork and Site Preparation",
+    "unit": "sq.m",
+    "modified": "2026-03-12 00:00:00.000000"
+  },
+  {
+    "doctype": "DPWH Pay Item",
+    "name": "820(1)",
+    "code": "820(1)",
+    "description": "Sheet Pile Shoring",
+    "category": "800 - Earthwork and Site Preparation",
+    "unit": "sq.m",
+    "modified": "2026-03-12 00:00:00.000000"
+  },
+  {
+    "doctype": "DPWH Pay Item",
+    "name": "821",
+    "code": "821",
+    "description": "Controlled Low Strength Material (CLSM)",
+    "category": "800 - Earthwork and Site Preparation",
+    "unit": "cu.m",
+    "modified": "2026-03-12 00:00:00.000000"
+  },
+  {
+    "doctype": "DPWH Pay Item",
+    "name": "822",
+    "code": "822",
+    "description": "Pavement Milling/Planing",
+    "category": "800 - Earthwork and Site Preparation",
+    "unit": "sq.m",
+    "modified": "2026-03-12 00:00:00.000000"
+  },
+  {
+    "doctype": "DPWH Pay Item",
+    "name": "823",
+    "code": "823",
+    "description": "Stone Base Course",
+    "category": "800 - Earthwork and Site Preparation",
+    "unit": "cu.m",
+    "modified": "2026-03-12 00:00:00.000000"
+  },
+  {
+    "doctype": "DPWH Pay Item",
+    "name": "824",
+    "code": "824",
+    "description": "Sand Bedding",
+    "category": "800 - Earthwork and Site Preparation",
+    "unit": "cu.m",
+    "modified": "2026-03-12 00:00:00.000000"
+  },
+  {
+    "doctype": "DPWH Pay Item",
+    "name": "825",
+    "code": "825",
+    "description": "Geogrid Reinforcement",
+    "category": "800 - Earthwork and Site Preparation",
+    "unit": "sq.m",
+    "modified": "2026-03-12 00:00:00.000000"
+  },
+  {
+    "doctype": "DPWH Pay Item",
+    "name": "826",
+    "code": "826",
+    "description": "Subgrade Stabilization (Lime)",
+    "category": "800 - Earthwork and Site Preparation",
+    "unit": "sq.m",
+    "modified": "2026-03-12 00:00:00.000000"
+  },
+  {
+    "doctype": "DPWH Pay Item",
+    "name": "827",
+    "code": "827",
+    "description": "Site Grading and Leveling",
+    "category": "800 - Earthwork and Site Preparation",
+    "unit": "sq.m",
+    "modified": "2026-03-12 00:00:00.000000"
+  },
+  {
+    "doctype": "DPWH Pay Item",
+    "name": "828",
+    "code": "828",
+    "description": "Import Fill (Approved Borrow)",
+    "category": "800 - Earthwork and Site Preparation",
+    "unit": "cu.m",
+    "modified": "2026-03-12 00:00:00.000000"
+  },
+  {
+    "doctype": "DPWH Pay Item",
+    "name": "829",
+    "code": "829",
+    "description": "Compaction Testing",
+    "category": "800 - Earthwork and Site Preparation",
+    "unit": "each",
+    "modified": "2026-03-12 00:00:00.000000"
+  },
+  {
+    "doctype": "DPWH Pay Item",
+    "name": "900(4)",
+    "code": "900(4)",
+    "description": "Structural Concrete, Class AA (40MPa)",
+    "category": "900 - Concrete Works",
+    "unit": "cu.m",
+    "modified": "2026-03-12 00:00:00.000000"
+  },
+  {
+    "doctype": "DPWH Pay Item",
+    "name": "900(5)",
+    "code": "900(5)",
+    "description": "Structural Concrete, Class D (14MPa)",
+    "category": "900 - Concrete Works",
+    "unit": "cu.m",
+    "modified": "2026-03-12 00:00:00.000000"
+  },
+  {
+    "doctype": "DPWH Pay Item",
+    "name": "900(6)",
+    "code": "900(6)",
+    "description": "Concrete (Ready-Mix Supply and Place)",
+    "category": "900 - Concrete Works",
+    "unit": "cu.m",
+    "modified": "2026-03-12 00:00:00.000000"
+  },
+  {
+    "doctype": "DPWH Pay Item",
+    "name": "900(7)",
+    "code": "900(7)",
+    "description": "Concrete Repair/Patching",
+    "category": "900 - Concrete Works",
+    "unit": "sq.m",
+    "modified": "2026-03-12 00:00:00.000000"
+  },
+  {
+    "doctype": "DPWH Pay Item",
+    "name": "901(2)",
+    "code": "901(2)",
+    "description": "Lean Concrete Subbase (LCS)",
+    "category": "900 - Concrete Works",
+    "unit": "cu.m",
+    "modified": "2026-03-12 00:00:00.000000"
+  },
+  {
+    "doctype": "DPWH Pay Item",
+    "name": "901(3)",
+    "code": "901(3)",
+    "description": "Controlled Density Fill",
+    "category": "900 - Concrete Works",
+    "unit": "cu.m",
+    "modified": "2026-03-12 00:00:00.000000"
+  },
+  {
+    "doctype": "DPWH Pay Item",
+    "name": "902(3)",
+    "code": "902(3)",
+    "description": "Reinforced Concrete Pavement (RCP)",
+    "category": "900 - Concrete Works",
+    "unit": "sq.m",
+    "modified": "2026-03-12 00:00:00.000000"
+  },
+  {
+    "doctype": "DPWH Pay Item",
+    "name": "902(4)",
+    "code": "902(4)",
+    "description": "Concrete Pavement (Plain), 250mm thick",
+    "category": "900 - Concrete Works",
+    "unit": "sq.m",
+    "modified": "2026-03-12 00:00:00.000000"
+  },
+  {
+    "doctype": "DPWH Pay Item",
+    "name": "902(5)",
+    "code": "902(5)",
+    "description": "Concrete Pavement (Plain), 300mm thick",
+    "category": "900 - Concrete Works",
+    "unit": "sq.m",
+    "modified": "2026-03-12 00:00:00.000000"
+  },
+  {
+    "doctype": "DPWH Pay Item",
+    "name": "903(2)",
+    "code": "903(2)",
+    "description": "Centering (Tubular Steel)",
+    "category": "900 - Concrete Works",
+    "unit": "sq.m",
+    "modified": "2026-03-12 00:00:00.000000"
+  },
+  {
+    "doctype": "DPWH Pay Item",
+    "name": "903(3)",
+    "code": "903(3)",
+    "description": "Steel Formworks (Reusable)",
+    "category": "900 - Concrete Works",
+    "unit": "sq.m",
+    "modified": "2026-03-12 00:00:00.000000"
+  },
+  {
+    "doctype": "DPWH Pay Item",
+    "name": "903(4)",
+    "code": "903(4)",
+    "description": "Plywood Formworks",
+    "category": "900 - Concrete Works",
+    "unit": "sq.m",
+    "modified": "2026-03-12 00:00:00.000000"
+  },
+  {
+    "doctype": "DPWH Pay Item",
+    "name": "904(2)",
+    "code": "904(2)",
+    "description": "CHB Non-Load Bearing (100mm)",
+    "category": "900 - Concrete Works",
+    "unit": "sq.m",
+    "modified": "2026-03-12 00:00:00.000000"
+  },
+  {
+    "doctype": "DPWH Pay Item",
+    "name": "904(3)",
+    "code": "904(3)",
+    "description": "CHB Non-Load Bearing (150mm)",
+    "category": "900 - Concrete Works",
+    "unit": "sq.m",
+    "modified": "2026-03-12 00:00:00.000000"
+  },
+  {
+    "doctype": "DPWH Pay Item",
+    "name": "905(1)",
+    "code": "905(1)",
+    "description": "Slope Protection Riprap Class A",
+    "category": "900 - Concrete Works",
+    "unit": "cu.m",
+    "modified": "2026-03-12 00:00:00.000000"
+  },
+  {
+    "doctype": "DPWH Pay Item",
+    "name": "905(2)",
+    "code": "905(2)",
+    "description": "Slope Protection Grouted Riprap",
+    "category": "900 - Concrete Works",
+    "unit": "cu.m",
+    "modified": "2026-03-12 00:00:00.000000"
+  },
+  {
+    "doctype": "DPWH Pay Item",
+    "name": "905(3)",
+    "code": "905(3)",
+    "description": "Slope Protection (Articulated Concrete Block)",
+    "category": "900 - Concrete Works",
+    "unit": "sq.m",
+    "modified": "2026-03-12 00:00:00.000000"
+  },
+  {
+    "doctype": "DPWH Pay Item",
+    "name": "906(1)",
+    "code": "906(1)",
+    "description": "Curb and Gutter (Concrete)",
+    "category": "900 - Concrete Works",
+    "unit": "ln.m",
+    "modified": "2026-03-12 00:00:00.000000"
+  },
+  {
+    "doctype": "DPWH Pay Item",
+    "name": "906(2)",
+    "code": "906(2)",
+    "description": "Curb and Gutter (Extruded)",
+    "category": "900 - Concrete Works",
+    "unit": "ln.m",
+    "modified": "2026-03-12 00:00:00.000000"
+  },
+  {
+    "doctype": "DPWH Pay Item",
+    "name": "907(1)",
+    "code": "907(1)",
+    "description": "Concrete Curb",
+    "category": "900 - Concrete Works",
+    "unit": "ln.m",
+    "modified": "2026-03-12 00:00:00.000000"
+  },
+  {
+    "doctype": "DPWH Pay Item",
+    "name": "907(2)",
+    "code": "907(2)",
+    "description": "Concrete Median Barrier (Jersey Type)",
+    "category": "900 - Concrete Works",
+    "unit": "ln.m",
+    "modified": "2026-03-12 00:00:00.000000"
+  },
+  {
+    "doctype": "DPWH Pay Item",
+    "name": "908(1)",
+    "code": "908(1)",
+    "description": "Sidewalk Plain Concrete",
+    "category": "900 - Concrete Works",
+    "unit": "sq.m",
+    "modified": "2026-03-12 00:00:00.000000"
+  },
+  {
+    "doctype": "DPWH Pay Item",
+    "name": "908(2)",
+    "code": "908(2)",
+    "description": "Sidewalk Concrete (Broom Finish)",
+    "category": "900 - Concrete Works",
+    "unit": "sq.m",
+    "modified": "2026-03-12 00:00:00.000000"
+  },
+  {
+    "doctype": "DPWH Pay Item",
+    "name": "909(1)",
+    "code": "909(1)",
+    "description": "Concrete Gutter (V-Type)",
+    "category": "900 - Concrete Works",
+    "unit": "sq.m",
+    "modified": "2026-03-12 00:00:00.000000"
+  },
+  {
+    "doctype": "DPWH Pay Item",
+    "name": "909(2)",
+    "code": "909(2)",
+    "description": "Concrete Lined Canal",
+    "category": "900 - Concrete Works",
+    "unit": "sq.m",
+    "modified": "2026-03-12 00:00:00.000000"
+  },
+  {
+    "doctype": "DPWH Pay Item",
+    "name": "910(1)",
+    "code": "910(1)",
+    "description": "Pipe Culvert 450mm dia (RC)",
+    "category": "900 - Concrete Works",
+    "unit": "ln.m",
+    "modified": "2026-03-12 00:00:00.000000"
+  },
+  {
+    "doctype": "DPWH Pay Item",
+    "name": "910(2)",
+    "code": "910(2)",
+    "description": "Pipe Culvert 600mm dia (RC)",
+    "category": "900 - Concrete Works",
+    "unit": "ln.m",
+    "modified": "2026-03-12 00:00:00.000000"
+  },
+  {
+    "doctype": "DPWH Pay Item",
+    "name": "910(3)",
+    "code": "910(3)",
+    "description": "Pipe Culvert 900mm dia (RC)",
+    "category": "900 - Concrete Works",
+    "unit": "ln.m",
+    "modified": "2026-03-12 00:00:00.000000"
+  },
+  {
+    "doctype": "DPWH Pay Item",
+    "name": "910(4)",
+    "code": "910(4)",
+    "description": "Pipe Culvert 1200mm dia (RC)",
+    "category": "900 - Concrete Works",
+    "unit": "ln.m",
+    "modified": "2026-03-12 00:00:00.000000"
+  },
+  {
+    "doctype": "DPWH Pay Item",
+    "name": "910(5)",
+    "code": "910(5)",
+    "description": "Pipe Culvert 1500mm dia (RC)",
+    "category": "900 - Concrete Works",
+    "unit": "ln.m",
+    "modified": "2026-03-12 00:00:00.000000"
+  },
+  {
+    "doctype": "DPWH Pay Item",
+    "name": "910(6)",
+    "code": "910(6)",
+    "description": "Corrugated Metal Pipe (CMP) 600mm",
+    "category": "900 - Concrete Works",
+    "unit": "ln.m",
+    "modified": "2026-03-12 00:00:00.000000"
+  },
+  {
+    "doctype": "DPWH Pay Item",
+    "name": "910(7)",
+    "code": "910(7)",
+    "description": "Corrugated Metal Pipe (CMP) 900mm",
+    "category": "900 - Concrete Works",
+    "unit": "ln.m",
+    "modified": "2026-03-12 00:00:00.000000"
+  },
+  {
+    "doctype": "DPWH Pay Item",
+    "name": "911(1)",
+    "code": "911(1)",
+    "description": "Concrete Box Culvert 1.0m x 1.0m",
+    "category": "900 - Concrete Works",
+    "unit": "ln.m",
+    "modified": "2026-03-12 00:00:00.000000"
+  },
+  {
+    "doctype": "DPWH Pay Item",
+    "name": "911(2)",
+    "code": "911(2)",
+    "description": "Concrete Box Culvert 1.5m x 1.5m",
+    "category": "900 - Concrete Works",
+    "unit": "ln.m",
+    "modified": "2026-03-12 00:00:00.000000"
+  },
+  {
+    "doctype": "DPWH Pay Item",
+    "name": "911(3)",
+    "code": "911(3)",
+    "description": "Concrete Box Culvert 2.0m x 2.0m",
+    "category": "900 - Concrete Works",
+    "unit": "ln.m",
+    "modified": "2026-03-12 00:00:00.000000"
+  },
+  {
+    "doctype": "DPWH Pay Item",
+    "name": "911(4)",
+    "code": "911(4)",
+    "description": "Concrete Box Culvert 2.0m x 1.5m",
+    "category": "900 - Concrete Works",
+    "unit": "ln.m",
+    "modified": "2026-03-12 00:00:00.000000"
+  },
+  {
+    "doctype": "DPWH Pay Item",
+    "name": "911(5)",
+    "code": "911(5)",
+    "description": "Concrete Box Culvert 3.0m x 2.0m",
+    "category": "900 - Concrete Works",
+    "unit": "ln.m",
+    "modified": "2026-03-12 00:00:00.000000"
+  },
+  {
+    "doctype": "DPWH Pay Item",
+    "name": "912",
+    "code": "912",
+    "description": "Precast Concrete Piles (250mm sq)",
+    "category": "900 - Concrete Works",
+    "unit": "ln.m",
+    "modified": "2026-03-12 00:00:00.000000"
+  },
+  {
+    "doctype": "DPWH Pay Item",
+    "name": "912(1)",
+    "code": "912(1)",
+    "description": "Precast Concrete Piles (300mm sq)",
+    "category": "900 - Concrete Works",
+    "unit": "ln.m",
+    "modified": "2026-03-12 00:00:00.000000"
+  },
+  {
+    "doctype": "DPWH Pay Item",
+    "name": "912(2)",
+    "code": "912(2)",
+    "description": "Precast Concrete Piles (350mm sq)",
+    "category": "900 - Concrete Works",
+    "unit": "ln.m",
+    "modified": "2026-03-12 00:00:00.000000"
+  },
+  {
+    "doctype": "DPWH Pay Item",
+    "name": "913",
+    "code": "913",
+    "description": "Cast-in-Place Concrete Piles (400mm dia)",
+    "category": "900 - Concrete Works",
+    "unit": "ln.m",
+    "modified": "2026-03-12 00:00:00.000000"
+  },
+  {
+    "doctype": "DPWH Pay Item",
+    "name": "913(1)",
+    "code": "913(1)",
+    "description": "Cast-in-Place Concrete Piles (600mm dia)",
+    "category": "900 - Concrete Works",
+    "unit": "ln.m",
+    "modified": "2026-03-12 00:00:00.000000"
+  },
+  {
+    "doctype": "DPWH Pay Item",
+    "name": "914",
+    "code": "914",
+    "description": "Drilled Shaft/Bored Pile (600mm dia)",
+    "category": "900 - Concrete Works",
+    "unit": "ln.m",
+    "modified": "2026-03-12 00:00:00.000000"
+  },
+  {
+    "doctype": "DPWH Pay Item",
+    "name": "914(1)",
+    "code": "914(1)",
+    "description": "Drilled Shaft/Bored Pile (800mm dia)",
+    "category": "900 - Concrete Works",
+    "unit": "ln.m",
+    "modified": "2026-03-12 00:00:00.000000"
+  },
+  {
+    "doctype": "DPWH Pay Item",
+    "name": "915",
+    "code": "915",
+    "description": "Pile Cap (Concrete)",
+    "category": "900 - Concrete Works",
+    "unit": "cu.m",
+    "modified": "2026-03-12 00:00:00.000000"
+  },
+  {
+    "doctype": "DPWH Pay Item",
+    "name": "916",
+    "code": "916",
+    "description": "Grade Beam (Concrete)",
+    "category": "900 - Concrete Works",
+    "unit": "cu.m",
+    "modified": "2026-03-12 00:00:00.000000"
+  },
+  {
+    "doctype": "DPWH Pay Item",
+    "name": "917",
+    "code": "917",
+    "description": "Raft Foundation (Concrete)",
+    "category": "900 - Concrete Works",
+    "unit": "cu.m",
+    "modified": "2026-03-12 00:00:00.000000"
+  },
+  {
+    "doctype": "DPWH Pay Item",
+    "name": "918",
+    "code": "918",
+    "description": "Concrete Retaining Wall",
+    "category": "900 - Concrete Works",
+    "unit": "cu.m",
+    "modified": "2026-03-12 00:00:00.000000"
+  },
+  {
+    "doctype": "DPWH Pay Item",
+    "name": "919",
+    "code": "919",
+    "description": "Concrete Headwall/Wingwall",
+    "category": "900 - Concrete Works",
+    "unit": "cu.m",
+    "modified": "2026-03-12 00:00:00.000000"
+  },
+  {
+    "doctype": "DPWH Pay Item",
+    "name": "920(1)",
+    "code": "920(1)",
+    "description": "Concrete Hollow Block 100mm (CHB Load Bearing)",
+    "category": "900 - Concrete Works",
+    "unit": "sq.m",
+    "modified": "2026-03-12 00:00:00.000000"
+  },
+  {
+    "doctype": "DPWH Pay Item",
+    "name": "920(2)",
+    "code": "920(2)",
+    "description": "Concrete Hollow Block 150mm (CHB Load Bearing)",
+    "category": "900 - Concrete Works",
+    "unit": "sq.m",
+    "modified": "2026-03-12 00:00:00.000000"
+  },
+  {
+    "doctype": "DPWH Pay Item",
+    "name": "920(3)",
+    "code": "920(3)",
+    "description": "Concrete Hollow Block 200mm (CHB)",
+    "category": "900 - Concrete Works",
+    "unit": "sq.m",
+    "modified": "2026-03-12 00:00:00.000000"
+  },
+  {
+    "doctype": "DPWH Pay Item",
+    "name": "921",
+    "code": "921",
+    "description": "Stone Masonry (Rubble)",
+    "category": "900 - Concrete Works",
+    "unit": "cu.m",
+    "modified": "2026-03-12 00:00:00.000000"
+  },
+  {
+    "doctype": "DPWH Pay Item",
+    "name": "922",
+    "code": "922",
+    "description": "Rubble Concrete",
+    "category": "900 - Concrete Works",
+    "unit": "cu.m",
+    "modified": "2026-03-12 00:00:00.000000"
+  },
+  {
+    "doctype": "DPWH Pay Item",
+    "name": "923",
+    "code": "923",
+    "description": "Precast Concrete Fence Panels",
+    "category": "900 - Concrete Works",
+    "unit": "sq.m",
+    "modified": "2026-03-12 00:00:00.000000"
+  },
+  {
+    "doctype": "DPWH Pay Item",
+    "name": "924",
+    "code": "924",
+    "description": "Precast Concrete Beam (Standard)",
+    "category": "900 - Concrete Works",
+    "unit": "ln.m",
+    "modified": "2026-03-12 00:00:00.000000"
+  },
+  {
+    "doctype": "DPWH Pay Item",
+    "name": "925",
+    "code": "925",
+    "description": "Concrete Interlocking Block Paving",
+    "category": "900 - Concrete Works",
+    "unit": "sq.m",
+    "modified": "2026-03-12 00:00:00.000000"
+  },
+  {
+    "doctype": "DPWH Pay Item",
+    "name": "926",
+    "code": "926",
+    "description": "Concrete Catch Basin",
+    "category": "900 - Concrete Works",
+    "unit": "each",
+    "modified": "2026-03-12 00:00:00.000000"
+  },
+  {
+    "doctype": "DPWH Pay Item",
+    "name": "927",
+    "code": "927",
+    "description": "Concrete Manhole",
+    "category": "900 - Concrete Works",
+    "unit": "each",
+    "modified": "2026-03-12 00:00:00.000000"
+  },
+  {
+    "doctype": "DPWH Pay Item",
+    "name": "928",
+    "code": "928",
+    "description": "Concrete Headwall",
+    "category": "900 - Concrete Works",
+    "unit": "each",
+    "modified": "2026-03-12 00:00:00.000000"
+  },
+  {
+    "doctype": "DPWH Pay Item",
+    "name": "929",
+    "code": "929",
+    "description": "Precast Concrete T-Beam (Bridge)",
+    "category": "900 - Concrete Works",
+    "unit": "ln.m",
+    "modified": "2026-03-12 00:00:00.000000"
+  },
+  {
+    "doctype": "DPWH Pay Item",
+    "name": "930(1)",
+    "code": "930(1)",
+    "description": "Prestressed Concrete Beam Type I",
+    "category": "900 - Concrete Works",
+    "unit": "ln.m",
+    "modified": "2026-03-12 00:00:00.000000"
+  },
+  {
+    "doctype": "DPWH Pay Item",
+    "name": "930(2)",
+    "code": "930(2)",
+    "description": "Prestressed Concrete Beam Type II",
+    "category": "900 - Concrete Works",
+    "unit": "ln.m",
+    "modified": "2026-03-12 00:00:00.000000"
+  },
+  {
+    "doctype": "DPWH Pay Item",
+    "name": "930(3)",
+    "code": "930(3)",
+    "description": "Prestressed Concrete Beam Type III",
+    "category": "900 - Concrete Works",
+    "unit": "ln.m",
+    "modified": "2026-03-12 00:00:00.000000"
+  },
+  {
+    "doctype": "DPWH Pay Item",
+    "name": "931",
+    "code": "931",
+    "description": "Precast Concrete Deck Panel (Bridge)",
+    "category": "900 - Concrete Works",
+    "unit": "sq.m",
+    "modified": "2026-03-12 00:00:00.000000"
+  },
+  {
+    "doctype": "DPWH Pay Item",
+    "name": "932",
+    "code": "932",
+    "description": "Precast Concrete Barrier (Jersey Type)",
+    "category": "900 - Concrete Works",
+    "unit": "ln.m",
+    "modified": "2026-03-12 00:00:00.000000"
+  },
+  {
+    "doctype": "DPWH Pay Item",
+    "name": "933",
+    "code": "933",
+    "description": "Precast Concrete Drain (U-Type)",
+    "category": "900 - Concrete Works",
+    "unit": "ln.m",
+    "modified": "2026-03-12 00:00:00.000000"
+  },
+  {
+    "doctype": "DPWH Pay Item",
+    "name": "934",
+    "code": "934",
+    "description": "Concrete Grout Injection",
+    "category": "900 - Concrete Works",
+    "unit": "each",
+    "modified": "2026-03-12 00:00:00.000000"
+  },
+  {
+    "doctype": "DPWH Pay Item",
+    "name": "935",
+    "code": "935",
+    "description": "Shotcrete/Gunite (Slope Stabilization)",
+    "category": "900 - Concrete Works",
+    "unit": "sq.m",
+    "modified": "2026-03-12 00:00:00.000000"
+  },
+  {
+    "doctype": "DPWH Pay Item",
+    "name": "936",
+    "code": "936",
+    "description": "Fiber-Reinforced Concrete",
+    "category": "900 - Concrete Works",
+    "unit": "cu.m",
+    "modified": "2026-03-12 00:00:00.000000"
+  },
+  {
+    "doctype": "DPWH Pay Item",
+    "name": "937",
+    "code": "937",
+    "description": "Concrete Expansion Joint (Sealing)",
+    "category": "900 - Concrete Works",
+    "unit": "ln.m",
+    "modified": "2026-03-12 00:00:00.000000"
+  },
+  {
+    "doctype": "DPWH Pay Item",
+    "name": "938",
+    "code": "938",
+    "description": "Concrete Joint Filler",
+    "category": "900 - Concrete Works",
+    "unit": "ln.m",
+    "modified": "2026-03-12 00:00:00.000000"
+  },
+  {
+    "doctype": "DPWH Pay Item",
+    "name": "939",
+    "code": "939",
+    "description": "Concrete Bridge Abutment",
+    "category": "900 - Concrete Works",
+    "unit": "cu.m",
+    "modified": "2026-03-12 00:00:00.000000"
+  },
+  {
+    "doctype": "DPWH Pay Item",
+    "name": "940",
+    "code": "940",
+    "description": "Concrete Bridge Pier",
+    "category": "900 - Concrete Works",
+    "unit": "cu.m",
+    "modified": "2026-03-12 00:00:00.000000"
+  },
+  {
+    "doctype": "DPWH Pay Item",
+    "name": "941",
+    "code": "941",
+    "description": "Concrete Deck Slab (Bridge)",
+    "category": "900 - Concrete Works",
+    "unit": "cu.m",
+    "modified": "2026-03-12 00:00:00.000000"
+  },
+  {
+    "doctype": "DPWH Pay Item",
+    "name": "942",
+    "code": "942",
+    "description": "Concrete Diaphragm/Cross-beam",
+    "category": "900 - Concrete Works",
+    "unit": "cu.m",
+    "modified": "2026-03-12 00:00:00.000000"
+  },
+  {
+    "doctype": "DPWH Pay Item",
+    "name": "943",
+    "code": "943",
+    "description": "Reinforced Concrete Frame (Precast)",
+    "category": "900 - Concrete Works",
+    "unit": "each",
+    "modified": "2026-03-12 00:00:00.000000"
+  },
+  {
+    "doctype": "DPWH Pay Item",
+    "name": "944",
+    "code": "944",
+    "description": "Concrete Septic Tank",
+    "category": "900 - Concrete Works",
+    "unit": "each",
+    "modified": "2026-03-12 00:00:00.000000"
+  },
+  {
+    "doctype": "DPWH Pay Item",
+    "name": "945",
+    "code": "945",
+    "description": "Concrete Water Tank/Cistern",
+    "category": "900 - Concrete Works",
+    "unit": "each",
+    "modified": "2026-03-12 00:00:00.000000"
+  },
+  {
+    "doctype": "DPWH Pay Item",
+    "name": "946",
+    "code": "946",
+    "description": "Precast Concrete Slope Protection",
+    "category": "900 - Concrete Works",
+    "unit": "sq.m",
+    "modified": "2026-03-12 00:00:00.000000"
+  },
+  {
+    "doctype": "DPWH Pay Item",
+    "name": "947",
+    "code": "947",
+    "description": "Concrete Channel Lining",
+    "category": "900 - Concrete Works",
+    "unit": "sq.m",
+    "modified": "2026-03-12 00:00:00.000000"
+  },
+  {
+    "doctype": "DPWH Pay Item",
+    "name": "948",
+    "code": "948",
+    "description": "Architectural Concrete (Exposed Finish)",
+    "category": "900 - Concrete Works",
+    "unit": "sq.m",
+    "modified": "2026-03-12 00:00:00.000000"
+  },
+  {
+    "doctype": "DPWH Pay Item",
+    "name": "949",
+    "code": "949",
+    "description": "Self-Compacting Concrete (SCC)",
+    "category": "900 - Concrete Works",
+    "unit": "cu.m",
+    "modified": "2026-03-12 00:00:00.000000"
+  },
+  {
+    "doctype": "DPWH Pay Item",
+    "name": "1000(4)",
+    "code": "1000(4)",
+    "description": "Reinforcing Steel Grade 75 (High Strength)",
+    "category": "1000 - Reinforcing Steel",
+    "unit": "kg",
+    "modified": "2026-03-12 00:00:00.000000"
+  },
+  {
+    "doctype": "DPWH Pay Item",
+    "name": "1001(2)",
+    "code": "1001(2)",
+    "description": "Spun Concrete Piles (300mm dia)",
+    "category": "1000 - Reinforcing Steel",
+    "unit": "ln.m",
+    "modified": "2026-03-12 00:00:00.000000"
+  },
+  {
+    "doctype": "DPWH Pay Item",
+    "name": "1001(3)",
+    "code": "1001(3)",
+    "description": "Spun Concrete Piles (400mm dia)",
+    "category": "1000 - Reinforcing Steel",
+    "unit": "ln.m",
+    "modified": "2026-03-12 00:00:00.000000"
+  },
+  {
+    "doctype": "DPWH Pay Item",
+    "name": "1002(2)",
+    "code": "1002(2)",
+    "description": "Composite Metal Decking (50mm rib)",
+    "category": "1000 - Reinforcing Steel",
+    "unit": "sq.m",
+    "modified": "2026-03-12 00:00:00.000000"
+  },
+  {
+    "doctype": "DPWH Pay Item",
+    "name": "1002(3)",
+    "code": "1002(3)",
+    "description": "Composite Metal Decking (75mm rib)",
+    "category": "1000 - Reinforcing Steel",
+    "unit": "sq.m",
+    "modified": "2026-03-12 00:00:00.000000"
+  },
+  {
+    "doctype": "DPWH Pay Item",
+    "name": "1003(1)",
+    "code": "1003(1)",
+    "description": "Anchor Bolts (M20)",
+    "category": "1000 - Reinforcing Steel",
+    "unit": "each",
+    "modified": "2026-03-12 00:00:00.000000"
+  },
+  {
+    "doctype": "DPWH Pay Item",
+    "name": "1003(2)",
+    "code": "1003(2)",
+    "description": "Anchor Bolts (M24)",
+    "category": "1000 - Reinforcing Steel",
+    "unit": "each",
+    "modified": "2026-03-12 00:00:00.000000"
+  },
+  {
+    "doctype": "DPWH Pay Item",
+    "name": "1003(3)",
+    "code": "1003(3)",
+    "description": "Anchor Bolts (M30)",
+    "category": "1000 - Reinforcing Steel",
+    "unit": "each",
+    "modified": "2026-03-12 00:00:00.000000"
+  },
+  {
+    "doctype": "DPWH Pay Item",
+    "name": "1004(1)",
+    "code": "1004(1)",
+    "description": "Steel Pipe Piles (219mm OD)",
+    "category": "1000 - Reinforcing Steel",
+    "unit": "ln.m",
+    "modified": "2026-03-12 00:00:00.000000"
+  },
+  {
+    "doctype": "DPWH Pay Item",
+    "name": "1004(2)",
+    "code": "1004(2)",
+    "description": "Steel Pipe Piles (318mm OD)",
+    "category": "1000 - Reinforcing Steel",
+    "unit": "ln.m",
+    "modified": "2026-03-12 00:00:00.000000"
+  },
+  {
+    "doctype": "DPWH Pay Item",
+    "name": "1004(3)",
+    "code": "1004(3)",
+    "description": "Steel H-Piles (HP250)",
+    "category": "1000 - Reinforcing Steel",
+    "unit": "ln.m",
+    "modified": "2026-03-12 00:00:00.000000"
+  },
+  {
+    "doctype": "DPWH Pay Item",
+    "name": "1005(1)",
+    "code": "1005(1)",
+    "description": "Bored Piles with Permanent Steel Casing",
+    "category": "1000 - Reinforcing Steel",
+    "unit": "ln.m",
+    "modified": "2026-03-12 00:00:00.000000"
+  },
+  {
+    "doctype": "DPWH Pay Item",
+    "name": "1006(1)",
+    "code": "1006(1)",
+    "description": "Micropiles (100mm dia)",
+    "category": "1000 - Reinforcing Steel",
+    "unit": "ln.m",
+    "modified": "2026-03-12 00:00:00.000000"
+  },
+  {
+    "doctype": "DPWH Pay Item",
+    "name": "1006(2)",
+    "code": "1006(2)",
+    "description": "Micropiles (150mm dia)",
+    "category": "1000 - Reinforcing Steel",
+    "unit": "ln.m",
+    "modified": "2026-03-12 00:00:00.000000"
+  },
+  {
+    "doctype": "DPWH Pay Item",
+    "name": "1007(1)",
+    "code": "1007(1)",
+    "description": "Post-Tensioning System (Tendons)",
+    "category": "1000 - Reinforcing Steel",
+    "unit": "kg",
+    "modified": "2026-03-12 00:00:00.000000"
+  },
+  {
+    "doctype": "DPWH Pay Item",
+    "name": "1007(2)",
+    "code": "1007(2)",
+    "description": "Post-Tensioning Anchorage Assemblies",
+    "category": "1000 - Reinforcing Steel",
+    "unit": "each",
+    "modified": "2026-03-12 00:00:00.000000"
+  },
+  {
+    "doctype": "DPWH Pay Item",
+    "name": "1008(1)",
+    "code": "1008(1)",
+    "description": "Deformed Bar Ties and Stirrups",
+    "category": "1000 - Reinforcing Steel",
+    "unit": "kg",
+    "modified": "2026-03-12 00:00:00.000000"
+  },
+  {
+    "doctype": "DPWH Pay Item",
+    "name": "1009(1)",
+    "code": "1009(1)",
+    "description": "Welded Wire Mesh (WWM) 100x100 10/10",
+    "category": "1000 - Reinforcing Steel",
+    "unit": "sq.m",
+    "modified": "2026-03-12 00:00:00.000000"
+  },
+  {
+    "doctype": "DPWH Pay Item",
+    "name": "1010(1)",
+    "code": "1010(1)",
+    "description": "Wire Mesh/Welded Wire Fabric (WWF)",
+    "category": "1000 - Reinforcing Steel",
+    "unit": "sq.m",
+    "modified": "2026-03-12 00:00:00.000000"
+  },
+  {
+    "doctype": "DPWH Pay Item",
+    "name": "1010(2)",
+    "code": "1010(2)",
+    "description": "Fiber Reinforcement (Steel Fiber)",
+    "category": "1000 - Reinforcing Steel",
+    "unit": "kg",
+    "modified": "2026-03-12 00:00:00.000000"
+  },
+  {
+    "doctype": "DPWH Pay Item",
+    "name": "1010(3)",
+    "code": "1010(3)",
+    "description": "Fiber Reinforcement (Polypropylene)",
+    "category": "1000 - Reinforcing Steel",
+    "unit": "kg",
+    "modified": "2026-03-12 00:00:00.000000"
+  },
+  {
+    "doctype": "DPWH Pay Item",
+    "name": "1011(1)",
+    "code": "1011(1)",
+    "description": "Rebar Coupler/Mechanical Splice",
+    "category": "1000 - Reinforcing Steel",
+    "unit": "each",
+    "modified": "2026-03-12 00:00:00.000000"
+  },
+  {
+    "doctype": "DPWH Pay Item",
+    "name": "1012(1)",
+    "code": "1012(1)",
+    "description": "Spiral Reinforcement (Columns)",
+    "category": "1000 - Reinforcing Steel",
+    "unit": "kg",
+    "modified": "2026-03-12 00:00:00.000000"
+  },
+  {
+    "doctype": "DPWH Pay Item",
+    "name": "1013(1)",
+    "code": "1013(1)",
+    "description": "Post-Installed Anchors (Chemical)",
+    "category": "1000 - Reinforcing Steel",
+    "unit": "each",
+    "modified": "2026-03-12 00:00:00.000000"
+  },
+  {
+    "doctype": "DPWH Pay Item",
+    "name": "1014(1)",
+    "code": "1014(1)",
+    "description": "Rebar Splicing (Butt Weld)",
+    "category": "1000 - Reinforcing Steel",
+    "unit": "each",
+    "modified": "2026-03-12 00:00:00.000000"
+  },
+  {
+    "doctype": "DPWH Pay Item",
+    "name": "1100(3)",
+    "code": "1100(3)",
+    "description": "Structural Steel Wide Flange Sections",
+    "category": "1100 - Structural Steel",
+    "unit": "kg",
+    "modified": "2026-03-12 00:00:00.000000"
+  },
+  {
+    "doctype": "DPWH Pay Item",
+    "name": "1100(4)",
+    "code": "1100(4)",
+    "description": "Light Gauge Steel Framing (LSF)",
+    "category": "1100 - Structural Steel",
+    "unit": "kg",
+    "modified": "2026-03-12 00:00:00.000000"
+  },
+  {
+    "doctype": "DPWH Pay Item",
+    "name": "1102(1)",
+    "code": "1102(1)",
+    "description": "Steel Plate Girder (Fabricated)",
+    "category": "1100 - Structural Steel",
+    "unit": "kg",
+    "modified": "2026-03-12 00:00:00.000000"
+  },
+  {
+    "doctype": "DPWH Pay Item",
+    "name": "1102(2)",
+    "code": "1102(2)",
+    "description": "Steel Box Girder",
+    "category": "1100 - Structural Steel",
+    "unit": "kg",
+    "modified": "2026-03-12 00:00:00.000000"
+  },
+  {
+    "doctype": "DPWH Pay Item",
+    "name": "1103(1)",
+    "code": "1103(1)",
+    "description": "Steel H-Piles (HP200)",
+    "category": "1100 - Structural Steel",
+    "unit": "ln.m",
+    "modified": "2026-03-12 00:00:00.000000"
+  },
+  {
+    "doctype": "DPWH Pay Item",
+    "name": "1103(2)",
+    "code": "1103(2)",
+    "description": "Steel Universal Piles (UP)",
+    "category": "1100 - Structural Steel",
+    "unit": "ln.m",
+    "modified": "2026-03-12 00:00:00.000000"
+  },
+  {
+    "doctype": "DPWH Pay Item",
+    "name": "1104(1)",
+    "code": "1104(1)",
+    "description": "Metal Decking Roof (Corrugated)",
+    "category": "1100 - Structural Steel",
+    "unit": "sq.m",
+    "modified": "2026-03-12 00:00:00.000000"
+  },
+  {
+    "doctype": "DPWH Pay Item",
+    "name": "1104(2)",
+    "code": "1104(2)",
+    "description": "Metal Deck Flooring System",
+    "category": "1100 - Structural Steel",
+    "unit": "sq.m",
+    "modified": "2026-03-12 00:00:00.000000"
+  },
+  {
+    "doctype": "DPWH Pay Item",
+    "name": "1105(1)",
+    "code": "1105(1)",
+    "description": "Tubular Steel Scaffolding",
+    "category": "1100 - Structural Steel",
+    "unit": "sq.m",
+    "modified": "2026-03-12 00:00:00.000000"
+  },
+  {
+    "doctype": "DPWH Pay Item",
+    "name": "1105(2)",
+    "code": "1105(2)",
+    "description": "Mast Climbing Scaffolding",
+    "category": "1100 - Structural Steel",
+    "unit": "sq.m",
+    "modified": "2026-03-12 00:00:00.000000"
+  },
+  {
+    "doctype": "DPWH Pay Item",
+    "name": "1106(1)",
+    "code": "1106(1)",
+    "description": "Steel Grating (25x3 bars)",
+    "category": "1100 - Structural Steel",
+    "unit": "sq.m",
+    "modified": "2026-03-12 00:00:00.000000"
+  },
+  {
+    "doctype": "DPWH Pay Item",
+    "name": "1106(2)",
+    "code": "1106(2)",
+    "description": "Steel Grating (30x5 bars)",
+    "category": "1100 - Structural Steel",
+    "unit": "sq.m",
+    "modified": "2026-03-12 00:00:00.000000"
+  },
+  {
+    "doctype": "DPWH Pay Item",
+    "name": "1107(1)",
+    "code": "1107(1)",
+    "description": "Pre-engineered Metal Building (PEB)",
+    "category": "1100 - Structural Steel",
+    "unit": "sq.m",
+    "modified": "2026-03-12 00:00:00.000000"
+  },
+  {
+    "doctype": "DPWH Pay Item",
+    "name": "1107(2)",
+    "code": "1107(2)",
+    "description": "PEB Extension/Mezzanine",
+    "category": "1100 - Structural Steel",
+    "unit": "sq.m",
+    "modified": "2026-03-12 00:00:00.000000"
+  },
+  {
+    "doctype": "DPWH Pay Item",
+    "name": "1108(1)",
+    "code": "1108(1)",
+    "description": "Steel Truss (Roof)",
+    "category": "1100 - Structural Steel",
+    "unit": "kg",
+    "modified": "2026-03-12 00:00:00.000000"
+  },
+  {
+    "doctype": "DPWH Pay Item",
+    "name": "1108(2)",
+    "code": "1108(2)",
+    "description": "Steel Truss (Floor/Bridge)",
+    "category": "1100 - Structural Steel",
+    "unit": "kg",
+    "modified": "2026-03-12 00:00:00.000000"
+  },
+  {
+    "doctype": "DPWH Pay Item",
+    "name": "1109(1)",
+    "code": "1109(1)",
+    "description": "Steel Column Base Plate",
+    "category": "1100 - Structural Steel",
+    "unit": "each",
+    "modified": "2026-03-12 00:00:00.000000"
+  },
+  {
+    "doctype": "DPWH Pay Item",
+    "name": "1110(1)",
+    "code": "1110(1)",
+    "description": "Steel Staircase",
+    "category": "1100 - Structural Steel",
+    "unit": "each",
+    "modified": "2026-03-12 00:00:00.000000"
+  },
+  {
+    "doctype": "DPWH Pay Item",
+    "name": "1111(1)",
+    "code": "1111(1)",
+    "description": "Steel Handrail and Balustrade",
+    "category": "1100 - Structural Steel",
+    "unit": "ln.m",
+    "modified": "2026-03-12 00:00:00.000000"
+  },
+  {
+    "doctype": "DPWH Pay Item",
+    "name": "1112(1)",
+    "code": "1112(1)",
+    "description": "Steel Angle Bracing",
+    "category": "1100 - Structural Steel",
+    "unit": "kg",
+    "modified": "2026-03-12 00:00:00.000000"
+  },
+  {
+    "doctype": "DPWH Pay Item",
+    "name": "1113(1)",
+    "code": "1113(1)",
+    "description": "Steel Connection Bolts (High Strength A325)",
+    "category": "1100 - Structural Steel",
+    "unit": "each",
+    "modified": "2026-03-12 00:00:00.000000"
+  },
+  {
+    "doctype": "DPWH Pay Item",
+    "name": "1114(1)",
+    "code": "1114(1)",
+    "description": "Steel Fabrication (Miscellaneous)",
+    "category": "1100 - Structural Steel",
+    "unit": "kg",
+    "modified": "2026-03-12 00:00:00.000000"
+  },
+  {
+    "doctype": "DPWH Pay Item",
+    "name": "1115(1)",
+    "code": "1115(1)",
+    "description": "Painting Anti-corrosion (Shop Applied)",
+    "category": "1100 - Structural Steel",
+    "unit": "sq.m",
+    "modified": "2026-03-12 00:00:00.000000"
+  },
+  {
+    "doctype": "DPWH Pay Item",
+    "name": "1116(1)",
+    "code": "1116(1)",
+    "description": "Galvanizing (Hot-Dip)",
+    "category": "1100 - Structural Steel",
+    "unit": "kg",
+    "modified": "2026-03-12 00:00:00.000000"
+  },
+  {
+    "doctype": "DPWH Pay Item",
+    "name": "1117(1)",
+    "code": "1117(1)",
+    "description": "Steel Moment Frame Connection",
+    "category": "1100 - Structural Steel",
+    "unit": "each",
+    "modified": "2026-03-12 00:00:00.000000"
+  },
+  {
+    "doctype": "DPWH Pay Item",
+    "name": "1118(1)",
+    "code": "1118(1)",
+    "description": "Steel Mezzanine Floor",
+    "category": "1100 - Structural Steel",
+    "unit": "sq.m",
+    "modified": "2026-03-12 00:00:00.000000"
+  },
+  {
+    "doctype": "DPWH Pay Item",
+    "name": "1119(1)",
+    "code": "1119(1)",
+    "description": "Steel Pipe Railing",
+    "category": "1100 - Structural Steel",
+    "unit": "ln.m",
+    "modified": "2026-03-12 00:00:00.000000"
+  },
+  {
+    "doctype": "DPWH Pay Item",
+    "name": "1120(1)",
+    "code": "1120(1)",
+    "description": "Overhead Steel Door Frame",
+    "category": "1100 - Structural Steel",
+    "unit": "each",
+    "modified": "2026-03-12 00:00:00.000000"
+  },
+  {
+    "doctype": "DPWH Pay Item",
+    "name": "1201(1)",
+    "code": "1201(1)",
+    "description": "Bituminous Membrane Waterproofing (Torch-Applied)",
+    "category": "1200 - Waterproofing",
+    "unit": "sq.m",
+    "modified": "2026-03-12 00:00:00.000000"
+  },
+  {
+    "doctype": "DPWH Pay Item",
+    "name": "1201(2)",
+    "code": "1201(2)",
+    "description": "Bituminous Membrane Waterproofing (Self-Adhesive)",
+    "category": "1200 - Waterproofing",
+    "unit": "sq.m",
+    "modified": "2026-03-12 00:00:00.000000"
+  },
+  {
+    "doctype": "DPWH Pay Item",
+    "name": "1202(1)",
+    "code": "1202(1)",
+    "description": "Elastomeric Waterproofing Membrane (EPDM)",
+    "category": "1200 - Waterproofing",
+    "unit": "sq.m",
+    "modified": "2026-03-12 00:00:00.000000"
+  },
+  {
+    "doctype": "DPWH Pay Item",
+    "name": "1202(2)",
+    "code": "1202(2)",
+    "description": "TPO/PVC Waterproofing Membrane",
+    "category": "1200 - Waterproofing",
+    "unit": "sq.m",
+    "modified": "2026-03-12 00:00:00.000000"
+  },
+  {
+    "doctype": "DPWH Pay Item",
+    "name": "1203(1)",
+    "code": "1203(1)",
+    "description": "Crystalline Waterproofing (Cementitious)",
+    "category": "1200 - Waterproofing",
+    "unit": "sq.m",
+    "modified": "2026-03-12 00:00:00.000000"
+  },
+  {
+    "doctype": "DPWH Pay Item",
+    "name": "1203(2)",
+    "code": "1203(2)",
+    "description": "Crystalline Waterproofing (Integral Admixture)",
+    "category": "1200 - Waterproofing",
+    "unit": "cu.m",
+    "modified": "2026-03-12 00:00:00.000000"
+  },
+  {
+    "doctype": "DPWH Pay Item",
+    "name": "1204(1)",
+    "code": "1204(1)",
+    "description": "Waterstop PVC (200mm)",
+    "category": "1200 - Waterproofing",
+    "unit": "ln.m",
+    "modified": "2026-03-12 00:00:00.000000"
+  },
+  {
+    "doctype": "DPWH Pay Item",
+    "name": "1204(2)",
+    "code": "1204(2)",
+    "description": "Waterstop Rubber (Dumbbell Type)",
+    "category": "1200 - Waterproofing",
+    "unit": "ln.m",
+    "modified": "2026-03-12 00:00:00.000000"
+  },
+  {
+    "doctype": "DPWH Pay Item",
+    "name": "1205(1)",
+    "code": "1205(1)",
+    "description": "Cementitious Waterproofing (Flexible 2-Coat)",
+    "category": "1200 - Waterproofing",
+    "unit": "sq.m",
+    "modified": "2026-03-12 00:00:00.000000"
+  },
+  {
+    "doctype": "DPWH Pay Item",
+    "name": "1205(2)",
+    "code": "1205(2)",
+    "description": "Cementitious Waterproofing (Rigid)",
+    "category": "1200 - Waterproofing",
+    "unit": "sq.m",
+    "modified": "2026-03-12 00:00:00.000000"
+  },
+  {
+    "doctype": "DPWH Pay Item",
+    "name": "1206(1)",
+    "code": "1206(1)",
+    "description": "Polyurethane Waterproofing (Liquid Applied)",
+    "category": "1200 - Waterproofing",
+    "unit": "sq.m",
+    "modified": "2026-03-12 00:00:00.000000"
+  },
+  {
+    "doctype": "DPWH Pay Item",
+    "name": "1207(1)",
+    "code": "1207(1)",
+    "description": "Sealant (Polyurethane Joint)",
+    "category": "1200 - Waterproofing",
+    "unit": "ln.m",
+    "modified": "2026-03-12 00:00:00.000000"
+  },
+  {
+    "doctype": "DPWH Pay Item",
+    "name": "1207(2)",
+    "code": "1207(2)",
+    "description": "Sealant (Silicone Structural)",
+    "category": "1200 - Waterproofing",
+    "unit": "ln.m",
+    "modified": "2026-03-12 00:00:00.000000"
+  },
+  {
+    "doctype": "DPWH Pay Item",
+    "name": "1208(1)",
+    "code": "1208(1)",
+    "description": "HDPE Liner (1.5mm)",
+    "category": "1200 - Waterproofing",
+    "unit": "sq.m",
+    "modified": "2026-03-12 00:00:00.000000"
+  },
+  {
+    "doctype": "DPWH Pay Item",
+    "name": "1302(2)",
+    "code": "1302(2)",
+    "description": "Aluminum Window (Sliding Type)",
+    "category": "1300 - Carpentry and Joinery",
+    "unit": "sq.m",
+    "modified": "2026-03-12 00:00:00.000000"
+  },
+  {
+    "doctype": "DPWH Pay Item",
+    "name": "1302(3)",
+    "code": "1302(3)",
+    "description": "Aluminum Window (Awning Type)",
+    "category": "1300 - Carpentry and Joinery",
+    "unit": "sq.m",
+    "modified": "2026-03-12 00:00:00.000000"
+  },
+  {
+    "doctype": "DPWH Pay Item",
+    "name": "1302(4)",
+    "code": "1302(4)",
+    "description": "Aluminum Window (Fixed/Picture)",
+    "category": "1300 - Carpentry and Joinery",
+    "unit": "sq.m",
+    "modified": "2026-03-12 00:00:00.000000"
+  },
+  {
+    "doctype": "DPWH Pay Item",
+    "name": "1303(1)",
+    "code": "1303(1)",
+    "description": "Fabricated Metal Frames (Doors)",
+    "category": "1300 - Carpentry and Joinery",
+    "unit": "each",
+    "modified": "2026-03-12 00:00:00.000000"
+  },
+  {
+    "doctype": "DPWH Pay Item",
+    "name": "1303(2)",
+    "code": "1303(2)",
+    "description": "Hollow Metal Door Frame",
+    "category": "1300 - Carpentry and Joinery",
+    "unit": "each",
+    "modified": "2026-03-12 00:00:00.000000"
+  },
+  {
+    "doctype": "DPWH Pay Item",
+    "name": "1304(1)",
+    "code": "1304(1)",
+    "description": "Rolling/Sliding Gates (Manual)",
+    "category": "1300 - Carpentry and Joinery",
+    "unit": "each",
+    "modified": "2026-03-12 00:00:00.000000"
+  },
+  {
+    "doctype": "DPWH Pay Item",
+    "name": "1304(2)",
+    "code": "1304(2)",
+    "description": "Rolling/Sliding Gates (Motorized)",
+    "category": "1300 - Carpentry and Joinery",
+    "unit": "each",
+    "modified": "2026-03-12 00:00:00.000000"
+  },
+  {
+    "doctype": "DPWH Pay Item",
+    "name": "1305(1)",
+    "code": "1305(1)",
+    "description": "Aluminum Curtain Wall System",
+    "category": "1300 - Carpentry and Joinery",
+    "unit": "sq.m",
+    "modified": "2026-03-12 00:00:00.000000"
+  },
+  {
+    "doctype": "DPWH Pay Item",
+    "name": "1306(1)",
+    "code": "1306(1)",
+    "description": "Glass and Glazing (Tempered 12mm)",
+    "category": "1300 - Carpentry and Joinery",
+    "unit": "sq.m",
+    "modified": "2026-03-12 00:00:00.000000"
+  },
+  {
+    "doctype": "DPWH Pay Item",
+    "name": "1306(2)",
+    "code": "1306(2)",
+    "description": "Glass and Glazing (Laminated Safety)",
+    "category": "1300 - Carpentry and Joinery",
+    "unit": "sq.m",
+    "modified": "2026-03-12 00:00:00.000000"
+  },
+  {
+    "doctype": "DPWH Pay Item",
+    "name": "1307(1)",
+    "code": "1307(1)",
+    "description": "Rough Carpentry Works (Dimensional Lumber)",
+    "category": "1300 - Carpentry and Joinery",
+    "unit": "sq.m",
+    "modified": "2026-03-12 00:00:00.000000"
+  },
+  {
+    "doctype": "DPWH Pay Item",
+    "name": "1308(1)",
+    "code": "1308(1)",
+    "description": "Hardwood Flooring (Solid Strip)",
+    "category": "1300 - Carpentry and Joinery",
+    "unit": "sq.m",
+    "modified": "2026-03-12 00:00:00.000000"
+  },
+  {
+    "doctype": "DPWH Pay Item",
+    "name": "1308(2)",
+    "code": "1308(2)",
+    "description": "Engineered Wood Flooring",
+    "category": "1300 - Carpentry and Joinery",
+    "unit": "sq.m",
+    "modified": "2026-03-12 00:00:00.000000"
+  },
+  {
+    "doctype": "DPWH Pay Item",
+    "name": "1309(1)",
+    "code": "1309(1)",
+    "description": "Plywood Partition (9mm)",
+    "category": "1300 - Carpentry and Joinery",
+    "unit": "sq.m",
+    "modified": "2026-03-12 00:00:00.000000"
+  },
+  {
+    "doctype": "DPWH Pay Item",
+    "name": "1309(2)",
+    "code": "1309(2)",
+    "description": "FRP (Fiberglass Reinforced Plastic) Panel",
+    "category": "1300 - Carpentry and Joinery",
+    "unit": "sq.m",
+    "modified": "2026-03-12 00:00:00.000000"
+  },
+  {
+    "doctype": "DPWH Pay Item",
+    "name": "1310(1)",
+    "code": "1310(1)",
+    "description": "Fire Door (FD60 Rating)",
+    "category": "1300 - Carpentry and Joinery",
+    "unit": "each",
+    "modified": "2026-03-12 00:00:00.000000"
+  },
+  {
+    "doctype": "DPWH Pay Item",
+    "name": "1310(2)",
+    "code": "1310(2)",
+    "description": "Fire Door (FD30 Rating)",
+    "category": "1300 - Carpentry and Joinery",
+    "unit": "each",
+    "modified": "2026-03-12 00:00:00.000000"
+  },
+  {
+    "doctype": "DPWH Pay Item",
+    "name": "1311(1)",
+    "code": "1311(1)",
+    "description": "Steel Access Door and Frame",
+    "category": "1300 - Carpentry and Joinery",
+    "unit": "each",
+    "modified": "2026-03-12 00:00:00.000000"
+  },
+  {
+    "doctype": "DPWH Pay Item",
+    "name": "1312(1)",
+    "code": "1312(1)",
+    "description": "Overhead Coiling Door (Manual)",
+    "category": "1300 - Carpentry and Joinery",
+    "unit": "each",
+    "modified": "2026-03-12 00:00:00.000000"
+  },
+  {
+    "doctype": "DPWH Pay Item",
+    "name": "1312(2)",
+    "code": "1312(2)",
+    "description": "Overhead Coiling Door (Motorized)",
+    "category": "1300 - Carpentry and Joinery",
+    "unit": "each",
+    "modified": "2026-03-12 00:00:00.000000"
+  },
+  {
+    "doctype": "DPWH Pay Item",
+    "name": "1313(1)",
+    "code": "1313(1)",
+    "description": "Bi-fold Door (Aluminum)",
+    "category": "1300 - Carpentry and Joinery",
+    "unit": "each",
+    "modified": "2026-03-12 00:00:00.000000"
+  },
+  {
+    "doctype": "DPWH Pay Item",
+    "name": "1314(1)",
+    "code": "1314(1)",
+    "description": "Solid Core Flush Door",
+    "category": "1300 - Carpentry and Joinery",
+    "unit": "each",
+    "modified": "2026-03-12 00:00:00.000000"
+  },
+  {
+    "doctype": "DPWH Pay Item",
+    "name": "1315(1)",
+    "code": "1315(1)",
+    "description": "Louver Window (Aluminum)",
+    "category": "1300 - Carpentry and Joinery",
+    "unit": "sq.m",
+    "modified": "2026-03-12 00:00:00.000000"
+  },
+  {
+    "doctype": "DPWH Pay Item",
+    "name": "1316(1)",
+    "code": "1316(1)",
+    "description": "Stainless Steel Door/Frame (Food Grade)",
+    "category": "1300 - Carpentry and Joinery",
+    "unit": "each",
+    "modified": "2026-03-12 00:00:00.000000"
+  },
+  {
+    "doctype": "DPWH Pay Item",
+    "name": "1317(1)",
+    "code": "1317(1)",
+    "description": "Automatic Sliding Door (Sensor)",
+    "category": "1300 - Carpentry and Joinery",
+    "unit": "each",
+    "modified": "2026-03-12 00:00:00.000000"
+  },
+  {
+    "doctype": "DPWH Pay Item",
+    "name": "1318(1)",
+    "code": "1318(1)",
+    "description": "Kitchen Cabinet (Modular)",
+    "category": "1300 - Carpentry and Joinery",
+    "unit": "ln.m",
+    "modified": "2026-03-12 00:00:00.000000"
+  },
+  {
+    "doctype": "DPWH Pay Item",
+    "name": "1319(1)",
+    "code": "1319(1)",
+    "description": "Built-in Wardrobe/Storage",
+    "category": "1300 - Carpentry and Joinery",
+    "unit": "each",
+    "modified": "2026-03-12 00:00:00.000000"
+  },
+  {
+    "doctype": "DPWH Pay Item",
+    "name": "1320(1)",
+    "code": "1320(1)",
+    "description": "Louver Panel (GI)",
+    "category": "1300 - Carpentry and Joinery",
+    "unit": "sq.m",
+    "modified": "2026-03-12 00:00:00.000000"
+  },
+  {
+    "doctype": "DPWH Pay Item",
+    "name": "1401(2)",
+    "code": "1401(2)",
+    "description": "ELV Works (Data/Communication)",
+    "category": "1400 - Electrical",
+    "unit": "lot",
+    "modified": "2026-03-12 00:00:00.000000"
+  },
+  {
+    "doctype": "DPWH Pay Item",
+    "name": "1402(1)",
+    "code": "1402(1)",
+    "description": "Conduit PVC 20mm (RSC/IMC)",
+    "category": "1400 - Electrical",
+    "unit": "ln.m",
+    "modified": "2026-03-12 00:00:00.000000"
+  },
+  {
+    "doctype": "DPWH Pay Item",
+    "name": "1402(2)",
+    "code": "1402(2)",
+    "description": "Conduit PVC 32mm",
+    "category": "1400 - Electrical",
+    "unit": "ln.m",
+    "modified": "2026-03-12 00:00:00.000000"
+  },
+  {
+    "doctype": "DPWH Pay Item",
+    "name": "1402(3)",
+    "code": "1402(3)",
+    "description": "Conduit Rigid Steel 25mm (GS)",
+    "category": "1400 - Electrical",
+    "unit": "ln.m",
+    "modified": "2026-03-12 00:00:00.000000"
+  },
+  {
+    "doctype": "DPWH Pay Item",
+    "name": "1402(4)",
+    "code": "1402(4)",
+    "description": "Conduit EMT 25mm",
+    "category": "1400 - Electrical",
+    "unit": "ln.m",
+    "modified": "2026-03-12 00:00:00.000000"
+  },
+  {
+    "doctype": "DPWH Pay Item",
+    "name": "1402(5)",
+    "code": "1402(5)",
+    "description": "Conduit PVC 50mm",
+    "category": "1400 - Electrical",
+    "unit": "ln.m",
+    "modified": "2026-03-12 00:00:00.000000"
+  },
+  {
+    "doctype": "DPWH Pay Item",
+    "name": "1402(6)",
+    "code": "1402(6)",
+    "description": "Conduit HDPE 63mm (Underground)",
+    "category": "1400 - Electrical",
+    "unit": "ln.m",
+    "modified": "2026-03-12 00:00:00.000000"
+  },
+  {
+    "doctype": "DPWH Pay Item",
+    "name": "1403(1)",
+    "code": "1403(1)",
+    "description": "Wiring THHN 3.5mm\u00b2 (12 AWG)",
+    "category": "1400 - Electrical",
+    "unit": "ln.m",
+    "modified": "2026-03-12 00:00:00.000000"
+  },
+  {
+    "doctype": "DPWH Pay Item",
+    "name": "1403(2)",
+    "code": "1403(2)",
+    "description": "Wiring THHN 5.5mm\u00b2 (10 AWG)",
+    "category": "1400 - Electrical",
+    "unit": "ln.m",
+    "modified": "2026-03-12 00:00:00.000000"
+  },
+  {
+    "doctype": "DPWH Pay Item",
+    "name": "1403(3)",
+    "code": "1403(3)",
+    "description": "Wiring THHN 8.0mm\u00b2 (8 AWG)",
+    "category": "1400 - Electrical",
+    "unit": "ln.m",
+    "modified": "2026-03-12 00:00:00.000000"
+  },
+  {
+    "doctype": "DPWH Pay Item",
+    "name": "1403(4)",
+    "code": "1403(4)",
+    "description": "Wiring THHN 14mm\u00b2 (6 AWG)",
+    "category": "1400 - Electrical",
+    "unit": "ln.m",
+    "modified": "2026-03-12 00:00:00.000000"
+  },
+  {
+    "doctype": "DPWH Pay Item",
+    "name": "1403(5)",
+    "code": "1403(5)",
+    "description": "Wiring THHN 22mm\u00b2 (4 AWG)",
+    "category": "1400 - Electrical",
+    "unit": "ln.m",
+    "modified": "2026-03-12 00:00:00.000000"
+  },
+  {
+    "doctype": "DPWH Pay Item",
+    "name": "1403(6)",
+    "code": "1403(6)",
+    "description": "Wiring THHN 38mm\u00b2 (2 AWG)",
+    "category": "1400 - Electrical",
+    "unit": "ln.m",
+    "modified": "2026-03-12 00:00:00.000000"
+  },
+  {
+    "doctype": "DPWH Pay Item",
+    "name": "1403(7)",
+    "code": "1403(7)",
+    "description": "Power Cable XLPE 3x50mm\u00b2",
+    "category": "1400 - Electrical",
+    "unit": "ln.m",
+    "modified": "2026-03-12 00:00:00.000000"
+  },
+  {
+    "doctype": "DPWH Pay Item",
+    "name": "1404(1)",
+    "code": "1404(1)",
+    "description": "Panel Board 3-Phase 30A MLO",
+    "category": "1400 - Electrical",
+    "unit": "set",
+    "modified": "2026-03-12 00:00:00.000000"
+  },
+  {
+    "doctype": "DPWH Pay Item",
+    "name": "1404(2)",
+    "code": "1404(2)",
+    "description": "Panel Board 3-Phase 60A (MB/Subfeed)",
+    "category": "1400 - Electrical",
+    "unit": "set",
+    "modified": "2026-03-12 00:00:00.000000"
+  },
+  {
+    "doctype": "DPWH Pay Item",
+    "name": "1404(3)",
+    "code": "1404(3)",
+    "description": "Main Distribution Panel (MDP) 400A",
+    "category": "1400 - Electrical",
+    "unit": "set",
+    "modified": "2026-03-12 00:00:00.000000"
+  },
+  {
+    "doctype": "DPWH Pay Item",
+    "name": "1405(1)",
+    "code": "1405(1)",
+    "description": "Distribution Transformer 50KVA",
+    "category": "1400 - Electrical",
+    "unit": "each",
+    "modified": "2026-03-12 00:00:00.000000"
+  },
+  {
+    "doctype": "DPWH Pay Item",
+    "name": "1405(2)",
+    "code": "1405(2)",
+    "description": "Distribution Transformer 100KVA",
+    "category": "1400 - Electrical",
+    "unit": "each",
+    "modified": "2026-03-12 00:00:00.000000"
+  },
+  {
+    "doctype": "DPWH Pay Item",
+    "name": "1406(1)",
+    "code": "1406(1)",
+    "description": "CCTV System (IP Camera, per camera)",
+    "category": "1400 - Electrical",
+    "unit": "each",
+    "modified": "2026-03-12 00:00:00.000000"
+  },
+  {
+    "doctype": "DPWH Pay Item",
+    "name": "1406(2)",
+    "code": "1406(2)",
+    "description": "CCTV NVR and Monitoring System",
+    "category": "1400 - Electrical",
+    "unit": "set",
+    "modified": "2026-03-12 00:00:00.000000"
+  },
+  {
+    "doctype": "DPWH Pay Item",
+    "name": "1407(1)",
+    "code": "1407(1)",
+    "description": "PA/Sound System (per speaker point)",
+    "category": "1400 - Electrical",
+    "unit": "each",
+    "modified": "2026-03-12 00:00:00.000000"
+  },
+  {
+    "doctype": "DPWH Pay Item",
+    "name": "1408(1)",
+    "code": "1408(1)",
+    "description": "Fire Detection and Alarm System",
+    "category": "1400 - Electrical",
+    "unit": "lot",
+    "modified": "2026-03-12 00:00:00.000000"
+  },
+  {
+    "doctype": "DPWH Pay Item",
+    "name": "1409(1)",
+    "code": "1409(1)",
+    "description": "Automatic Transfer Switch (ATS) 400A",
+    "category": "1400 - Electrical",
+    "unit": "each",
+    "modified": "2026-03-12 00:00:00.000000"
+  },
+  {
+    "doctype": "DPWH Pay Item",
+    "name": "1410(1)",
+    "code": "1410(1)",
+    "description": "Generator Set Standby 100KW",
+    "category": "1400 - Electrical",
+    "unit": "each",
+    "modified": "2026-03-12 00:00:00.000000"
+  },
+  {
+    "doctype": "DPWH Pay Item",
+    "name": "1410(2)",
+    "code": "1410(2)",
+    "description": "Generator Set Standby 250KW",
+    "category": "1400 - Electrical",
+    "unit": "each",
+    "modified": "2026-03-12 00:00:00.000000"
+  },
+  {
+    "doctype": "DPWH Pay Item",
+    "name": "1411(1)",
+    "code": "1411(1)",
+    "description": "Lighting Fixtures (LED Panel 2x2)",
+    "category": "1400 - Electrical",
+    "unit": "each",
+    "modified": "2026-03-12 00:00:00.000000"
+  },
+  {
+    "doctype": "DPWH Pay Item",
+    "name": "1411(2)",
+    "code": "1411(2)",
+    "description": "Lighting Fixtures (LED Highbay)",
+    "category": "1400 - Electrical",
+    "unit": "each",
+    "modified": "2026-03-12 00:00:00.000000"
+  },
+  {
+    "doctype": "DPWH Pay Item",
+    "name": "1411(3)",
+    "code": "1411(3)",
+    "description": "Outdoor Area Lighting (LED Floodlight)",
+    "category": "1400 - Electrical",
+    "unit": "each",
+    "modified": "2026-03-12 00:00:00.000000"
+  },
+  {
+    "doctype": "DPWH Pay Item",
+    "name": "1412(1)",
+    "code": "1412(1)",
+    "description": "Lightning Protection System (Air Terminal)",
+    "category": "1400 - Electrical",
+    "unit": "lot",
+    "modified": "2026-03-12 00:00:00.000000"
+  },
+  {
+    "doctype": "DPWH Pay Item",
+    "name": "1413(1)",
+    "code": "1413(1)",
+    "description": "Grounding System (Copper Rod)",
+    "category": "1400 - Electrical",
+    "unit": "each",
+    "modified": "2026-03-12 00:00:00.000000"
+  },
+  {
+    "doctype": "DPWH Pay Item",
+    "name": "1414(1)",
+    "code": "1414(1)",
+    "description": "Uninterruptible Power Supply (UPS)",
+    "category": "1400 - Electrical",
+    "unit": "each",
+    "modified": "2026-03-12 00:00:00.000000"
+  },
+  {
+    "doctype": "DPWH Pay Item",
+    "name": "1415(1)",
+    "code": "1415(1)",
+    "description": "Solar PV Panels (Rooftop)",
+    "category": "1400 - Electrical",
+    "unit": "kWp",
+    "modified": "2026-03-12 00:00:00.000000"
+  },
+  {
+    "doctype": "DPWH Pay Item",
+    "name": "1416(1)",
+    "code": "1416(1)",
+    "description": "Electrical Raceways (Cable Tray)",
+    "category": "1400 - Electrical",
+    "unit": "ln.m",
+    "modified": "2026-03-12 00:00:00.000000"
+  },
+  {
+    "doctype": "DPWH Pay Item",
+    "name": "1417(1)",
+    "code": "1417(1)",
+    "description": "Motor Control Center (MCC)",
+    "category": "1400 - Electrical",
+    "unit": "set",
+    "modified": "2026-03-12 00:00:00.000000"
+  },
+  {
+    "doctype": "DPWH Pay Item",
+    "name": "1418(1)",
+    "code": "1418(1)",
+    "description": "Wiring Devices (Receptacle/Switch)",
+    "category": "1400 - Electrical",
+    "unit": "each",
+    "modified": "2026-03-12 00:00:00.000000"
+  },
+  {
+    "doctype": "DPWH Pay Item",
+    "name": "1419(1)",
+    "code": "1419(1)",
+    "description": "Busbar Duct System",
+    "category": "1400 - Electrical",
+    "unit": "ln.m",
+    "modified": "2026-03-12 00:00:00.000000"
+  },
+  {
+    "doctype": "DPWH Pay Item",
+    "name": "1420(1)",
+    "code": "1420(1)",
+    "description": "Substation Equipment (MV Switchgear)",
+    "category": "1400 - Electrical",
+    "unit": "lot",
+    "modified": "2026-03-12 00:00:00.000000"
+  },
+  {
+    "doctype": "DPWH Pay Item",
+    "name": "1503(1)",
+    "code": "1503(1)",
+    "description": "Drainage PVC Pipe 100mm (S1000)",
+    "category": "1500 - Plumbing",
+    "unit": "ln.m",
+    "modified": "2026-03-12 00:00:00.000000"
+  },
+  {
+    "doctype": "DPWH Pay Item",
+    "name": "1503(2)",
+    "code": "1503(2)",
+    "description": "Drainage PVC Pipe 150mm",
+    "category": "1500 - Plumbing",
+    "unit": "ln.m",
+    "modified": "2026-03-12 00:00:00.000000"
+  },
+  {
+    "doctype": "DPWH Pay Item",
+    "name": "1503(3)",
+    "code": "1503(3)",
+    "description": "Drainage PVC Pipe 200mm",
+    "category": "1500 - Plumbing",
+    "unit": "ln.m",
+    "modified": "2026-03-12 00:00:00.000000"
+  },
+  {
+    "doctype": "DPWH Pay Item",
+    "name": "1503(4)",
+    "code": "1503(4)",
+    "description": "Drainage HDPE Pipe 150mm",
+    "category": "1500 - Plumbing",
+    "unit": "ln.m",
+    "modified": "2026-03-12 00:00:00.000000"
+  },
+  {
+    "doctype": "DPWH Pay Item",
+    "name": "1503(5)",
+    "code": "1503(5)",
+    "description": "Drainage Stainless Steel Channel",
+    "category": "1500 - Plumbing",
+    "unit": "ln.m",
+    "modified": "2026-03-12 00:00:00.000000"
+  },
+  {
+    "doctype": "DPWH Pay Item",
+    "name": "1504(1)",
+    "code": "1504(1)",
+    "description": "Water Supply PPR Pipe 25mm",
+    "category": "1500 - Plumbing",
+    "unit": "ln.m",
+    "modified": "2026-03-12 00:00:00.000000"
+  },
+  {
+    "doctype": "DPWH Pay Item",
+    "name": "1504(2)",
+    "code": "1504(2)",
+    "description": "Water Supply GI Pipe 50mm (Sch 40)",
+    "category": "1500 - Plumbing",
+    "unit": "ln.m",
+    "modified": "2026-03-12 00:00:00.000000"
+  },
+  {
+    "doctype": "DPWH Pay Item",
+    "name": "1504(3)",
+    "code": "1504(3)",
+    "description": "Water Supply GI Pipe 75mm (Sch 40)",
+    "category": "1500 - Plumbing",
+    "unit": "ln.m",
+    "modified": "2026-03-12 00:00:00.000000"
+  },
+  {
+    "doctype": "DPWH Pay Item",
+    "name": "1504(4)",
+    "code": "1504(4)",
+    "description": "Water Supply UPVC Pipe 25mm",
+    "category": "1500 - Plumbing",
+    "unit": "ln.m",
+    "modified": "2026-03-12 00:00:00.000000"
+  },
+  {
+    "doctype": "DPWH Pay Item",
+    "name": "1504(5)",
+    "code": "1504(5)",
+    "description": "Water Supply UPVC Pipe 50mm",
+    "category": "1500 - Plumbing",
+    "unit": "ln.m",
+    "modified": "2026-03-12 00:00:00.000000"
+  },
+  {
+    "doctype": "DPWH Pay Item",
+    "name": "1504(6)",
+    "code": "1504(6)",
+    "description": "Process Piping UPVC 50mm",
+    "category": "1500 - Plumbing",
+    "unit": "ln.m",
+    "modified": "2026-03-12 00:00:00.000000"
+  },
+  {
+    "doctype": "DPWH Pay Item",
+    "name": "1504(7)",
+    "code": "1504(7)",
+    "description": "Process Piping UPVC 100mm",
+    "category": "1500 - Plumbing",
+    "unit": "ln.m",
+    "modified": "2026-03-12 00:00:00.000000"
+  },
+  {
+    "doctype": "DPWH Pay Item",
+    "name": "1505(1)",
+    "code": "1505(1)",
+    "description": "Septic Tank 2-Chamber (Concrete)",
+    "category": "1500 - Plumbing",
+    "unit": "each",
+    "modified": "2026-03-12 00:00:00.000000"
+  },
+  {
+    "doctype": "DPWH Pay Item",
+    "name": "1505(2)",
+    "code": "1505(2)",
+    "description": "Septic Tank 3-Chamber (Concrete)",
+    "category": "1500 - Plumbing",
+    "unit": "each",
+    "modified": "2026-03-12 00:00:00.000000"
+  },
+  {
+    "doctype": "DPWH Pay Item",
+    "name": "1505(3)",
+    "code": "1505(3)",
+    "description": "Biodigester/Biofilter System",
+    "category": "1500 - Plumbing",
+    "unit": "each",
+    "modified": "2026-03-12 00:00:00.000000"
+  },
+  {
+    "doctype": "DPWH Pay Item",
+    "name": "1506(1)",
+    "code": "1506(1)",
+    "description": "Water Closet (Floor Mounted)",
+    "category": "1500 - Plumbing",
+    "unit": "each",
+    "modified": "2026-03-12 00:00:00.000000"
+  },
+  {
+    "doctype": "DPWH Pay Item",
+    "name": "1506(2)",
+    "code": "1506(2)",
+    "description": "Lavatory/Washbasin (Counter Top)",
+    "category": "1500 - Plumbing",
+    "unit": "each",
+    "modified": "2026-03-12 00:00:00.000000"
+  },
+  {
+    "doctype": "DPWH Pay Item",
+    "name": "1506(3)",
+    "code": "1506(3)",
+    "description": "Urinal (Wall Hung)",
+    "category": "1500 - Plumbing",
+    "unit": "each",
+    "modified": "2026-03-12 00:00:00.000000"
+  },
+  {
+    "doctype": "DPWH Pay Item",
+    "name": "1506(4)",
+    "code": "1506(4)",
+    "description": "Shower Set",
+    "category": "1500 - Plumbing",
+    "unit": "each",
+    "modified": "2026-03-12 00:00:00.000000"
+  },
+  {
+    "doctype": "DPWH Pay Item",
+    "name": "1506(5)",
+    "code": "1506(5)",
+    "description": "Utility Sink (Stainless)",
+    "category": "1500 - Plumbing",
+    "unit": "each",
+    "modified": "2026-03-12 00:00:00.000000"
+  },
+  {
+    "doctype": "DPWH Pay Item",
+    "name": "1507(1)",
+    "code": "1507(1)",
+    "description": "Grease Trap (Concrete)",
+    "category": "1500 - Plumbing",
+    "unit": "each",
+    "modified": "2026-03-12 00:00:00.000000"
+  },
+  {
+    "doctype": "DPWH Pay Item",
+    "name": "1507(2)",
+    "code": "1507(2)",
+    "description": "Grease Interceptor (Pre-cast)",
+    "category": "1500 - Plumbing",
+    "unit": "each",
+    "modified": "2026-03-12 00:00:00.000000"
+  },
+  {
+    "doctype": "DPWH Pay Item",
+    "name": "1508(1)",
+    "code": "1508(1)",
+    "description": "Fire Protection Sprinkler System",
+    "category": "1500 - Plumbing",
+    "unit": "sq.m",
+    "modified": "2026-03-12 00:00:00.000000"
+  },
+  {
+    "doctype": "DPWH Pay Item",
+    "name": "1508(2)",
+    "code": "1508(2)",
+    "description": "Fire Standpipe System",
+    "category": "1500 - Plumbing",
+    "unit": "lot",
+    "modified": "2026-03-12 00:00:00.000000"
+  },
+  {
+    "doctype": "DPWH Pay Item",
+    "name": "1508(3)",
+    "code": "1508(3)",
+    "description": "Fire Hydrant (Outdoor)",
+    "category": "1500 - Plumbing",
+    "unit": "each",
+    "modified": "2026-03-12 00:00:00.000000"
+  },
+  {
+    "doctype": "DPWH Pay Item",
+    "name": "1509(1)",
+    "code": "1509(1)",
+    "description": "Split-Type AC 1.5HP (Window/Wall)",
+    "category": "1500 - Plumbing",
+    "unit": "each",
+    "modified": "2026-03-12 00:00:00.000000"
+  },
+  {
+    "doctype": "DPWH Pay Item",
+    "name": "1509(2)",
+    "code": "1509(2)",
+    "description": "Split-Type AC 2.5HP",
+    "category": "1500 - Plumbing",
+    "unit": "each",
+    "modified": "2026-03-12 00:00:00.000000"
+  },
+  {
+    "doctype": "DPWH Pay Item",
+    "name": "1509(3)",
+    "code": "1509(3)",
+    "description": "Cassette-Type AC 2.5HP",
+    "category": "1500 - Plumbing",
+    "unit": "each",
+    "modified": "2026-03-12 00:00:00.000000"
+  },
+  {
+    "doctype": "DPWH Pay Item",
+    "name": "1510(1)",
+    "code": "1510(1)",
+    "description": "Chiller/Air Handling Unit (AHU)",
+    "category": "1500 - Plumbing",
+    "unit": "TR",
+    "modified": "2026-03-12 00:00:00.000000"
+  },
+  {
+    "doctype": "DPWH Pay Item",
+    "name": "1510(2)",
+    "code": "1510(2)",
+    "description": "Fan Coil Unit (FCU)",
+    "category": "1500 - Plumbing",
+    "unit": "each",
+    "modified": "2026-03-12 00:00:00.000000"
+  },
+  {
+    "doctype": "DPWH Pay Item",
+    "name": "1511(1)",
+    "code": "1511(1)",
+    "description": "Exhaust Fan Ceiling-Mounted",
+    "category": "1500 - Plumbing",
+    "unit": "each",
+    "modified": "2026-03-12 00:00:00.000000"
+  },
+  {
+    "doctype": "DPWH Pay Item",
+    "name": "1511(2)",
+    "code": "1511(2)",
+    "description": "Exhaust Fan Industrial (Wall)",
+    "category": "1500 - Plumbing",
+    "unit": "each",
+    "modified": "2026-03-12 00:00:00.000000"
+  },
+  {
+    "doctype": "DPWH Pay Item",
+    "name": "1512(1)",
+    "code": "1512(1)",
+    "description": "Refrigeration System Cold Storage",
+    "category": "1500 - Plumbing",
+    "unit": "TR",
+    "modified": "2026-03-12 00:00:00.000000"
+  },
+  {
+    "doctype": "DPWH Pay Item",
+    "name": "1512(2)",
+    "code": "1512(2)",
+    "description": "Evaporative Cooling System (Poultry)",
+    "category": "1500 - Plumbing",
+    "unit": "lot",
+    "modified": "2026-03-12 00:00:00.000000"
+  },
+  {
+    "doctype": "DPWH Pay Item",
+    "name": "1513(1)",
+    "code": "1513(1)",
+    "description": "Water Pump (Booster)",
+    "category": "1500 - Plumbing",
+    "unit": "each",
+    "modified": "2026-03-12 00:00:00.000000"
+  },
+  {
+    "doctype": "DPWH Pay Item",
+    "name": "1514(1)",
+    "code": "1514(1)",
+    "description": "Water Tank (Polyethylene)",
+    "category": "1500 - Plumbing",
+    "unit": "each",
+    "modified": "2026-03-12 00:00:00.000000"
+  },
+  {
+    "doctype": "DPWH Pay Item",
+    "name": "1515(1)",
+    "code": "1515(1)",
+    "description": "Hot Water Heater (Electric)",
+    "category": "1500 - Plumbing",
+    "unit": "each",
+    "modified": "2026-03-12 00:00:00.000000"
+  },
+  {
+    "doctype": "DPWH Pay Item",
+    "name": "1516(1)",
+    "code": "1516(1)",
+    "description": "Stainless Steel Sink (Commercial)",
+    "category": "1500 - Plumbing",
+    "unit": "each",
+    "modified": "2026-03-12 00:00:00.000000"
+  },
+  {
+    "doctype": "DPWH Pay Item",
+    "name": "1601(1)",
+    "code": "1601(1)",
+    "description": "Masonry Neutralizer/Etch Primer",
+    "category": "1600 - Painting",
+    "unit": "sq.m",
+    "modified": "2026-03-12 00:00:00.000000"
+  },
+  {
+    "doctype": "DPWH Pay Item",
+    "name": "1602(1)",
+    "code": "1602(1)",
+    "description": "Acrylic Latex Paint Interior (2 Coats)",
+    "category": "1600 - Painting",
+    "unit": "sq.m",
+    "modified": "2026-03-12 00:00:00.000000"
+  },
+  {
+    "doctype": "DPWH Pay Item",
+    "name": "1602(2)",
+    "code": "1602(2)",
+    "description": "Acrylic Latex Paint Exterior (2 Coats)",
+    "category": "1600 - Painting",
+    "unit": "sq.m",
+    "modified": "2026-03-12 00:00:00.000000"
+  },
+  {
+    "doctype": "DPWH Pay Item",
+    "name": "1602(3)",
+    "code": "1602(3)",
+    "description": "Acrylic Textured Coating Exterior",
+    "category": "1600 - Painting",
+    "unit": "sq.m",
+    "modified": "2026-03-12 00:00:00.000000"
+  },
+  {
+    "doctype": "DPWH Pay Item",
+    "name": "1603(1)",
+    "code": "1603(1)",
+    "description": "Epoxy Paint Floor (2 Coats)",
+    "category": "1600 - Painting",
+    "unit": "sq.m",
+    "modified": "2026-03-12 00:00:00.000000"
+  },
+  {
+    "doctype": "DPWH Pay Item",
+    "name": "1603(2)",
+    "code": "1603(2)",
+    "description": "Epoxy Food-Grade Floor Coating (4 Coats)",
+    "category": "1600 - Painting",
+    "unit": "sq.m",
+    "modified": "2026-03-12 00:00:00.000000"
+  },
+  {
+    "doctype": "DPWH Pay Item",
+    "name": "1604(1)",
+    "code": "1604(1)",
+    "description": "Roof Paint Elastomeric",
+    "category": "1600 - Painting",
+    "unit": "sq.m",
+    "modified": "2026-03-12 00:00:00.000000"
+  },
+  {
+    "doctype": "DPWH Pay Item",
+    "name": "1605(1)",
+    "code": "1605(1)",
+    "description": "Anti-Corrosion Paint Metal Surfaces",
+    "category": "1600 - Painting",
+    "unit": "sq.m",
+    "modified": "2026-03-12 00:00:00.000000"
+  },
+  {
+    "doctype": "DPWH Pay Item",
+    "name": "1606(1)",
+    "code": "1606(1)",
+    "description": "Road Markings Thermoplastic",
+    "category": "1600 - Painting",
+    "unit": "sq.m",
+    "modified": "2026-03-12 00:00:00.000000"
+  },
+  {
+    "doctype": "DPWH Pay Item",
+    "name": "1607(1)",
+    "code": "1607(1)",
+    "description": "Traffic Paint (Water-based)",
+    "category": "1600 - Painting",
+    "unit": "sq.m",
+    "modified": "2026-03-12 00:00:00.000000"
+  },
+  {
+    "doctype": "DPWH Pay Item",
+    "name": "1608(1)",
+    "code": "1608(1)",
+    "description": "Concrete Sealer/Densifier",
+    "category": "1600 - Painting",
+    "unit": "sq.m",
+    "modified": "2026-03-12 00:00:00.000000"
+  },
+  {
+    "doctype": "DPWH Pay Item",
+    "name": "1609(1)",
+    "code": "1609(1)",
+    "description": "Intumescent Fire-Resistant Paint (Steel)",
+    "category": "1600 - Painting",
+    "unit": "sq.m",
+    "modified": "2026-03-12 00:00:00.000000"
+  },
+  {
+    "doctype": "DPWH Pay Item",
+    "name": "1610(1)",
+    "code": "1610(1)",
+    "description": "Polyurethane Paint (Protective Coating)",
+    "category": "1600 - Painting",
+    "unit": "sq.m",
+    "modified": "2026-03-12 00:00:00.000000"
+  },
+  {
+    "doctype": "DPWH Pay Item",
+    "name": "1611(1)",
+    "code": "1611(1)",
+    "description": "Aluminum Paint (Roof Coating)",
+    "category": "1600 - Painting",
+    "unit": "sq.m",
+    "modified": "2026-03-12 00:00:00.000000"
+  },
+  {
+    "doctype": "DPWH Pay Item",
+    "name": "1612(1)",
+    "code": "1612(1)",
+    "description": "Waterproof Paint Bathroom/Wet Areas",
+    "category": "1600 - Painting",
+    "unit": "sq.m",
+    "modified": "2026-03-12 00:00:00.000000"
+  },
+  {
+    "doctype": "DPWH Pay Item",
+    "name": "1703(1)",
+    "code": "1703(1)",
+    "description": "Ceramic Tile Floor 300x300mm",
+    "category": "1700 - Finishes",
+    "unit": "sq.m",
+    "modified": "2026-03-12 00:00:00.000000"
+  },
+  {
+    "doctype": "DPWH Pay Item",
+    "name": "1703(2)",
+    "code": "1703(2)",
+    "description": "Ceramic Tile Floor 400x400mm",
+    "category": "1700 - Finishes",
+    "unit": "sq.m",
+    "modified": "2026-03-12 00:00:00.000000"
+  },
+  {
+    "doctype": "DPWH Pay Item",
+    "name": "1704(1)",
+    "code": "1704(1)",
+    "description": "Granite Tile Floor 600x600mm (Polished)",
+    "category": "1700 - Finishes",
+    "unit": "sq.m",
+    "modified": "2026-03-12 00:00:00.000000"
+  },
+  {
+    "doctype": "DPWH Pay Item",
+    "name": "1704(2)",
+    "code": "1704(2)",
+    "description": "Marble Tile Floor 600x600mm",
+    "category": "1700 - Finishes",
+    "unit": "sq.m",
+    "modified": "2026-03-12 00:00:00.000000"
+  },
+  {
+    "doctype": "DPWH Pay Item",
+    "name": "1705(1)",
+    "code": "1705(1)",
+    "description": "Wall Tile Ceramic 250x375mm",
+    "category": "1700 - Finishes",
+    "unit": "sq.m",
+    "modified": "2026-03-12 00:00:00.000000"
+  },
+  {
+    "doctype": "DPWH Pay Item",
+    "name": "1705(2)",
+    "code": "1705(2)",
+    "description": "Wall Tile Homogeneous 300x600mm",
+    "category": "1700 - Finishes",
+    "unit": "sq.m",
+    "modified": "2026-03-12 00:00:00.000000"
+  },
+  {
+    "doctype": "DPWH Pay Item",
+    "name": "1706(1)",
+    "code": "1706(1)",
+    "description": "Gypsum Board Ceiling (9mm on Metal Grid)",
+    "category": "1700 - Finishes",
+    "unit": "sq.m",
+    "modified": "2026-03-12 00:00:00.000000"
+  },
+  {
+    "doctype": "DPWH Pay Item",
+    "name": "1706(2)",
+    "code": "1706(2)",
+    "description": "Gypsum Board Partition (12.5mm)",
+    "category": "1700 - Finishes",
+    "unit": "sq.m",
+    "modified": "2026-03-12 00:00:00.000000"
+  },
+  {
+    "doctype": "DPWH Pay Item",
+    "name": "1707(1)",
+    "code": "1707(1)",
+    "description": "Suspended Metal Grid Ceiling (T-Bar)",
+    "category": "1700 - Finishes",
+    "unit": "sq.m",
+    "modified": "2026-03-12 00:00:00.000000"
+  },
+  {
+    "doctype": "DPWH Pay Item",
+    "name": "1707(2)",
+    "code": "1707(2)",
+    "description": "Acoustic Tile Ceiling (600x600mm)",
+    "category": "1700 - Finishes",
+    "unit": "sq.m",
+    "modified": "2026-03-12 00:00:00.000000"
+  },
+  {
+    "doctype": "DPWH Pay Item",
+    "name": "1708(1)",
+    "code": "1708(1)",
+    "description": "Vinyl Composite Tile (VCT) 300x300mm",
+    "category": "1700 - Finishes",
+    "unit": "sq.m",
+    "modified": "2026-03-12 00:00:00.000000"
+  },
+  {
+    "doctype": "DPWH Pay Item",
+    "name": "1708(2)",
+    "code": "1708(2)",
+    "description": "Luxury Vinyl Plank (LVP) Flooring",
+    "category": "1700 - Finishes",
+    "unit": "sq.m",
+    "modified": "2026-03-12 00:00:00.000000"
+  },
+  {
+    "doctype": "DPWH Pay Item",
+    "name": "1709(1)",
+    "code": "1709(1)",
+    "description": "Epoxy Screed Flooring (10mm)",
+    "category": "1700 - Finishes",
+    "unit": "sq.m",
+    "modified": "2026-03-12 00:00:00.000000"
+  },
+  {
+    "doctype": "DPWH Pay Item",
+    "name": "1710(1)",
+    "code": "1710(1)",
+    "description": "Homogeneous Tile 600x600mm (Unpolished)",
+    "category": "1700 - Finishes",
+    "unit": "sq.m",
+    "modified": "2026-03-12 00:00:00.000000"
+  },
+  {
+    "doctype": "DPWH Pay Item",
+    "name": "1710(2)",
+    "code": "1710(2)",
+    "description": "Homogeneous Tile 600x1200mm",
+    "category": "1700 - Finishes",
+    "unit": "sq.m",
+    "modified": "2026-03-12 00:00:00.000000"
+  },
+  {
+    "doctype": "DPWH Pay Item",
+    "name": "1711(1)",
+    "code": "1711(1)",
+    "description": "Plaster Works Interior (12mm Cement:Sand)",
+    "category": "1700 - Finishes",
+    "unit": "sq.m",
+    "modified": "2026-03-12 00:00:00.000000"
+  },
+  {
+    "doctype": "DPWH Pay Item",
+    "name": "1711(2)",
+    "code": "1711(2)",
+    "description": "Plaster Works Exterior (Skim Finish)",
+    "category": "1700 - Finishes",
+    "unit": "sq.m",
+    "modified": "2026-03-12 00:00:00.000000"
+  },
+  {
+    "doctype": "DPWH Pay Item",
+    "name": "1712(1)",
+    "code": "1712(1)",
+    "description": "Skim Coat Finishing (Putty)",
+    "category": "1700 - Finishes",
+    "unit": "sq.m",
+    "modified": "2026-03-12 00:00:00.000000"
+  },
+  {
+    "doctype": "DPWH Pay Item",
+    "name": "1713(1)",
+    "code": "1713(1)",
+    "description": "Floor Hardener (Metallic Aggregate)",
+    "category": "1700 - Finishes",
+    "unit": "sq.m",
+    "modified": "2026-03-12 00:00:00.000000"
+  },
+  {
+    "doctype": "DPWH Pay Item",
+    "name": "1714(1)",
+    "code": "1714(1)",
+    "description": "Rubber Flooring Tile (Sports)",
+    "category": "1700 - Finishes",
+    "unit": "sq.m",
+    "modified": "2026-03-12 00:00:00.000000"
+  },
+  {
+    "doctype": "DPWH Pay Item",
+    "name": "1715(1)",
+    "code": "1715(1)",
+    "description": "Anti-Static Epoxy Floor",
+    "category": "1700 - Finishes",
+    "unit": "sq.m",
+    "modified": "2026-03-12 00:00:00.000000"
+  },
+  {
+    "doctype": "DPWH Pay Item",
+    "name": "1716(1)",
+    "code": "1716(1)",
+    "description": "Fiber Cement Board Siding",
+    "category": "1700 - Finishes",
+    "unit": "sq.m",
+    "modified": "2026-03-12 00:00:00.000000"
+  },
+  {
+    "doctype": "DPWH Pay Item",
+    "name": "1717(1)",
+    "code": "1717(1)",
+    "description": "Calcium Silicate Board Ceiling",
+    "category": "1700 - Finishes",
+    "unit": "sq.m",
+    "modified": "2026-03-12 00:00:00.000000"
+  },
+  {
+    "doctype": "DPWH Pay Item",
+    "name": "1718(1)",
+    "code": "1718(1)",
+    "description": "Cove Base (Rubber/PVC)",
+    "category": "1700 - Finishes",
+    "unit": "ln.m",
+    "modified": "2026-03-12 00:00:00.000000"
+  },
+  {
+    "doctype": "DPWH Pay Item",
+    "name": "1719(1)",
+    "code": "1719(1)",
+    "description": "Stainless Steel Wall Cladding (Food Grade)",
+    "category": "1700 - Finishes",
+    "unit": "sq.m",
+    "modified": "2026-03-12 00:00:00.000000"
+  },
+  {
+    "doctype": "DPWH Pay Item",
+    "name": "1720(1)",
+    "code": "1720(1)",
+    "description": "Acoustic Foam Panel (Studio)",
+    "category": "1700 - Finishes",
+    "unit": "sq.m",
+    "modified": "2026-03-12 00:00:00.000000"
+  },
+  {
+    "doctype": "DPWH Pay Item",
+    "name": "1721(1)",
+    "code": "1721(1)",
+    "description": "Mosaic Tile (Glass/Ceramic)",
+    "category": "1700 - Finishes",
+    "unit": "sq.m",
+    "modified": "2026-03-12 00:00:00.000000"
+  },
+  {
+    "doctype": "DPWH Pay Item",
+    "name": "1722(1)",
+    "code": "1722(1)",
+    "description": "Bamboo Flooring",
+    "category": "1700 - Finishes",
+    "unit": "sq.m",
+    "modified": "2026-03-12 00:00:00.000000"
+  },
+  {
+    "doctype": "DPWH Pay Item",
+    "name": "1801(1)",
+    "code": "1801(1)",
+    "description": "Perimeter Fence CHB 2.4m High",
+    "category": "1800 - Site Development",
+    "unit": "ln.m",
+    "modified": "2026-03-12 00:00:00.000000"
+  },
+  {
+    "doctype": "DPWH Pay Item",
+    "name": "1801(2)",
+    "code": "1801(2)",
+    "description": "Perimeter Fence Pre-cast Concrete",
+    "category": "1800 - Site Development",
+    "unit": "ln.m",
+    "modified": "2026-03-12 00:00:00.000000"
+  },
+  {
+    "doctype": "DPWH Pay Item",
+    "name": "1802(1)",
+    "code": "1802(1)",
+    "description": "Chain Link Fence 2.4m (GI Wire)",
+    "category": "1800 - Site Development",
+    "unit": "ln.m",
+    "modified": "2026-03-12 00:00:00.000000"
+  },
+  {
+    "doctype": "DPWH Pay Item",
+    "name": "1802(2)",
+    "code": "1802(2)",
+    "description": "Chain Link Fence 1.8m with Barbed Wire",
+    "category": "1800 - Site Development",
+    "unit": "ln.m",
+    "modified": "2026-03-12 00:00:00.000000"
+  },
+  {
+    "doctype": "DPWH Pay Item",
+    "name": "1803(1)",
+    "code": "1803(1)",
+    "description": "Concrete Paving (Parking Area)",
+    "category": "1800 - Site Development",
+    "unit": "sq.m",
+    "modified": "2026-03-12 00:00:00.000000"
+  },
+  {
+    "doctype": "DPWH Pay Item",
+    "name": "1803(2)",
+    "code": "1803(2)",
+    "description": "Concrete Paving (Access Road)",
+    "category": "1800 - Site Development",
+    "unit": "sq.m",
+    "modified": "2026-03-12 00:00:00.000000"
+  },
+  {
+    "doctype": "DPWH Pay Item",
+    "name": "1804(1)",
+    "code": "1804(1)",
+    "description": "Interlocking Concrete Paver 60mm",
+    "category": "1800 - Site Development",
+    "unit": "sq.m",
+    "modified": "2026-03-12 00:00:00.000000"
+  },
+  {
+    "doctype": "DPWH Pay Item",
+    "name": "1804(2)",
+    "code": "1804(2)",
+    "description": "Interlocking Concrete Paver 80mm (Heavy Duty)",
+    "category": "1800 - Site Development",
+    "unit": "sq.m",
+    "modified": "2026-03-12 00:00:00.000000"
+  },
+  {
+    "doctype": "DPWH Pay Item",
+    "name": "1805(1)",
+    "code": "1805(1)",
+    "description": "Landscape Sodding and Planting",
+    "category": "1800 - Site Development",
+    "unit": "sq.m",
+    "modified": "2026-03-12 00:00:00.000000"
+  },
+  {
+    "doctype": "DPWH Pay Item",
+    "name": "1805(2)",
+    "code": "1805(2)",
+    "description": "Landscape Irrigation System (Drip)",
+    "category": "1800 - Site Development",
+    "unit": "sq.m",
+    "modified": "2026-03-12 00:00:00.000000"
+  },
+  {
+    "doctype": "DPWH Pay Item",
+    "name": "1806(1)",
+    "code": "1806(1)",
+    "description": "Underground Utility Trench 300mm Wide",
+    "category": "1800 - Site Development",
+    "unit": "ln.m",
+    "modified": "2026-03-12 00:00:00.000000"
+  },
+  {
+    "doctype": "DPWH Pay Item",
+    "name": "1806(2)",
+    "code": "1806(2)",
+    "description": "Underground Utility Trench 600mm Wide",
+    "category": "1800 - Site Development",
+    "unit": "ln.m",
+    "modified": "2026-03-12 00:00:00.000000"
+  },
+  {
+    "doctype": "DPWH Pay Item",
+    "name": "1807(1)",
+    "code": "1807(1)",
+    "description": "Concrete Canal Lining (U-Type Drain)",
+    "category": "1800 - Site Development",
+    "unit": "ln.m",
+    "modified": "2026-03-12 00:00:00.000000"
+  },
+  {
+    "doctype": "DPWH Pay Item",
+    "name": "1808(1)",
+    "code": "1808(1)",
+    "description": "Catch Basin Type A (600x600mm)",
+    "category": "1800 - Site Development",
+    "unit": "each",
+    "modified": "2026-03-12 00:00:00.000000"
+  },
+  {
+    "doctype": "DPWH Pay Item",
+    "name": "1808(2)",
+    "code": "1808(2)",
+    "description": "Catch Basin Type B (900x900mm)",
+    "category": "1800 - Site Development",
+    "unit": "each",
+    "modified": "2026-03-12 00:00:00.000000"
+  },
+  {
+    "doctype": "DPWH Pay Item",
+    "name": "1809(1)",
+    "code": "1809(1)",
+    "description": "Manhole Type A 600mm dia",
+    "category": "1800 - Site Development",
+    "unit": "each",
+    "modified": "2026-03-12 00:00:00.000000"
+  },
+  {
+    "doctype": "DPWH Pay Item",
+    "name": "1809(2)",
+    "code": "1809(2)",
+    "description": "Manhole Type B 900mm dia",
+    "category": "1800 - Site Development",
+    "unit": "each",
+    "modified": "2026-03-12 00:00:00.000000"
+  },
+  {
+    "doctype": "DPWH Pay Item",
+    "name": "1810(1)",
+    "code": "1810(1)",
+    "description": "Concrete Road Barrier (Jersey Type)",
+    "category": "1800 - Site Development",
+    "unit": "each",
+    "modified": "2026-03-12 00:00:00.000000"
+  },
+  {
+    "doctype": "DPWH Pay Item",
+    "name": "1811(1)",
+    "code": "1811(1)",
+    "description": "Flag Pole 6m (Steel)",
+    "category": "1800 - Site Development",
+    "unit": "each",
+    "modified": "2026-03-12 00:00:00.000000"
+  },
+  {
+    "doctype": "DPWH Pay Item",
+    "name": "1812(1)",
+    "code": "1812(1)",
+    "description": "Signage and Way-finding Package",
+    "category": "1800 - Site Development",
+    "unit": "lot",
+    "modified": "2026-03-12 00:00:00.000000"
+  },
+  {
+    "doctype": "DPWH Pay Item",
+    "name": "1813(1)",
+    "code": "1813(1)",
+    "description": "Guard House (Prefab/Modular)",
+    "category": "1800 - Site Development",
+    "unit": "sq.m",
+    "modified": "2026-03-12 00:00:00.000000"
+  },
+  {
+    "doctype": "DPWH Pay Item",
+    "name": "1814(1)",
+    "code": "1814(1)",
+    "description": "Concrete Retaining Wall (Site)",
+    "category": "1800 - Site Development",
+    "unit": "cu.m",
+    "modified": "2026-03-12 00:00:00.000000"
+  },
+  {
+    "doctype": "DPWH Pay Item",
+    "name": "1815(1)",
+    "code": "1815(1)",
+    "description": "Outdoor Benches and Furniture",
+    "category": "1800 - Site Development",
+    "unit": "each",
+    "modified": "2026-03-12 00:00:00.000000"
+  },
+  {
+    "doctype": "DPWH Pay Item",
+    "name": "1816(1)",
+    "code": "1816(1)",
+    "description": "Bicycle Rack",
+    "category": "1800 - Site Development",
+    "unit": "each",
+    "modified": "2026-03-12 00:00:00.000000"
+  },
+  {
+    "doctype": "DPWH Pay Item",
+    "name": "1817(1)",
+    "code": "1817(1)",
+    "description": "Speed Bump (Rubber)",
+    "category": "1800 - Site Development",
+    "unit": "each",
+    "modified": "2026-03-12 00:00:00.000000"
+  },
+  {
+    "doctype": "DPWH Pay Item",
+    "name": "1901(1)",
+    "code": "1901(1)",
+    "description": "Long Span Corrugated GI Sheet (0.5mm BMT)",
+    "category": "1900 - Roofing",
+    "unit": "sq.m",
+    "modified": "2026-03-12 00:00:00.000000"
+  },
+  {
+    "doctype": "DPWH Pay Item",
+    "name": "1901(2)",
+    "code": "1901(2)",
+    "description": "Long Span Corrugated GI Sheet (0.6mm BMT)",
+    "category": "1900 - Roofing",
+    "unit": "sq.m",
+    "modified": "2026-03-12 00:00:00.000000"
+  },
+  {
+    "doctype": "DPWH Pay Item",
+    "name": "1902(1)",
+    "code": "1902(1)",
+    "description": "Pre-Painted Metal Roofing Rib-type",
+    "category": "1900 - Roofing",
+    "unit": "sq.m",
+    "modified": "2026-03-12 00:00:00.000000"
+  },
+  {
+    "doctype": "DPWH Pay Item",
+    "name": "1902(2)",
+    "code": "1902(2)",
+    "description": "Pre-Painted Metal Roofing Standing Seam",
+    "category": "1900 - Roofing",
+    "unit": "sq.m",
+    "modified": "2026-03-12 00:00:00.000000"
+  },
+  {
+    "doctype": "DPWH Pay Item",
+    "name": "1903(1)",
+    "code": "1903(1)",
+    "description": "Insulated Metal Roofing Panel (50mm PIR)",
+    "category": "1900 - Roofing",
+    "unit": "sq.m",
+    "modified": "2026-03-12 00:00:00.000000"
+  },
+  {
+    "doctype": "DPWH Pay Item",
+    "name": "1903(2)",
+    "code": "1903(2)",
+    "description": "Insulated Metal Roofing Panel (100mm PIR)",
+    "category": "1900 - Roofing",
+    "unit": "sq.m",
+    "modified": "2026-03-12 00:00:00.000000"
+  },
+  {
+    "doctype": "DPWH Pay Item",
+    "name": "1904(1)",
+    "code": "1904(1)",
+    "description": "Polycarbonate Roofing (Clear 6mm)",
+    "category": "1900 - Roofing",
+    "unit": "sq.m",
+    "modified": "2026-03-12 00:00:00.000000"
+  },
+  {
+    "doctype": "DPWH Pay Item",
+    "name": "1904(2)",
+    "code": "1904(2)",
+    "description": "Polycarbonate Roofing (Twin-wall 10mm)",
+    "category": "1900 - Roofing",
+    "unit": "sq.m",
+    "modified": "2026-03-12 00:00:00.000000"
+  },
+  {
+    "doctype": "DPWH Pay Item",
+    "name": "1905(1)",
+    "code": "1905(1)",
+    "description": "Ridge Roll and Hip Cap (GI)",
+    "category": "1900 - Roofing",
+    "unit": "ln.m",
+    "modified": "2026-03-12 00:00:00.000000"
+  },
+  {
+    "doctype": "DPWH Pay Item",
+    "name": "1905(2)",
+    "code": "1905(2)",
+    "description": "Flashings and Counter-Flashings (GI)",
+    "category": "1900 - Roofing",
+    "unit": "ln.m",
+    "modified": "2026-03-12 00:00:00.000000"
+  },
+  {
+    "doctype": "DPWH Pay Item",
+    "name": "1906(1)",
+    "code": "1906(1)",
+    "description": "Gutter GI Pre-Painted (150mm x 100mm)",
+    "category": "1900 - Roofing",
+    "unit": "ln.m",
+    "modified": "2026-03-12 00:00:00.000000"
+  },
+  {
+    "doctype": "DPWH Pay Item",
+    "name": "1906(2)",
+    "code": "1906(2)",
+    "description": "Gutter Stainless Steel",
+    "category": "1900 - Roofing",
+    "unit": "ln.m",
+    "modified": "2026-03-12 00:00:00.000000"
+  },
+  {
+    "doctype": "DPWH Pay Item",
+    "name": "1907(1)",
+    "code": "1907(1)",
+    "description": "Downspout PVC 100mm",
+    "category": "1900 - Roofing",
+    "unit": "ln.m",
+    "modified": "2026-03-12 00:00:00.000000"
+  },
+  {
+    "doctype": "DPWH Pay Item",
+    "name": "1907(2)",
+    "code": "1907(2)",
+    "description": "Downspout GI Pre-Painted 100mm",
+    "category": "1900 - Roofing",
+    "unit": "ln.m",
+    "modified": "2026-03-12 00:00:00.000000"
+  },
+  {
+    "doctype": "DPWH Pay Item",
+    "name": "1908(1)",
+    "code": "1908(1)",
+    "description": "Fascia Board Fiber Cement",
+    "category": "1900 - Roofing",
+    "unit": "ln.m",
+    "modified": "2026-03-12 00:00:00.000000"
+  },
+  {
+    "doctype": "DPWH Pay Item",
+    "name": "1908(2)",
+    "code": "1908(2)",
+    "description": "Fascia Board Aluminum (Anodized)",
+    "category": "1900 - Roofing",
+    "unit": "ln.m",
+    "modified": "2026-03-12 00:00:00.000000"
+  },
+  {
+    "doctype": "DPWH Pay Item",
+    "name": "1909(1)",
+    "code": "1909(1)",
+    "description": "Steel Purlins Z-Type (2.0mm BMT)",
+    "category": "1900 - Roofing",
+    "unit": "kg",
+    "modified": "2026-03-12 00:00:00.000000"
+  },
+  {
+    "doctype": "DPWH Pay Item",
+    "name": "1909(2)",
+    "code": "1909(2)",
+    "description": "Steel Purlins C-Type (2.5mm BMT)",
+    "category": "1900 - Roofing",
+    "unit": "kg",
+    "modified": "2026-03-12 00:00:00.000000"
+  },
+  {
+    "doctype": "DPWH Pay Item",
+    "name": "1910(1)",
+    "code": "1910(1)",
+    "description": "Steel Rafters and Roof Trusses",
+    "category": "1900 - Roofing",
+    "unit": "kg",
+    "modified": "2026-03-12 00:00:00.000000"
+  },
+  {
+    "doctype": "DPWH Pay Item",
+    "name": "1910(2)",
+    "code": "1910(2)",
+    "description": "Steel Knee Brace/Cross Bracing",
+    "category": "1900 - Roofing",
+    "unit": "kg",
+    "modified": "2026-03-12 00:00:00.000000"
+  },
+  {
+    "doctype": "DPWH Pay Item",
+    "name": "1911(1)",
+    "code": "1911(1)",
+    "description": "Skylight Polycarbonate (Dome Type)",
+    "category": "1900 - Roofing",
+    "unit": "each",
+    "modified": "2026-03-12 00:00:00.000000"
+  },
+  {
+    "doctype": "DPWH Pay Item",
+    "name": "1911(2)",
+    "code": "1911(2)",
+    "description": "Skylight Ridge Vent (Continuous)",
+    "category": "1900 - Roofing",
+    "unit": "ln.m",
+    "modified": "2026-03-12 00:00:00.000000"
+  },
+  {
+    "doctype": "DPWH Pay Item",
+    "name": "1912(1)",
+    "code": "1912(1)",
+    "description": "Roof Ventilators Ridge (Turbine)",
+    "category": "1900 - Roofing",
+    "unit": "each",
+    "modified": "2026-03-12 00:00:00.000000"
+  },
+  {
+    "doctype": "DPWH Pay Item",
+    "name": "1913(1)",
+    "code": "1913(1)",
+    "description": "Fire-Rated Wall Panel (2-Hour)",
+    "category": "1900 - Roofing",
+    "unit": "sq.m",
+    "modified": "2026-03-12 00:00:00.000000"
+  },
+  {
+    "doctype": "DPWH Pay Item",
+    "name": "1914(1)",
+    "code": "1914(1)",
+    "description": "Cold Room Panel PIR 100mm (Wall)",
+    "category": "1900 - Roofing",
+    "unit": "sq.m",
+    "modified": "2026-03-12 00:00:00.000000"
+  },
+  {
+    "doctype": "DPWH Pay Item",
+    "name": "1914(2)",
+    "code": "1914(2)",
+    "description": "Cold Room Panel PIR 150mm (Ceiling)",
+    "category": "1900 - Roofing",
+    "unit": "sq.m",
+    "modified": "2026-03-12 00:00:00.000000"
+  },
+  {
+    "doctype": "DPWH Pay Item",
+    "name": "1915(1)",
+    "code": "1915(1)",
+    "description": "Cold Room Door Swing (Insulated)",
+    "category": "1900 - Roofing",
+    "unit": "each",
+    "modified": "2026-03-12 00:00:00.000000"
+  },
+  {
+    "doctype": "DPWH Pay Item",
+    "name": "1916(1)",
+    "code": "1916(1)",
+    "description": "Industrial Fan Wall-Mounted (1.2m dia)",
+    "category": "1900 - Roofing",
+    "unit": "each",
+    "modified": "2026-03-12 00:00:00.000000"
+  },
+  {
+    "doctype": "DPWH Pay Item",
+    "name": "1917(1)",
+    "code": "1917(1)",
+    "description": "Roll-up Door Manual (Galvanized)",
+    "category": "1900 - Roofing",
+    "unit": "sq.m",
+    "modified": "2026-03-12 00:00:00.000000"
+  },
+  {
+    "doctype": "DPWH Pay Item",
+    "name": "1918(1)",
+    "code": "1918(1)",
+    "description": "Roll-up Door Motorized (with Remote)",
+    "category": "1900 - Roofing",
+    "unit": "sq.m",
+    "modified": "2026-03-12 00:00:00.000000"
+  },
+  {
+    "doctype": "DPWH Pay Item",
+    "name": "1919(1)",
+    "code": "1919(1)",
+    "description": "Soffit Board (Fiber Cement)",
+    "category": "1900 - Roofing",
+    "unit": "sq.m",
+    "modified": "2026-03-12 00:00:00.000000"
+  },
+  {
+    "doctype": "DPWH Pay Item",
+    "name": "1920(1)",
+    "code": "1920(1)",
+    "description": "Roof Insulation (Fiberglass Batt)",
+    "category": "1900 - Roofing",
+    "unit": "sq.m",
+    "modified": "2026-03-12 00:00:00.000000"
+  }
 ]
