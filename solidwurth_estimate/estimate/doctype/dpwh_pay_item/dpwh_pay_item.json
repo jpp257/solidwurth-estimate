@@ -11,7 +11,8 @@
   "code",
   "description",
   "category",
-  "unit"
+  "unit",
+  "detailed_description"
  ],
  "fields": [
   {
@@ -41,6 +42,11 @@
    "fieldtype": "Link",
    "label": "Standard Unit",
    "options": "UOM"
+  },
+  {
+   "fieldname": "detailed_description",
+   "fieldtype": "Small Text",
+   "label": "Detailed Description"
   }
  ],
  "index_web_pages_for_search": 0,
