@@ -108,14 +108,15 @@ function show_template_picker(frm) {
                 callback(r) {
                     if (!r.exc) {
                         const count = r.message ? r.message.length : 0;
-                        frm.reload_doc();
-                        frm.once("after_load", () => render_scope_summary(frm));
                         frappe.show_alert({
                             message: __(
                                 "{0} scope(s) added under '{1}'.",
                                 [count, values.scope_group]
                             ),
                             indicator: "green",
+                        });
+                        frm.reload_doc(function() {
+                            render_scope_summary(frm);
                         });
                     }
                 },
