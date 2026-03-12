@@ -1,12 +1,13 @@
 {# COST PROPOSAL — Standard Print Format (SolidWurth Corp.) #}
-{# Plan 13-01: Skeleton infrastructure. Content implemented in Plan 13-02. #}
-{# Accent color: #A52422 (SW red) #}
+{# Plan 13-01: Skeleton. Plan 13-02: Full implementation. #}
+{# Accent color: #A52422 (SW red) | Target renderer: wkhtmltopdf #}
 
 {%- set logo_path = frappe.db.get_single_value("Website Settings", "banner_image") -%}
 {%- set fonts = methods.get_fonts() -%}
 {%- set prepared_by_name = frappe.db.get_value("User", doc.prepared_by, "full_name") if doc.prepared_by else "" -%}
 {%- set checked_by_name = frappe.db.get_value("User", doc.checked_by, "full_name") if doc.checked_by else "" -%}
 {%- set approved_by_name = frappe.db.get_value("User", doc.approved_by, "full_name") if doc.approved_by else "" -%}
+{%- set company_tin = frappe.db.get_value("Company", "SolidWurth Corp.", "tax_id") or "" -%}
 
 <style>
   /* -----------------------------------------------------------------------
@@ -14,12 +15,12 @@
      D2: Navy + red accent palette
   ----------------------------------------------------------------------- */
   :root {
-    --accent: #A52422;
-    --navy: #1B2E4A;
-    --sub-header: #2E5FA3;
-    --zebra: #F4F6F9;
-    --body-text: #2D3142;
-    --col-header: #3B5998;
+    --accent:      #A52422;
+    --navy:        #1B2E4A;
+    --sub-header:  #2E5FA3;
+    --zebra:       #F4F6F9;
+    --body-text:   #2D3142;
+    --col-header:  #3B5998;
   }
 
   /* -----------------------------------------------------------------------
@@ -71,7 +72,7 @@
 
   body {
     font-family: 'Inter', 'Helvetica Neue', Arial, sans-serif;
-    font-size: 10pt;
+    font-size: 9pt;
     color: var(--body-text);
     line-height: 1.4;
   }
@@ -88,16 +89,18 @@
 
   /* -----------------------------------------------------------------------
      Continuation Header — Fixed at top of every page after cover (D7, D36)
-     Thin navy bar: logo | "COST PROPOSAL — EST-XX-XXXX | Rev N" | red underline
+     Thin navy bar: logo | "COST PROPOSAL — EST-XX-XXXX | Rev N" | page X/Y
+     Red bottom border 2px #A52422
   ----------------------------------------------------------------------- */
   .continuation-header {
     position: fixed;
     top: 0;
     left: 0;
     right: 0;
+    height: 12mm;
     background-color: var(--navy);
     color: #ffffff;
-    padding: 4mm 5mm 3mm 5mm;
+    padding: 0 15mm 0 20mm;
     display: flex;
     align-items: center;
     justify-content: space-between;
@@ -107,7 +110,7 @@
   }
 
   .continuation-header .header-logo {
-    max-height: 8mm;
+    max-height: 10mm;
     width: auto;
   }
 
@@ -128,31 +131,32 @@
   }
 
   /* -----------------------------------------------------------------------
-     Footer — Fixed at bottom of every page (D8)
+     Footer Bar — Fixed at bottom of every page (D8)
      Company name + TIN left | "CONFIDENTIAL..." center | Page X of Y right
   ----------------------------------------------------------------------- */
-  .page-footer {
+  .footer-bar {
     position: fixed;
     bottom: 0;
     left: 0;
     right: 0;
+    height: 10mm;
     background-color: #f8f8f8;
     border-top: 1px solid var(--navy);
-    padding: 2mm 5mm;
+    padding: 0 15mm 0 20mm;
     display: flex;
     align-items: center;
     justify-content: space-between;
-    font-size: 7.5pt;
+    font-size: 7pt;
     color: #555;
     z-index: 1000;
   }
 
-  .page-footer .footer-company {
+  .footer-bar .footer-company {
     text-align: left;
     font-weight: bold;
   }
 
-  .page-footer .footer-confidential {
+  .footer-bar .footer-confidential {
     text-align: center;
     flex: 1;
     font-style: italic;
@@ -160,20 +164,233 @@
     font-size: 7pt;
   }
 
-  .page-footer .footer-page {
+  .footer-bar .footer-page {
     text-align: right;
   }
 
   /* -----------------------------------------------------------------------
-     Content Body — main document area
+     Content Body — main document area with space for fixed header/footer
   ----------------------------------------------------------------------- */
   .content-body {
-    /* Space reserved for fixed header/footer — wkhtmltopdf uses @page margins */
+    margin-top: 16mm;
+    margin-bottom: 14mm;
   }
 
   /* -----------------------------------------------------------------------
-     Table utilities
+     Cover Page (D3, D11, D12)
   ----------------------------------------------------------------------- */
+  .cover-page {
+    page-break-after: always;
+    min-height: 260mm;
+    display: flex;
+    flex-direction: column;
+  }
+
+  .cover-navy-band {
+    background-color: var(--navy);
+    width: 100%;
+    padding: 18mm 20mm 14mm 20mm;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+  }
+
+  .cover-navy-band .cover-logo {
+    max-height: 50mm;
+    max-width: 120mm;
+    margin-bottom: 8mm;
+  }
+
+  .cover-title {
+    font-family: 'Montserrat', 'Helvetica Neue', Arial, sans-serif;
+    font-weight: 700;
+    font-size: 28pt;
+    color: #ffffff;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+  }
+
+  .cover-accent-line {
+    width: 80mm;
+    height: 3px;
+    background-color: var(--accent);
+    margin: 6mm auto 0 auto;
+  }
+
+  .cover-info-block {
+    padding: 10mm 20mm;
+    flex: 1;
+  }
+
+  .cover-info-table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-bottom: 6mm;
+  }
+
+  .cover-info-table td {
+    padding: 4px 8px;
+    vertical-align: top;
+    font-size: 10pt;
+    border-bottom: 1px solid #e0e0e0;
+  }
+
+  .cover-info-table .info-label {
+    font-weight: bold;
+    color: var(--navy);
+    width: 35%;
+    white-space: nowrap;
+  }
+
+  .cover-info-table .info-value {
+    color: var(--body-text);
+  }
+
+  .cover-signature-block {
+    margin-top: auto;
+    padding: 8mm 20mm 10mm 20mm;
+    border-top: 2px solid var(--navy);
+  }
+
+  .cover-signature-row {
+    display: flex;
+    justify-content: space-around;
+    gap: 10mm;
+  }
+
+  .cover-signature-col {
+    flex: 1;
+    text-align: center;
+  }
+
+  .cover-signature-label {
+    font-size: 7.5pt;
+    font-weight: bold;
+    color: var(--navy);
+    letter-spacing: 1px;
+    text-transform: uppercase;
+    margin-bottom: 10mm;
+  }
+
+  .cover-signature-line {
+    border-bottom: 1px solid var(--navy);
+    margin: 0 4mm 2mm 4mm;
+  }
+
+  .cover-signature-name {
+    font-size: 8.5pt;
+    color: var(--body-text);
+    font-weight: bold;
+    min-height: 12px;
+  }
+
+  /* -----------------------------------------------------------------------
+     Summary Page (D5, D13, D14)
+  ----------------------------------------------------------------------- */
+  .summary-page {
+    page-break-after: always;
+  }
+
+  .summary-heading {
+    background-color: var(--navy);
+    color: #ffffff;
+    font-family: 'Montserrat', 'Helvetica Neue', Arial, sans-serif;
+    font-size: 13pt;
+    font-weight: 700;
+    padding: 8px 12px;
+    letter-spacing: 1px;
+    margin-bottom: 8mm;
+  }
+
+  .summary-table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-bottom: 6mm;
+    font-size: 9pt;
+  }
+
+  .summary-table thead tr th {
+    background-color: var(--col-header);
+    color: #ffffff;
+    padding: 6px 8px;
+    text-align: left;
+  }
+
+  .summary-table thead tr th.amount-header {
+    text-align: right;
+  }
+
+  .summary-table tbody tr td {
+    padding: 5px 8px;
+    border-bottom: 1px solid #e8e8e8;
+  }
+
+  .summary-table tbody tr.zebra-even {
+    background-color: var(--zebra);
+  }
+
+  .summary-subtotal-row td {
+    font-weight: bold;
+    background-color: #dde4f0 !important;
+    border-top: 2px solid var(--sub-header);
+    border-bottom: 2px solid var(--sub-header);
+  }
+
+  .optional-label {
+    font-style: italic;
+    color: #666;
+  }
+
+  /* -----------------------------------------------------------------------
+     Scope Detail Pages (D15, D20, D22, D25, AC-1)
+  ----------------------------------------------------------------------- */
+  .scope-group-header {
+    background-color: var(--navy);
+    color: #ffffff;
+    font-weight: bold;
+    font-family: 'Montserrat', 'Helvetica Neue', Arial, sans-serif;
+    padding: 6px 10px;
+    margin-top: 8px;
+    letter-spacing: 1px;
+    font-size: 9.5pt;
+  }
+
+  .scope-detail-page {
+    display: flex;
+    flex-direction: column;
+    min-height: 240mm;
+    page-break-before: always;
+  }
+
+  .scope-header {
+    background-color: var(--navy);
+    color: #ffffff;
+    padding: 8px 10px;
+    font-family: 'Montserrat', 'Helvetica Neue', Arial, sans-serif;
+    font-size: 9pt;
+    margin-bottom: 4mm;
+  }
+
+  .section-header {
+    background-color: var(--sub-header);
+    color: #ffffff;
+    padding: 4px 10px;
+    font-size: 8pt;
+    font-weight: bold;
+    margin-bottom: 2mm;
+    margin-top: 4mm;
+  }
+
+  .col-header {
+    background-color: var(--col-header);
+    color: #ffffff;
+  }
+
+  .zebra-even {
+    background-color: var(--zebra);
+  }
+
   table {
     width: 100%;
     border-collapse: collapse;
@@ -184,24 +401,45 @@
     display: table-header-group;
   }
 
-  .waterfall-table {
-    page-break-inside: avoid; /* Keep waterfall + totals together with scope (D35) */
+  tbody tr {
+    page-break-inside: avoid;
   }
 
   /* -----------------------------------------------------------------------
-     Scope page-break control (D35, D37)
+     Scope Waterfall — pinned to page bottom (D35, D37)
   ----------------------------------------------------------------------- */
-  .scope-page {
-    page-break-before: always;
+  .scope-waterfall {
+    margin-top: auto;
+    page-break-inside: avoid;
   }
 
-  .scope-waterfall {
+  .waterfall-table {
     page-break-inside: avoid;
-    margin-top: auto; /* Flexbox: pin waterfall to bottom (D37) */
+  }
+
+  /* -----------------------------------------------------------------------
+     Table utilities
+  ----------------------------------------------------------------------- */
+  .detail-table {
+    width: 100%;
+    border-collapse: collapse;
+    font-size: 9pt;
+  }
+
+  .detail-table thead tr th {
+    padding: 6px 8px;
+  }
+
+  .detail-table tbody tr td {
+    padding: 5px 8px;
+    border-bottom: 1px solid #e8e8e8;
   }
 </style>
 
-<!-- Fixed Continuation Header (D7) — appears on every page via position:fixed -->
+{# =========================================================================
+   Fixed Continuation Header (D7) — appears on every page via position:fixed
+   Shows: logo | "COST PROPOSAL — EST-XX | Rev N" | Page X of Y
+========================================================================= #}
 <div class="continuation-header">
   <div>
     {% if logo_path %}
@@ -212,45 +450,233 @@
     COST PROPOSAL &mdash; {{ doc.name }}{% if doc.revision %} | Rev {{ doc.revision }}{% endif %}
   </div>
   <div class="header-ref">
-    {{ doc.estimate_date | frappe.utils.formatdate if doc.estimate_date else "" }}
+    Page <pdf:pagenumber> of <pdf:pagecount>
   </div>
 </div>
 
-<!-- Fixed Footer (D8) -->
-<div class="page-footer">
-  <div class="footer-company">SolidWurth Corp.</div>
+{# =========================================================================
+   Fixed Footer Bar (D8) — appears on every page
+   Left: company + TIN | Center: CONFIDENTIAL | Right: page X of Y
+========================================================================= #}
+<div class="footer-bar">
+  <div class="footer-company">
+    SolidWurth Corp.{% if company_tin %} | TIN: {{ company_tin }}{% endif %}
+  </div>
   <div class="footer-confidential">CONFIDENTIAL &mdash; FOR PROPOSAL PURPOSES ONLY</div>
-  <div class="footer-page"></div>
+  <div class="footer-page">Page <pdf:pagenumber> of <pdf:pagecount></div>
 </div>
 
-<!-- Main Content Body -->
+{# =========================================================================
+   Main Content Body
+========================================================================= #}
 <div class="content-body">
 
-  {# COVER PAGE — implemented in Plan 13-02 #}
-  {# - Navy band at top with SW logo, company name #}
-  {# - Project info block: estimate_title, client, project, estimate_date, valid_until #}
-  {# - Scope summary description #}
-  {# - Signature block at bottom: prepared_by_name, checked_by_name, approved_by_name #}
+{# =========================================================================
+   COVER PAGE (D3, D11, D12)
+   - Navy band at top: logo centered + "COST PROPOSAL" title + red accent line
+   - Project info table: estimate_title, client, estimate_date, valid_until, etc.
+   - Signature block at bottom: prepared_by, checked_by, approved_by (3 columns)
+========================================================================= #}
+<div class="cover-page">
 
-  {# SUMMARY PAGE — implemented in Plan 13-02 #}
-  {# - Scope rows table grouped by scope_group, sorted by display_order #}
-  {# - Grand total (all scopes) and base_grand_total (non-optional scopes) #}
-  {# - G->K waterfall using methods.render_waterfall_block() #}
-  {# - Optional scopes with "(Optional)" indicator (D14) #}
+  {# Top navy band — logo + "COST PROPOSAL" heading + red accent underline #}
+  <div class="cover-navy-band">
+    {% if logo_path %}
+      <img src="{{ logo_path }}" class="cover-logo" alt="SolidWurth Corp." />
+    {% else %}
+      <div style="font-family: 'Montserrat', Arial, sans-serif; font-size: 20pt; font-weight: 700; color: #ffffff; margin-bottom: 6mm;">SolidWurth Corp.</div>
+    {% endif %}
+    <div class="cover-title">COST PROPOSAL</div>
+    <div class="cover-accent-line"></div>
+  </div>
 
-  {# SCOPE DETAIL PAGES — implemented in Plan 13-02 #}
-  {# - Per scope: header (scope_group, scope_name, DPWH code, UOM, qty) #}
-  {# - Section A (Labor): methods.render_labor_table() if labor_rows #}
-  {# - Section B (Equipment): methods.render_equipment_table() if equipment_rows #}
-  {# - Section C: Direct cost subtotal (A+B) #}
-  {# - Section D: Output per day #}
-  {# - Section E: Unit cost = C/D #}
-  {# - Section F (Materials): methods.render_material_table() if material_rows #}
-  {# - G->K waterfall: methods.render_waterfall_block() #}
-  {# - cost_display_mode controls detail visibility (D16) #}
+  {# Project info block — white background, two-column label/value table #}
+  <div class="cover-info-block">
+    <table class="cover-info-table">
+      <tbody>
+        <tr>
+          <td class="info-label">Project:</td>
+          <td class="info-value">{{ doc.estimate_title or doc.project or "&mdash;" }}</td>
+        </tr>
+        <tr>
+          <td class="info-label">Client:</td>
+          <td class="info-value">{{ doc.client or "&mdash;" }}</td>
+        </tr>
+        <tr>
+          <td class="info-label">Location:</td>
+          <td class="info-value">{{ doc.project or "&mdash;" }}</td>
+        </tr>
+        <tr>
+          <td class="info-label">Estimate No.:</td>
+          <td class="info-value">{{ doc.name }}</td>
+        </tr>
+        <tr>
+          <td class="info-label">Date:</td>
+          <td class="info-value">{{ frappe.utils.formatdate(doc.estimate_date, "dd MMM yyyy") if doc.estimate_date else "&mdash;" }}</td>
+        </tr>
+        <tr>
+          <td class="info-label">Valid Until:</td>
+          <td class="info-value">{{ frappe.utils.formatdate(doc.valid_until, "dd MMM yyyy") if doc.valid_until else "&mdash;" }}</td>
+        </tr>
+        {% if doc.description %}
+        <tr>
+          <td class="info-label">Scope Summary:</td>
+          <td class="info-value">{{ doc.description }}</td>
+        </tr>
+        {% endif %}
+      </tbody>
+    </table>
+  </div>
 
-  <p style="padding: 20mm 0; text-align: center; color: #aaa; font-style: italic;">
-    Infrastructure skeleton — content implemented in Plan 13-02
-  </p>
+  {# Signature block — 3 equal columns: PREPARED BY | CHECKED BY | APPROVED BY #}
+  <div class="cover-signature-block">
+    <div class="cover-signature-row">
+      <div class="cover-signature-col">
+        <div class="cover-signature-label">Prepared By</div>
+        <div class="cover-signature-line">&nbsp;</div>
+        <div class="cover-signature-name">{{ prepared_by_name or "&nbsp;" }}</div>
+      </div>
+      <div class="cover-signature-col">
+        <div class="cover-signature-label">Checked By</div>
+        <div class="cover-signature-line">&nbsp;</div>
+        <div class="cover-signature-name">{{ checked_by_name or "&nbsp;" }}</div>
+      </div>
+      <div class="cover-signature-col">
+        <div class="cover-signature-label">Approved By</div>
+        <div class="cover-signature-line">&nbsp;</div>
+        <div class="cover-signature-name">{{ approved_by_name or "&nbsp;" }}</div>
+      </div>
+    </div>
+  </div>
 
-</div>
+</div>{# end .cover-page #}
+
+{# =========================================================================
+   SUMMARY PAGE (D5, D13, D14)
+   - Fetch scopes sorted by scope_group + display_order
+   - Show all scopes in table: Scope Name | Group | UOM | Qty | Direct Cost
+   - Base scopes first, then optional scopes with "(Optional)" label
+   - Base subtotal row, optional subtotal row (if any optional scopes)
+   - G->K waterfall using doc's top-level totals
+   - Empty estimate: "No scopes added" message
+========================================================================= #}
+
+{% set scopes = frappe.db.sql("""
+    SELECT name, scope_name, scope_group, is_optional, direct_cost, quantity, uom
+    FROM `tabEstimate Scope`
+    WHERE estimate = %s
+    ORDER BY scope_group ASC, COALESCE(display_order, 999) ASC, name ASC
+""", doc.name, as_dict=True) %}
+
+{% set base_scopes = scopes | selectattr("is_optional", "eq", 0) | list %}
+{% set optional_scopes = scopes | selectattr("is_optional", "ne", 0) | list %}
+
+<div class="summary-page">
+
+  <div class="summary-heading">SUMMARY OF COST ESTIMATE</div>
+
+  {% if scopes %}
+  <table class="summary-table">
+    <thead>
+      <tr>
+        <th>Scope of Work</th>
+        <th>Scope Group</th>
+        <th>UOM</th>
+        <th class="amount-header">Qty</th>
+        <th class="amount-header">Direct Cost</th>
+        <th>Note</th>
+      </tr>
+    </thead>
+    <tbody>
+
+      {# Base (non-optional) scopes #}
+      {% for scope in base_scopes %}
+      <tr{% if loop.index0 % 2 == 0 %} class="zebra-even"{% endif %}>
+        <td>{{ scope.scope_name }}</td>
+        <td>{{ scope.scope_group }}</td>
+        <td>{{ scope.uom }}</td>
+        <td class="amount-cell">{{ methods.num_format(scope.quantity) }}</td>
+        <td class="amount-cell">{{ methods.php_format(scope.direct_cost) }}</td>
+        <td></td>
+      </tr>
+      {% endfor %}
+
+      {# Base scopes subtotal row #}
+      {% if base_scopes %}
+      <tr class="summary-subtotal-row">
+        <td colspan="4" style="text-align: right;">Base Scope Subtotal</td>
+        <td class="amount-cell">{{ methods.php_format(doc.base_direct_cost) }}</td>
+        <td></td>
+      </tr>
+      {% endif %}
+
+      {# Optional scopes (if any) #}
+      {% if optional_scopes %}
+      <tr>
+        <td colspan="6" style="padding: 8px 8px 2px 8px; font-weight: bold; color: var(--sub-header); font-size: 8.5pt; font-style: italic;">
+          Optional Scopes
+        </td>
+      </tr>
+      {% for scope in optional_scopes %}
+      <tr{% if loop.index0 % 2 == 0 %} class="zebra-even"{% endif %}>
+        <td>{{ scope.scope_name }}</td>
+        <td>{{ scope.scope_group }}</td>
+        <td>{{ scope.uom }}</td>
+        <td class="amount-cell">{{ methods.num_format(scope.quantity) }}</td>
+        <td class="amount-cell">{{ methods.php_format(scope.direct_cost) }}</td>
+        <td><span class="optional-label">(Optional)</span></td>
+      </tr>
+      {% endfor %}
+
+      {# Optional scopes subtotal — sum from scopes list since base_grand_total excludes optional #}
+      {% set optional_dc = namespace(total=0) %}
+      {% for s in optional_scopes %}{% set optional_dc.total = optional_dc.total + (s.direct_cost | float) %}{% endfor %}
+      <tr class="summary-subtotal-row">
+        <td colspan="4" style="text-align: right;">Optional Scope Subtotal</td>
+        <td class="amount-cell">{{ methods.php_format(optional_dc.total) }}</td>
+        <td></td>
+      </tr>
+      {% endif %}
+
+      {# Grand Total row (all scopes including optional) #}
+      <tr style="background-color: var(--navy); color: #ffffff; font-weight: bold;">
+        <td colspan="4" style="padding: 6px 8px; text-align: right; font-family: 'Montserrat', Arial, sans-serif;">Grand Total Direct Cost (All Scopes)</td>
+        <td class="amount-cell" style="padding: 6px 8px;">{{ methods.php_format(doc.direct_cost) }}</td>
+        <td></td>
+      </tr>
+      {% if optional_scopes %}
+      <tr style="background-color: var(--sub-header); color: #ffffff;">
+        <td colspan="4" style="padding: 4px 8px; text-align: right; font-size: 8pt;">Base Scope Grand Total Direct Cost</td>
+        <td class="amount-cell" style="padding: 4px 8px; font-size: 8pt;">{{ methods.php_format(doc.base_direct_cost) }}</td>
+        <td></td>
+      </tr>
+      {% endif %}
+
+    </tbody>
+  </table>
+
+  {# Summary waterfall — uses doc's top-level totals from estimate.py #}
+  <div style="max-width: 300px; margin-left: auto; margin-top: 6mm;">
+    {{ methods.render_waterfall_block(doc.direct_cost | float, doc.ocm_percent | float, doc.profit_percent | float, doc.vat_inclusive, doc.vat_percent | float, "#A52422") }}
+  </div>
+
+  {% if optional_scopes %}
+  <div style="max-width: 300px; margin-left: auto; margin-top: 4mm; font-size: 8pt; font-style: italic; color: #666; text-align: right;">
+    * Grand Total includes optional scopes ({{ optional_scopes | length }} scope{{ 's' if optional_scopes | length != 1 }}).
+    Base-only Grand Total: {{ methods.php_format(doc.base_grand_total) }}
+  </div>
+  {% endif %}
+
+  {% else %}
+  {# Empty estimate — D45, AC-9 #}
+  <div style="padding: 20mm 0; text-align: center; color: #888; font-style: italic;">
+    <p style="font-size: 11pt;">No scopes added</p>
+    <p style="margin-top: 4mm; font-size: 9pt;">Grand Total: {{ methods.php_format(0) }}</p>
+  </div>
+  {% endif %}
+
+</div>{# end .summary-page #}
+
+{# SCOPE DETAIL PAGES — implemented in Task 2 #}
+
+</div>{# end .content-body #}
