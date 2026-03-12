@@ -143,14 +143,8 @@ function render_scope_summary(frm) {
     }
 
     frappe.call({
-        method: "frappe.client.get_list",
-        args: {
-            doctype: "Estimate Scope",
-            filters: { estimate: frm.doc.name },
-            fields: ["name", "scope_name", "scope_group", "is_optional", "direct_cost"],
-            order_by: "scope_group asc, scope_name asc",
-            limit: 200,
-        },
+        method: "solidwurth_estimate.estimate.doctype.estimate.estimate.get_scope_summary",
+        args: { estimate: frm.doc.name },
         callback(r) {
             const scopes = r.message || [];
             const wrapper = frm.fields_dict.scope_summary_html.$wrapper;

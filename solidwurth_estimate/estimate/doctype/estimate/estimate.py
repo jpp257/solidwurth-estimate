@@ -114,6 +114,17 @@ class Estimate(Document):
 
 
 @frappe.whitelist()
+def get_scope_summary(estimate):
+    """Return linked Estimate Scope records for the scope summary table."""
+    return frappe.db.sql("""
+        SELECT name, scope_name, scope_group, is_optional, direct_cost
+        FROM `tabEstimate Scope`
+        WHERE estimate = %s
+        ORDER BY scope_group ASC, scope_name ASC
+    """, estimate, as_dict=True)
+
+
+@frappe.whitelist()
 def create_scope_from_template(estimate, template_name, scope_group):
     """
     Create a single Estimate Scope from a Scope Template.
