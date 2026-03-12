@@ -74,10 +74,9 @@ app_license = "mit"
 # ----------
 
 # add methods and filters to jinja environment
-# jinja = {
-# 	"methods": "solidwurth_estimate.utils.jinja_methods",
-# 	"filters": "solidwurth_estimate.utils.jinja_filters"
-# }
+jinja = {
+    "methods": "solidwurth_estimate.utils.jinja_methods"
+}
 
 # Installation
 # ------------
@@ -255,6 +254,7 @@ fixtures = [
     {"dt": "Labor Role"},
     {"dt": "Price List", "filters": [["name", "=", "Estimate Selling"]]},
     {"dt": "Custom Field", "filters": [["module", "=", "Estimate"]]},
-    {"dt": "Role", "filters": [["name", "in", ["Estimate Manager", "Estimate User"]]]}
+    {"dt": "Role", "filters": [["name", "in", ["Estimate Manager", "Estimate User"]]]},
+    {"dt": "Print Format", "filters": [["name", "in", ["Cost Proposal", "Cost Proposal (BP)"]]]}
 ]
 
