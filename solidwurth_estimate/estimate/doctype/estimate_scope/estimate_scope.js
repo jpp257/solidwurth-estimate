@@ -119,12 +119,7 @@ frappe.ui.form.on("Estimate Scope Material", {
         const row = locals[cdt][cdn];
         if (!row.item) return;
 
-        // Auto-fill UOM from Item's stock_uom
-        frappe.db.get_value("Item", row.item, "stock_uom", (r) => {
-            if (r && r.stock_uom) {
-                frappe.model.set_value(cdt, cdn, "uom", r.stock_uom);
-            }
-        });
+        // UOM auto-fills via fetch_from in schema (estimate_scope_material.json)
 
         // Auto-fill buying_rate via waterfall lookup
         frappe.call({

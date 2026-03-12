@@ -61,6 +61,8 @@
   {
    "fieldname": "uom",
    "fieldtype": "Link",
+   "fetch_from": "item.stock_uom",
+   "fetch_if_empty": 1,
    "in_list_view": 1,
    "label": "UOM",
    "options": "UOM",
