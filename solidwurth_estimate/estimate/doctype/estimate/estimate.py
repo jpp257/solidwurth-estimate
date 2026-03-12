@@ -52,6 +52,13 @@ class Estimate(Document):
         self._validate_status_transition()
         self._calculate_totals()
 
+    def before_save(self):
+        """DEBUG: verify totals survive from validate to before_save. Remove after fix."""
+        frappe.msgprint(
+            f"before_save: direct_cost={self.direct_cost}, grand_total={self.grand_total}",
+            alert=True
+        )
+
     def _validate_status_transition(self):
         """Enforce valid status transitions (D30). Extracted from original validate."""
         if self.is_new():
@@ -111,6 +118,14 @@ class Estimate(Document):
         _, _, _, _, base_grand = waterfall(base_direct)
         self.base_direct_cost = base_direct
         self.base_grand_total = base_grand
+
+        # DEBUG: verify values after assignment. Remove after fix.
+        frappe.msgprint(
+            f"_calculate_totals DONE: {len(scopes)} scopes | "
+            f"direct_cost={self.direct_cost} | grand_total={self.grand_total} | "
+            f"base_grand_total={self.base_grand_total}",
+            alert=True
+        )
 
 
 @frappe.whitelist()
