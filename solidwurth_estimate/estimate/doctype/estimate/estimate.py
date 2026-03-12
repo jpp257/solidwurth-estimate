@@ -82,11 +82,11 @@ class Estimate(Document):
         D10: Optional scopes get full waterfall.
         D11: grand_total = all scopes. base_grand_total = non-optional only.
         """
-        scopes = frappe.get_all(
-            "Estimate Scope",
-            filters={"estimate": self.name},
-            fields=["name", "direct_cost", "is_optional"]
-        )
+        scopes = frappe.db.sql("""
+            SELECT name, direct_cost, is_optional
+            FROM `tabEstimate Scope`
+            WHERE estimate = %s
+        """, self.name, as_dict=True)
 
         total_direct = flt(sum(flt(s.direct_cost) for s in scopes), 2)
         base_direct = flt(sum(flt(s.direct_cost) for s in scopes if not s.is_optional), 2)
