@@ -47,6 +47,7 @@
   {
    "fieldname": "total_rate",
    "fieldtype": "Currency",
+   "in_list_view": 1,
    "label": "Total Daily Rate (₱)",
    "read_only": 1
   },

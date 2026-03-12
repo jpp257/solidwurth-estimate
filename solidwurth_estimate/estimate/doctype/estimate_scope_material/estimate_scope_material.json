@@ -15,7 +15,9 @@
   "rate",
   "amount",
   "buying_rate",
-  "margin"
+  "margin",
+  "supplier_quotation",
+  "sq_rate"
  ],
  "fields": [
   {
@@ -36,6 +38,7 @@
   {
    "fieldname": "qty",
    "fieldtype": "Float",
+   "in_list_view": 1,
    "label": "Base Qty (Internal)",
    "reqd": 1,
    "print_hide": 1
@@ -45,13 +48,13 @@
    "fieldtype": "Percent",
    "fetch_from": "item.custom_default_wastage_percent",
    "fetch_if_empty": 1,
+   "in_list_view": 1,
    "label": "Wastage %",
    "print_hide": 1
   },
   {
    "fieldname": "adjusted_qty",
    "fieldtype": "Float",
-   "in_list_view": 1,
    "label": "Qty (with Wastage)",
    "read_only": 1
   },
@@ -81,13 +84,26 @@
    "fieldname": "buying_rate",
    "fieldtype": "Currency",
    "label": "Buying Rate (₱)",
-   "read_only": 1,
    "print_hide": 1
   },
   {
    "fieldname": "margin",
    "fieldtype": "Currency",
    "label": "Margin (₱)",
+   "read_only": 1,
+   "print_hide": 1
+  },
+  {
+   "fieldname": "supplier_quotation",
+   "fieldtype": "Link",
+   "label": "Supplier Quotation",
+   "options": "Supplier Quotation",
+   "print_hide": 1
+  },
+  {
+   "fieldname": "sq_rate",
+   "fieldtype": "Currency",
+   "label": "SQ Rate (₱)",
    "read_only": 1,
    "print_hide": 1
   }
