@@ -1,0 +1,28 @@
+[
+  {
+    "doctype": "Custom Field",
+    "name": "Item-custom_is_non_procurable",
+    "dt": "Item",
+    "label": "Is Non-Procurable",
+    "fieldname": "custom_is_non_procurable",
+    "fieldtype": "Check",
+    "insert_after": "disabled",
+    "default": "0",
+    "description": "Tick for items like Design & Engineering that are not procured via MR (used in Phase 14 MR generation filter)",
+    "module": "Estimate",
+    "modified": "2026-03-11 00:00:00.000000"
+  },
+  {
+    "doctype": "Custom Field",
+    "name": "Item-custom_default_wastage_percent",
+    "dt": "Item",
+    "label": "Default Wastage %",
+    "fieldname": "custom_default_wastage_percent",
+    "fieldtype": "Percent",
+    "insert_after": "custom_is_non_procurable",
+    "default": "0",
+    "description": "Auto-filled on Estimate Scope material rows via fetch_from. Adjust per item type (e.g. 5% for rebar, 10% for lumber).",
+    "module": "Estimate",
+    "modified": "2026-03-11 00:00:00.000000"
+  }
+]

@@ -1,0 +1,22 @@
+[
+  {"doctype": "Labor Role", "name": "Foreman", "role_name": "Foreman", "category": "Skilled", "default_daily_rate": 1200.0, "modified": "2026-03-11 00:00:00.000000"},
+  {"doctype": "Labor Role", "name": "Mason", "role_name": "Mason", "category": "Skilled", "default_daily_rate": 800.0, "modified": "2026-03-11 00:00:00.000000"},
+  {"doctype": "Labor Role", "name": "Carpenter", "role_name": "Carpenter", "category": "Skilled", "default_daily_rate": 800.0, "modified": "2026-03-11 00:00:00.000000"},
+  {"doctype": "Labor Role", "name": "Electrician", "role_name": "Electrician", "category": "Skilled", "default_daily_rate": 900.0, "modified": "2026-03-11 00:00:00.000000"},
+  {"doctype": "Labor Role", "name": "Plumber", "role_name": "Plumber", "category": "Skilled", "default_daily_rate": 900.0, "modified": "2026-03-11 00:00:00.000000"},
+  {"doctype": "Labor Role", "name": "Welder", "role_name": "Welder", "category": "Skilled", "default_daily_rate": 900.0, "modified": "2026-03-11 00:00:00.000000"},
+  {"doctype": "Labor Role", "name": "Steel Worker", "role_name": "Steel Worker", "category": "Skilled", "default_daily_rate": 850.0, "modified": "2026-03-11 00:00:00.000000"},
+  {"doctype": "Labor Role", "name": "Tile Setter", "role_name": "Tile Setter", "category": "Skilled", "default_daily_rate": 800.0, "modified": "2026-03-11 00:00:00.000000"},
+  {"doctype": "Labor Role", "name": "Painter", "role_name": "Painter", "category": "Semi-Skilled", "default_daily_rate": 700.0, "modified": "2026-03-11 00:00:00.000000"},
+  {"doctype": "Labor Role", "name": "Equipment Operator", "role_name": "Equipment Operator", "category": "Skilled", "default_daily_rate": 1000.0, "modified": "2026-03-11 00:00:00.000000"},
+  {"doctype": "Labor Role", "name": "Heavy Equipment Operator", "role_name": "Heavy Equipment Operator", "category": "Skilled", "default_daily_rate": 1100.0, "modified": "2026-03-11 00:00:00.000000"},
+  {"doctype": "Labor Role", "name": "Ironworker", "role_name": "Ironworker", "category": "Skilled", "default_daily_rate": 850.0, "modified": "2026-03-11 00:00:00.000000"},
+  {"doctype": "Labor Role", "name": "Survey Aide", "role_name": "Survey Aide", "category": "Semi-Skilled", "default_daily_rate": 750.0, "modified": "2026-03-11 00:00:00.000000"},
+  {"doctype": "Labor Role", "name": "Safety Officer", "role_name": "Safety Officer", "category": "Skilled", "default_daily_rate": 1000.0, "modified": "2026-03-11 00:00:00.000000"},
+  {"doctype": "Labor Role", "name": "Helper", "role_name": "Helper", "category": "Semi-Skilled", "default_daily_rate": 600.0, "modified": "2026-03-11 00:00:00.000000"},
+  {"doctype": "Labor Role", "name": "Laborer", "role_name": "Laborer", "category": "Unskilled", "default_daily_rate": 570.0, "modified": "2026-03-11 00:00:00.000000"},
+  {"doctype": "Labor Role", "name": "Skilled Laborer", "role_name": "Skilled Laborer", "category": "Semi-Skilled", "default_daily_rate": 650.0, "modified": "2026-03-11 00:00:00.000000"},
+  {"doctype": "Labor Role", "name": "Waterproofing Applicator", "role_name": "Waterproofing Applicator", "category": "Skilled", "default_daily_rate": 800.0, "modified": "2026-03-11 00:00:00.000000"},
+  {"doctype": "Labor Role", "name": "Scaffolding Erector", "role_name": "Scaffolding Erector", "category": "Semi-Skilled", "default_daily_rate": 700.0, "modified": "2026-03-11 00:00:00.000000"},
+  {"doctype": "Labor Role", "name": "Driver", "role_name": "Driver", "category": "Semi-Skilled", "default_daily_rate": 700.0, "modified": "2026-03-11 00:00:00.000000"}
+]
