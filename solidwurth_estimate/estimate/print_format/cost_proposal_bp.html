@@ -863,7 +863,7 @@
     {% endif %}
 
     {# D22: Section B — Equipment (skip if no equipment rows) #}
-    {% set equipment_rows = frappe.db.sql("SELECT item_name, units, daily_rate, total_rate, total_cost FROM `tabEstimate Scope Equipment` WHERE parent = %s ORDER BY idx", scope.name, as_dict=True) %}
+    {% set equipment_rows = frappe.db.sql("SELECT item AS item_name, units, daily_rate, total_rate, total_cost FROM `tabEstimate Scope Equipment` WHERE parent = %s ORDER BY idx", scope.name, as_dict=True) %}
     {% if equipment_rows %}
     <div class="section-header">B &mdash; EQUIPMENT &amp; PLANT</div>
     {{ render_equipment_table(equipment_rows, scope.duration_days | float) }}
