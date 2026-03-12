@@ -677,6 +677,170 @@
 
 </div>{# end .summary-page #}
 
-{# SCOPE DETAIL PAGES — implemented in Task 2 #}
+{# =========================================================================
+   SCOPE DETAIL PAGES (D15, D22, D24, D25, AC-1, AC-2, AC-4, AC-5, AC-6, AC-9)
+
+   Two modes controlled by doc.cost_display_mode:
+   - "Detailed (DPWH)" [default]: full DLIA tables (Labor/Equipment/Materials)
+   - "Summary (Private)":  scope name + unit cost + total only (no DLIA detail)
+
+   Scope group headers emitted on group change (D25).
+   Scopes numbered "SCOPE N of M" (D24).
+   Optional scopes labeled "(Optional)" (D14, D22).
+   Waterfall pinned to bottom via flex + margin-top: auto (D35, D37).
+   Column headers repeat across page breaks via thead { display: table-header-group } (D34).
+   Empty section rows skipped when labor_rows/equipment_rows/material_rows empty (D22).
+========================================================================= #}
+
+{# Fetch full scope data with all fields needed for detail pages #}
+{% set scopes_detail = frappe.db.sql("""
+    SELECT name, scope_name, scope_group, is_optional, dpwh_pay_item,
+           uom, quantity, output_per_day, duration_days, display_order,
+           direct_cost, total_labor_cost, total_equipment_cost, total_material_cost
+    FROM `tabEstimate Scope`
+    WHERE estimate = %s
+    ORDER BY scope_group ASC, COALESCE(display_order, 999) ASC, name ASC
+""", doc.name, as_dict=True) %}
+
+{% set scope_count = scopes_detail | length %}
+{% set current_group = namespace(value=None) %}
+{% set scope_num = namespace(value=0) %}
+
+{% if scope_count > 0 %}
+
+{% if doc.cost_display_mode == "Summary (Private)" %}
+{# -----------------------------------------------------------------------
+   D43/AC-6: Summary (Private) mode
+   Each scope: header bar + one-row table (unit cost + total) + waterfall
+----------------------------------------------------------------------- #}
+{% for scope in scopes_detail %}
+  {% set scope_num.value = scope_num.value + 1 %}
+
+  <div class="scope-detail-page">
+
+    {# Scope header bar #}
+    <div class="scope-header">
+      <div style="display: flex; justify-content: space-between; align-items: center;">
+        <div>
+          <strong>{{ scope.scope_name }}</strong>
+          {% if scope.is_optional %}<span class="optional-label"> (Optional)</span>{% endif %}
+        </div>
+        <div style="text-align: right; font-size: 8.5pt;">
+          {{ scope.uom }} &times; {{ methods.num_format(scope.quantity) }}
+        </div>
+      </div>
+      <div style="font-size: 8pt; margin-top: 3px; opacity: 0.85;">
+        {{ scope.scope_group }}
+        {% if scope.dpwh_pay_item %} | Pay Item: {{ scope.dpwh_pay_item }}{% endif %}
+      </div>
+    </div>
+
+    {# Summary-mode: unit cost + total table only, no DLIA breakdown #}
+    <div style="margin-bottom: 4mm;">
+      <table class="detail-table">
+        <thead>
+          <tr>
+            <th class="col-header" style="padding: 6px 8px; text-align: left;">Description</th>
+            <th class="col-header" style="padding: 6px 8px; text-align: right;">Unit Cost</th>
+            <th class="col-header" style="padding: 6px 8px; text-align: right;">Total Direct Cost</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td style="padding: 5px 8px;">{{ scope.scope_name }}</td>
+            {% set unit_cost = (scope.direct_cost | float) / (scope.quantity | float) if (scope.quantity | float) > 0 else 0 %}
+            <td class="amount-cell" style="padding: 5px 8px;">{{ methods.php_format(unit_cost) }}</td>
+            <td class="amount-cell" style="padding: 5px 8px;">{{ methods.php_format(scope.direct_cost) }}</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+
+    {# Waterfall pinned to bottom (D35, D37) #}
+    <div class="scope-waterfall">
+      <div style="max-width: 280px; margin-left: auto;">
+        {{ methods.render_waterfall_block(scope.direct_cost | float, doc.ocm_percent | float, doc.profit_percent | float, doc.vat_inclusive, doc.vat_percent | float, "#A52422") }}
+      </div>
+    </div>
+
+  </div>
+{% endfor %}
+
+{% else %}
+{# -----------------------------------------------------------------------
+   D15/AC-1: Detailed (DPWH) mode — full DLIA sections per scope
+   Section A: Labor (if labor rows exist)
+   Section B: Equipment (if equipment rows exist)
+   Section F: Materials (if material rows exist)
+----------------------------------------------------------------------- #}
+{% for scope in scopes_detail %}
+  {% set scope_num.value = scope_num.value + 1 %}
+
+  {# D25: Emit scope_group header when group changes #}
+  {% if scope.scope_group != current_group.value %}
+    {% set current_group.value = scope.scope_group %}
+    {% if not loop.first %}
+    <div style="page-break-before: always;"></div>
+    {% endif %}
+    <div class="scope-group-header">{{ scope.scope_group | upper }}</div>
+  {% endif %}
+
+  <div class="scope-detail-page">
+
+    {# D20, D24: Scope header bar — "SCOPE N of M" + pay item + group + qty info #}
+    <div class="scope-header">
+      <div style="display: flex; justify-content: space-between;">
+        <div>
+          <strong>SCOPE {{ scope_num.value }} of {{ scope_count }}</strong>: {{ scope.scope_name }}
+          {% if scope.is_optional %}<span class="optional-label"> (Optional)</span>{% endif %}
+          {% if scope.dpwh_pay_item %}
+          <div style="font-size: 8pt; opacity: 0.8; margin-top: 2px;">Pay Item: {{ scope.dpwh_pay_item }}</div>
+          {% endif %}
+        </div>
+        <div style="text-align: right; font-size: 8.5pt;">
+          {{ scope.scope_group }}
+        </div>
+      </div>
+      <div style="font-size: 8pt; margin-top: 4px; opacity: 0.9;">
+        UOM: {{ scope.uom }}
+        &nbsp;|&nbsp; Qty: {{ methods.num_format(scope.quantity) }}
+        &nbsp;|&nbsp; Output/Day: {{ methods.num_format(scope.output_per_day) }}
+        &nbsp;|&nbsp; Duration: {{ methods.num_format(scope.duration_days) }} days
+      </div>
+    </div>
+
+    {# D22: Section A — Labor (skip if no labor rows) #}
+    {% set labor_rows = frappe.db.sql("SELECT role, persons, daily_rate, total_rate, total_cost FROM `tabEstimate Scope Labor` WHERE parent = %s ORDER BY idx", scope.name, as_dict=True) %}
+    {% if labor_rows %}
+    <div class="section-header">A &mdash; LABOR</div>
+    {{ methods.render_labor_table(labor_rows, scope.duration_days | float) }}
+    {% endif %}
+
+    {# D22: Section B — Equipment (skip if no equipment rows) #}
+    {% set equipment_rows = frappe.db.sql("SELECT item_name, units, daily_rate, total_rate, total_cost FROM `tabEstimate Scope Equipment` WHERE parent = %s ORDER BY idx", scope.name, as_dict=True) %}
+    {% if equipment_rows %}
+    <div class="section-header">B &mdash; EQUIPMENT &amp; PLANT</div>
+    {{ methods.render_equipment_table(equipment_rows, scope.duration_days | float) }}
+    {% endif %}
+
+    {# D22: Section F — Materials (skip if no material rows) #}
+    {% set material_rows = frappe.db.sql("SELECT item_name, adjusted_qty, uom, buying_rate, amount FROM `tabEstimate Scope Material` WHERE parent = %s ORDER BY idx", scope.name, as_dict=True) %}
+    {% if material_rows %}
+    <div class="section-header">F &mdash; MATERIALS</div>
+    {{ methods.render_material_table(material_rows) }}
+    {% endif %}
+
+    {# D21, D35, D37: Waterfall pinned to page bottom, no split (page-break-inside: avoid) #}
+    <div class="scope-waterfall">
+      <div style="max-width: 280px; margin-left: auto; margin-top: 6mm;">
+        {{ methods.render_waterfall_block(scope.direct_cost | float, doc.ocm_percent | float, doc.profit_percent | float, doc.vat_inclusive, doc.vat_percent | float, "#A52422") }}
+      </div>
+    </div>
+
+  </div>
+{% endfor %}
+{% endif %}
+
+{% endif %}{# end scope_count > 0 #}
 
 </div>{# end .content-body #}
