@@ -3,7 +3,7 @@
 {# Accent color: #A52422 (SW red) | Target renderer: wkhtmltopdf #}
 
 {%- set logo_path = frappe.db.get_single_value("Website Settings", "banner_image") -%}
-{%- set fonts = methods.get_fonts() -%}
+{%- set fonts = get_fonts() -%}
 {%- set prepared_by_name = frappe.db.get_value("User", doc.prepared_by, "full_name") if doc.prepared_by else "" -%}
 {%- set checked_by_name = frappe.db.get_value("User", doc.checked_by, "full_name") if doc.checked_by else "" -%}
 {%- set approved_by_name = frappe.db.get_value("User", doc.approved_by, "full_name") if doc.approved_by else "" -%}
@@ -595,8 +595,8 @@
         <td>{{ scope.scope_name }}</td>
         <td>{{ scope.scope_group }}</td>
         <td>{{ scope.uom }}</td>
-        <td class="amount-cell">{{ methods.num_format(scope.quantity) }}</td>
-        <td class="amount-cell">{{ methods.php_format(scope.direct_cost) }}</td>
+        <td class="amount-cell">{{ num_format(scope.quantity) }}</td>
+        <td class="amount-cell">{{ php_format(scope.direct_cost) }}</td>
         <td></td>
       </tr>
       {% endfor %}
@@ -605,7 +605,7 @@
       {% if base_scopes %}
       <tr class="summary-subtotal-row">
         <td colspan="4" style="text-align: right;">Base Scope Subtotal</td>
-        <td class="amount-cell">{{ methods.php_format(doc.base_direct_cost) }}</td>
+        <td class="amount-cell">{{ php_format(doc.base_direct_cost) }}</td>
         <td></td>
       </tr>
       {% endif %}
@@ -622,8 +622,8 @@
         <td>{{ scope.scope_name }}</td>
         <td>{{ scope.scope_group }}</td>
         <td>{{ scope.uom }}</td>
-        <td class="amount-cell">{{ methods.num_format(scope.quantity) }}</td>
-        <td class="amount-cell">{{ methods.php_format(scope.direct_cost) }}</td>
+        <td class="amount-cell">{{ num_format(scope.quantity) }}</td>
+        <td class="amount-cell">{{ php_format(scope.direct_cost) }}</td>
         <td><span class="optional-label">(Optional)</span></td>
       </tr>
       {% endfor %}
@@ -633,7 +633,7 @@
       {% for s in optional_scopes %}{% set optional_dc.total = optional_dc.total + (s.direct_cost | float) %}{% endfor %}
       <tr class="summary-subtotal-row">
         <td colspan="4" style="text-align: right;">Optional Scope Subtotal</td>
-        <td class="amount-cell">{{ methods.php_format(optional_dc.total) }}</td>
+        <td class="amount-cell">{{ php_format(optional_dc.total) }}</td>
         <td></td>
       </tr>
       {% endif %}
@@ -641,13 +641,13 @@
       {# Grand Total row (all scopes including optional) #}
       <tr style="background-color: var(--navy); color: #ffffff; font-weight: bold;">
         <td colspan="4" style="padding: 6px 8px; text-align: right; font-family: 'Montserrat', Arial, sans-serif;">Grand Total Direct Cost (All Scopes)</td>
-        <td class="amount-cell" style="padding: 6px 8px;">{{ methods.php_format(doc.direct_cost) }}</td>
+        <td class="amount-cell" style="padding: 6px 8px;">{{ php_format(doc.direct_cost) }}</td>
         <td></td>
       </tr>
       {% if optional_scopes %}
       <tr style="background-color: var(--sub-header); color: #ffffff;">
         <td colspan="4" style="padding: 4px 8px; text-align: right; font-size: 8pt;">Base Scope Grand Total Direct Cost</td>
-        <td class="amount-cell" style="padding: 4px 8px; font-size: 8pt;">{{ methods.php_format(doc.base_direct_cost) }}</td>
+        <td class="amount-cell" style="padding: 4px 8px; font-size: 8pt;">{{ php_format(doc.base_direct_cost) }}</td>
         <td></td>
       </tr>
       {% endif %}
@@ -657,13 +657,13 @@
 
   {# Summary waterfall — uses doc's top-level totals from estimate.py #}
   <div style="max-width: 300px; margin-left: auto; margin-top: 6mm;">
-    {{ methods.render_waterfall_block(doc.direct_cost | float, doc.ocm_percent | float, doc.profit_percent | float, doc.vat_inclusive, doc.vat_percent | float, "#A52422") }}
+    {{ render_waterfall_block(doc.direct_cost | float, doc.ocm_percent | float, doc.profit_percent | float, doc.vat_inclusive, doc.vat_percent | float, "#A52422") }}
   </div>
 
   {% if optional_scopes %}
   <div style="max-width: 300px; margin-left: auto; margin-top: 4mm; font-size: 8pt; font-style: italic; color: #666; text-align: right;">
     * Grand Total includes optional scopes ({{ optional_scopes | length }} scope{{ 's' if optional_scopes | length != 1 }}).
-    Base-only Grand Total: {{ methods.php_format(doc.base_grand_total) }}
+    Base-only Grand Total: {{ php_format(doc.base_grand_total) }}
   </div>
   {% endif %}
 
@@ -671,7 +671,7 @@
   {# Empty estimate — D45, AC-9 #}
   <div style="padding: 20mm 0; text-align: center; color: #888; font-style: italic;">
     <p style="font-size: 11pt;">No scopes added</p>
-    <p style="margin-top: 4mm; font-size: 9pt;">Grand Total: {{ methods.php_format(0) }}</p>
+    <p style="margin-top: 4mm; font-size: 9pt;">Grand Total: {{ php_format(0) }}</p>
   </div>
   {% endif %}
 
@@ -726,7 +726,7 @@
           {% if scope.is_optional %}<span class="optional-label"> (Optional)</span>{% endif %}
         </div>
         <div style="text-align: right; font-size: 8.5pt;">
-          {{ scope.uom }} &times; {{ methods.num_format(scope.quantity) }}
+          {{ scope.uom }} &times; {{ num_format(scope.quantity) }}
         </div>
       </div>
       <div style="font-size: 8pt; margin-top: 3px; opacity: 0.85;">
@@ -749,8 +749,8 @@
           <tr>
             <td style="padding: 5px 8px;">{{ scope.scope_name }}</td>
             {% set unit_cost = (scope.direct_cost | float) / (scope.quantity | float) if (scope.quantity | float) > 0 else 0 %}
-            <td class="amount-cell" style="padding: 5px 8px;">{{ methods.php_format(unit_cost) }}</td>
-            <td class="amount-cell" style="padding: 5px 8px;">{{ methods.php_format(scope.direct_cost) }}</td>
+            <td class="amount-cell" style="padding: 5px 8px;">{{ php_format(unit_cost) }}</td>
+            <td class="amount-cell" style="padding: 5px 8px;">{{ php_format(scope.direct_cost) }}</td>
           </tr>
         </tbody>
       </table>
@@ -759,7 +759,7 @@
     {# Waterfall pinned to bottom (D35, D37) #}
     <div class="scope-waterfall">
       <div style="max-width: 280px; margin-left: auto;">
-        {{ methods.render_waterfall_block(scope.direct_cost | float, doc.ocm_percent | float, doc.profit_percent | float, doc.vat_inclusive, doc.vat_percent | float, "#A52422") }}
+        {{ render_waterfall_block(scope.direct_cost | float, doc.ocm_percent | float, doc.profit_percent | float, doc.vat_inclusive, doc.vat_percent | float, "#A52422") }}
       </div>
     </div>
 
@@ -803,9 +803,9 @@
       </div>
       <div style="font-size: 8pt; margin-top: 4px; opacity: 0.9;">
         UOM: {{ scope.uom }}
-        &nbsp;|&nbsp; Qty: {{ methods.num_format(scope.quantity) }}
-        &nbsp;|&nbsp; Output/Day: {{ methods.num_format(scope.output_per_day) }}
-        &nbsp;|&nbsp; Duration: {{ methods.num_format(scope.duration_days) }} days
+        &nbsp;|&nbsp; Qty: {{ num_format(scope.quantity) }}
+        &nbsp;|&nbsp; Output/Day: {{ num_format(scope.output_per_day) }}
+        &nbsp;|&nbsp; Duration: {{ num_format(scope.duration_days) }} days
       </div>
     </div>
 
@@ -813,27 +813,27 @@
     {% set labor_rows = frappe.db.sql("SELECT role, persons, daily_rate, total_rate, total_cost FROM `tabEstimate Scope Labor` WHERE parent = %s ORDER BY idx", scope.name, as_dict=True) %}
     {% if labor_rows %}
     <div class="section-header">A &mdash; LABOR</div>
-    {{ methods.render_labor_table(labor_rows, scope.duration_days | float) }}
+    {{ render_labor_table(labor_rows, scope.duration_days | float) }}
     {% endif %}
 
     {# D22: Section B — Equipment (skip if no equipment rows) #}
     {% set equipment_rows = frappe.db.sql("SELECT item_name, units, daily_rate, total_rate, total_cost FROM `tabEstimate Scope Equipment` WHERE parent = %s ORDER BY idx", scope.name, as_dict=True) %}
     {% if equipment_rows %}
     <div class="section-header">B &mdash; EQUIPMENT &amp; PLANT</div>
-    {{ methods.render_equipment_table(equipment_rows, scope.duration_days | float) }}
+    {{ render_equipment_table(equipment_rows, scope.duration_days | float) }}
     {% endif %}
 
     {# D22: Section F — Materials (skip if no material rows) #}
     {% set material_rows = frappe.db.sql("SELECT item_name, adjusted_qty, uom, buying_rate, amount FROM `tabEstimate Scope Material` WHERE parent = %s ORDER BY idx", scope.name, as_dict=True) %}
     {% if material_rows %}
     <div class="section-header">F &mdash; MATERIALS</div>
-    {{ methods.render_material_table(material_rows) }}
+    {{ render_material_table(material_rows) }}
     {% endif %}
 
     {# D21, D35, D37: Waterfall pinned to page bottom, no split (page-break-inside: avoid) #}
     <div class="scope-waterfall">
       <div style="max-width: 280px; margin-left: auto; margin-top: 6mm;">
-        {{ methods.render_waterfall_block(scope.direct_cost | float, doc.ocm_percent | float, doc.profit_percent | float, doc.vat_inclusive, doc.vat_percent | float, "#A52422") }}
+        {{ render_waterfall_block(scope.direct_cost | float, doc.ocm_percent | float, doc.profit_percent | float, doc.vat_inclusive, doc.vat_percent | float, "#A52422") }}
       </div>
     </div>
 
