@@ -1,0 +1,67 @@
+{
+ "actions": [],
+ "allow_rename": 1,
+ "autoname": "field:role_name",
+ "creation": "2026-03-11 00:00:00.000000",
+ "docstatus": 0,
+ "doctype": "DocType",
+ "editable_grid": 1,
+ "engine": "InnoDB",
+ "field_order": [
+  "role_name",
+  "category",
+  "default_daily_rate"
+ ],
+ "fields": [
+  {
+   "fieldname": "role_name",
+   "fieldtype": "Data",
+   "in_list_view": 1,
+   "label": "Role Name",
+   "reqd": 1,
+   "unique": 1
+  },
+  {
+   "fieldname": "category",
+   "fieldtype": "Select",
+   "in_list_view": 1,
+   "label": "Category",
+   "options": "Skilled\nSemi-Skilled\nUnskilled",
+   "in_standard_filter": 1
+  },
+  {
+   "fieldname": "default_daily_rate",
+   "fieldtype": "Currency",
+   "in_list_view": 1,
+   "label": "Default Daily Rate"
+  }
+ ],
+ "index_web_pages_for_search": 0,
+ "links": [],
+ "modified": "2026-03-11 00:00:00.000000",
+ "modified_by": "Administrator",
+ "module": "Estimate",
+ "name": "Labor Role",
+ "naming_rule": "By fieldname",
+ "owner": "Administrator",
+ "permissions": [
+  {
+   "create": 1, "delete": 1, "email": 1, "export": 1,
+   "print": 1, "read": 1, "report": 1, "role": "System Manager",
+   "share": 1, "write": 1
+  },
+  {
+   "create": 1, "delete": 1, "email": 1, "export": 1,
+   "print": 1, "read": 1, "report": 1, "role": "Estimate Manager",
+   "share": 1, "write": 1
+  },
+  {
+   "email": 1, "export": 1, "print": 1, "read": 1,
+   "report": 1, "role": "Estimate User"
+  }
+ ],
+ "sort_field": "role_name",
+ "sort_order": "ASC",
+ "states": [],
+ "track_changes": 0
+}

@@ -247,3 +247,14 @@ app_license = "mit"
 # List of apps whose translatable strings should be excluded from this app's translations.
 # ignore_translatable_strings_from = []
 
+# Fixtures
+# --------
+# Records to be exported and imported during bench migrate
+fixtures = [
+    {"dt": "DPWH Pay Item"},
+    {"dt": "Labor Role"},
+    {"dt": "Price List", "filters": [["name", "=", "Estimate Selling"]]},
+    {"dt": "Custom Field", "filters": [["module", "=", "Estimate"]]},
+    {"dt": "Role", "filters": [["name", "in", ["Estimate Manager", "Estimate User"]]]}
+]
+
