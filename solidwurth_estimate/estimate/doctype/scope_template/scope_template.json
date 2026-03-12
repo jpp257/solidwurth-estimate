@@ -1,0 +1,138 @@
+{
+ "actions": [],
+ "allow_rename": 0,
+ "autoname": "field:template_name",
+ "creation": "2026-03-11 00:00:00.000000",
+ "docstatus": 0,
+ "doctype": "DocType",
+ "editable_grid": 1,
+ "engine": "InnoDB",
+ "field_order": [
+  "template_name",
+  "description",
+  "sb_dpwh",
+  "dpwh_pay_item",
+  "cb_uom",
+  "uom",
+  "output_per_day",
+  "sb_labor",
+  "labor_rows",
+  "sb_equipment",
+  "equipment_rows",
+  "sb_materials",
+  "material_rows",
+  "connections_tab"
+ ],
+ "fields": [
+  {
+   "fieldname": "template_name",
+   "fieldtype": "Data",
+   "in_list_view": 1,
+   "label": "Template Name",
+   "reqd": 1,
+   "unique": 1,
+   "bold": 1
+  },
+  {
+   "fieldname": "description",
+   "fieldtype": "Small Text",
+   "label": "Description"
+  },
+  {
+   "fieldname": "sb_dpwh",
+   "fieldtype": "Section Break",
+   "label": "DPWH Classification"
+  },
+  {
+   "fieldname": "dpwh_pay_item",
+   "fieldtype": "Link",
+   "in_list_view": 1,
+   "label": "DPWH Pay Item",
+   "options": "DPWH Pay Item"
+  },
+  {
+   "fieldname": "cb_uom",
+   "fieldtype": "Column Break"
+  },
+  {
+   "fieldname": "uom",
+   "fieldtype": "Link",
+   "label": "UOM",
+   "options": "UOM",
+   "fetch_from": "dpwh_pay_item.unit",
+   "fetch_if_empty": 1
+  },
+  {
+   "fieldname": "output_per_day",
+   "fieldtype": "Float",
+   "label": "Output per Day"
+  },
+  {
+   "fieldname": "sb_labor",
+   "fieldtype": "Section Break",
+   "label": "Labor Gang"
+  },
+  {
+   "fieldname": "labor_rows",
+   "fieldtype": "Table",
+   "label": "Labor Gang",
+   "options": "Scope Template Labor"
+  },
+  {
+   "fieldname": "sb_equipment",
+   "fieldtype": "Section Break",
+   "label": "Equipment"
+  },
+  {
+   "fieldname": "equipment_rows",
+   "fieldtype": "Table",
+   "label": "Equipment",
+   "options": "Scope Template Equipment"
+  },
+  {
+   "fieldname": "sb_materials",
+   "fieldtype": "Section Break",
+   "label": "Materials"
+  },
+  {
+   "fieldname": "material_rows",
+   "fieldtype": "Table",
+   "label": "Materials",
+   "options": "Scope Template Material"
+  },
+  {
+   "fieldname": "connections_tab",
+   "fieldtype": "Tab Break",
+   "label": "Connections",
+   "show_dashboard": 1
+  }
+ ],
+ "index_web_pages_for_search": 0,
+ "links": [],
+ "modified": "2026-03-11 00:00:00.000000",
+ "modified_by": "Administrator",
+ "module": "Estimate",
+ "name": "Scope Template",
+ "naming_rule": "By fieldname",
+ "owner": "Administrator",
+ "permissions": [
+  {
+   "create": 1, "delete": 1, "email": 1, "export": 1,
+   "print": 1, "read": 1, "report": 1, "role": "System Manager",
+   "share": 1, "write": 1
+  },
+  {
+   "create": 1, "delete": 1, "email": 1, "export": 1,
+   "print": 1, "read": 1, "report": 1, "role": "Estimate Manager",
+   "share": 1, "write": 1
+  },
+  {
+   "email": 1, "export": 1, "print": 1, "read": 1,
+   "report": 1, "role": "Estimate User"
+  }
+ ],
+ "sort_field": "template_name",
+ "sort_order": "ASC",
+ "states": [],
+ "track_changes": 1
+}

@@ -1,0 +1,257 @@
+{
+ "actions": [],
+ "allow_rename": 0,
+ "autoname": "naming_series:",
+ "creation": "2026-03-11 00:00:00.000000",
+ "docstatus": 0,
+ "doctype": "DocType",
+ "editable_grid": 1,
+ "engine": "InnoDB",
+ "field_order": [
+  "naming_series",
+  "estimate",
+  "scope_template",
+  "sb_scope_details",
+  "scope_name",
+  "scope_group",
+  "cb_optional",
+  "is_optional",
+  "description",
+  "sb_dpwh",
+  "dpwh_pay_item",
+  "cb_uom",
+  "uom",
+  "quantity",
+  "cb_output",
+  "output_per_day",
+  "sb_labor",
+  "labor_rows",
+  "sb_equipment",
+  "equipment_rows",
+  "sb_materials",
+  "material_rows",
+  "sb_totals",
+  "duration_days",
+  "cb_labor_cost",
+  "total_labor_cost",
+  "total_equipment_cost",
+  "cb_material_cost",
+  "total_material_cost",
+  "direct_cost"
+ ],
+ "fields": [
+  {
+   "fieldname": "naming_series",
+   "fieldtype": "Select",
+   "hidden": 1,
+   "label": "Series",
+   "no_copy": 1,
+   "options": "ESC-.YY.-####",
+   "print_hide": 1,
+   "reqd": 1,
+   "set_only_once": 1
+  },
+  {
+   "fieldname": "estimate",
+   "fieldtype": "Link",
+   "in_list_view": 1,
+   "in_standard_filter": 1,
+   "label": "Estimate",
+   "options": "Estimate",
+   "reqd": 1,
+   "bold": 1
+  },
+  {
+   "fieldname": "scope_template",
+   "fieldtype": "Link",
+   "label": "Source Template",
+   "options": "Scope Template",
+   "read_only": 1
+  },
+  {
+   "fieldname": "sb_scope_details",
+   "fieldtype": "Section Break",
+   "label": "Scope Details"
+  },
+  {
+   "fieldname": "scope_name",
+   "fieldtype": "Data",
+   "in_list_view": 1,
+   "label": "Scope Name",
+   "reqd": 1,
+   "bold": 1
+  },
+  {
+   "fieldname": "scope_group",
+   "fieldtype": "Data",
+   "in_list_view": 1,
+   "in_standard_filter": 1,
+   "label": "Scope Group",
+   "description": "Building or area grouping (e.g. Guard House, Main Building)"
+  },
+  {
+   "fieldname": "cb_optional",
+   "fieldtype": "Column Break"
+  },
+  {
+   "fieldname": "is_optional",
+   "fieldtype": "Check",
+   "default": "0",
+   "label": "Is Optional"
+  },
+  {
+   "fieldname": "description",
+   "fieldtype": "Small Text",
+   "label": "Description"
+  },
+  {
+   "fieldname": "sb_dpwh",
+   "fieldtype": "Section Break",
+   "label": "DPWH Classification"
+  },
+  {
+   "fieldname": "dpwh_pay_item",
+   "fieldtype": "Link",
+   "label": "DPWH Pay Item",
+   "options": "DPWH Pay Item"
+  },
+  {
+   "fieldname": "cb_uom",
+   "fieldtype": "Column Break"
+  },
+  {
+   "fieldname": "uom",
+   "fieldtype": "Link",
+   "label": "UOM",
+   "options": "UOM"
+  },
+  {
+   "fieldname": "quantity",
+   "fieldtype": "Float",
+   "label": "Quantity"
+  },
+  {
+   "fieldname": "cb_output",
+   "fieldtype": "Column Break"
+  },
+  {
+   "fieldname": "output_per_day",
+   "fieldtype": "Float",
+   "label": "Output per Day"
+  },
+  {
+   "fieldname": "sb_labor",
+   "fieldtype": "Section Break",
+   "label": "Labor Gang"
+  },
+  {
+   "fieldname": "labor_rows",
+   "fieldtype": "Table",
+   "label": "Labor Gang",
+   "options": "Estimate Scope Labor"
+  },
+  {
+   "fieldname": "sb_equipment",
+   "fieldtype": "Section Break",
+   "label": "Equipment"
+  },
+  {
+   "fieldname": "equipment_rows",
+   "fieldtype": "Table",
+   "label": "Equipment",
+   "options": "Estimate Scope Equipment"
+  },
+  {
+   "fieldname": "sb_materials",
+   "fieldtype": "Section Break",
+   "label": "Materials"
+  },
+  {
+   "fieldname": "material_rows",
+   "fieldtype": "Table",
+   "label": "Materials",
+   "options": "Estimate Scope Material"
+  },
+  {
+   "fieldname": "sb_totals",
+   "fieldtype": "Section Break",
+   "label": "Totals (Phase 12)"
+  },
+  {
+   "fieldname": "duration_days",
+   "fieldtype": "Float",
+   "default": "0",
+   "label": "Duration (Days)",
+   "read_only": 1,
+   "description": "Phase 12: quantity / output_per_day"
+  },
+  {
+   "fieldname": "cb_labor_cost",
+   "fieldtype": "Column Break"
+  },
+  {
+   "fieldname": "total_labor_cost",
+   "fieldtype": "Currency",
+   "default": "0",
+   "label": "Labor Cost (₱)",
+   "read_only": 1
+  },
+  {
+   "fieldname": "total_equipment_cost",
+   "fieldtype": "Currency",
+   "default": "0",
+   "label": "Equipment Cost (₱)",
+   "read_only": 1
+  },
+  {
+   "fieldname": "cb_material_cost",
+   "fieldtype": "Column Break"
+  },
+  {
+   "fieldname": "total_material_cost",
+   "fieldtype": "Currency",
+   "default": "0",
+   "label": "Material Cost (₱)",
+   "read_only": 1
+  },
+  {
+   "fieldname": "direct_cost",
+   "fieldtype": "Currency",
+   "default": "0",
+   "label": "Direct Cost (₱)",
+   "read_only": 1,
+   "bold": 1
+  }
+ ],
+ "index_web_pages_for_search": 0,
+ "links": [],
+ "modified": "2026-03-11 00:00:00.000000",
+ "modified_by": "Administrator",
+ "module": "Estimate",
+ "name": "Estimate Scope",
+ "naming_rule": "By \"Naming Series\" field",
+ "owner": "Administrator",
+ "permissions": [
+  {
+   "create": 1, "delete": 1, "email": 1, "export": 1,
+   "print": 1, "read": 1, "report": 1, "role": "System Manager",
+   "share": 1, "write": 1
+  },
+  {
+   "create": 1, "delete": 1, "email": 1, "export": 1,
+   "print": 1, "read": 1, "report": 1, "role": "Estimate Manager",
+   "share": 1, "write": 1
+  },
+  {
+   "create": 1, "email": 1, "export": 1,
+   "print": 1, "read": 1, "report": 1, "role": "Estimate User",
+   "write": 1
+  }
+ ],
+ "search_fields": "estimate,scope_name,scope_group",
+ "sort_field": "modified",
+ "sort_order": "DESC",
+ "states": [],
+ "title_field": "scope_name",
+ "track_changes": 1
+}

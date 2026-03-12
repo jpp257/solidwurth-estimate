@@ -1,0 +1,280 @@
+{
+ "actions": [],
+ "allow_rename": 0,
+ "autoname": "naming_series:",
+ "creation": "2026-03-11 00:00:00.000000",
+ "docstatus": 0,
+ "doctype": "DocType",
+ "editable_grid": 1,
+ "engine": "InnoDB",
+ "field_order": [
+  "naming_series",
+  "estimate_title",
+  "sb_details",
+  "client",
+  "cb_project",
+  "project",
+  "estimate_date",
+  "cb_valid",
+  "valid_until",
+  "description",
+  "sb_cost_params",
+  "ocm_percent",
+  "cb_profit",
+  "profit_percent",
+  "vat_inclusive",
+  "cb_vat",
+  "vat_percent",
+  "sb_totals",
+  "direct_cost",
+  "cb_ocm_amt",
+  "ocm_amount",
+  "profit_amount",
+  "cb_subtotal",
+  "subtotal",
+  "vat_amount",
+  "grand_total",
+  "sb_revision",
+  "status",
+  "cb_amended",
+  "amended_from",
+  "revision",
+  "connections_tab"
+ ],
+ "fields": [
+  {
+   "fieldname": "naming_series",
+   "fieldtype": "Select",
+   "hidden": 1,
+   "label": "Series",
+   "no_copy": 1,
+   "options": "EST-.YY.-####",
+   "print_hide": 1,
+   "reqd": 1,
+   "set_only_once": 1
+  },
+  {
+   "fieldname": "estimate_title",
+   "fieldtype": "Data",
+   "in_list_view": 1,
+   "label": "Estimate Title",
+   "reqd": 1,
+   "bold": 1
+  },
+  {
+   "fieldname": "sb_details",
+   "fieldtype": "Section Break",
+   "label": "Details"
+  },
+  {
+   "fieldname": "client",
+   "fieldtype": "Link",
+   "in_list_view": 1,
+   "label": "Client",
+   "options": "Customer"
+  },
+  {
+   "fieldname": "cb_project",
+   "fieldtype": "Column Break"
+  },
+  {
+   "fieldname": "project",
+   "fieldtype": "Link",
+   "label": "Project",
+   "options": "Project"
+  },
+  {
+   "fieldname": "estimate_date",
+   "fieldtype": "Date",
+   "in_list_view": 1,
+   "label": "Estimate Date"
+  },
+  {
+   "fieldname": "cb_valid",
+   "fieldtype": "Column Break"
+  },
+  {
+   "fieldname": "valid_until",
+   "fieldtype": "Date",
+   "label": "Valid Until"
+  },
+  {
+   "fieldname": "description",
+   "fieldtype": "Small Text",
+   "label": "Scope Summary"
+  },
+  {
+   "fieldname": "sb_cost_params",
+   "fieldtype": "Section Break",
+   "label": "Cost Parameters"
+  },
+  {
+   "fieldname": "ocm_percent",
+   "fieldtype": "Percent",
+   "default": "5",
+   "label": "OCM %",
+   "description": "Overhead, Contingencies, Miscellaneous"
+  },
+  {
+   "fieldname": "cb_profit",
+   "fieldtype": "Column Break"
+  },
+  {
+   "fieldname": "profit_percent",
+   "fieldtype": "Percent",
+   "default": "15",
+   "label": "Profit %"
+  },
+  {
+   "fieldname": "vat_inclusive",
+   "fieldtype": "Check",
+   "default": "1",
+   "label": "Apply VAT"
+  },
+  {
+   "fieldname": "cb_vat",
+   "fieldtype": "Column Break"
+  },
+  {
+   "fieldname": "vat_percent",
+   "fieldtype": "Percent",
+   "default": "12",
+   "label": "VAT %"
+  },
+  {
+   "fieldname": "sb_totals",
+   "fieldtype": "Section Break",
+   "label": "Totals (Phase 12)"
+  },
+  {
+   "fieldname": "direct_cost",
+   "fieldtype": "Currency",
+   "default": "0",
+   "label": "Direct Cost (₱)",
+   "read_only": 1
+  },
+  {
+   "fieldname": "cb_ocm_amt",
+   "fieldtype": "Column Break"
+  },
+  {
+   "fieldname": "ocm_amount",
+   "fieldtype": "Currency",
+   "default": "0",
+   "label": "OCM Amount (₱)",
+   "read_only": 1
+  },
+  {
+   "fieldname": "profit_amount",
+   "fieldtype": "Currency",
+   "default": "0",
+   "label": "Profit Amount (₱)",
+   "read_only": 1
+  },
+  {
+   "fieldname": "cb_subtotal",
+   "fieldtype": "Column Break"
+  },
+  {
+   "fieldname": "subtotal",
+   "fieldtype": "Currency",
+   "default": "0",
+   "label": "Subtotal (₱)",
+   "read_only": 1
+  },
+  {
+   "fieldname": "vat_amount",
+   "fieldtype": "Currency",
+   "default": "0",
+   "label": "VAT Amount (₱)",
+   "read_only": 1
+  },
+  {
+   "fieldname": "grand_total",
+   "fieldtype": "Currency",
+   "default": "0",
+   "label": "Grand Total (₱)",
+   "read_only": 1,
+   "bold": 1
+  },
+  {
+   "fieldname": "sb_revision",
+   "fieldtype": "Section Break",
+   "label": "Revision"
+  },
+  {
+   "fieldname": "status",
+   "fieldtype": "Select",
+   "default": "Draft",
+   "in_list_view": 1,
+   "in_standard_filter": 1,
+   "label": "Status",
+   "options": "Draft\nUnder Review\nApproved\nRejected\nConverted",
+   "bold": 1
+  },
+  {
+   "fieldname": "cb_amended",
+   "fieldtype": "Column Break"
+  },
+  {
+   "fieldname": "amended_from",
+   "fieldtype": "Link",
+   "label": "Amended From",
+   "no_copy": 1,
+   "options": "Estimate",
+   "print_hide": 1,
+   "read_only": 1
+  },
+  {
+   "fieldname": "revision",
+   "fieldtype": "Int",
+   "default": "0",
+   "label": "Revision No.",
+   "read_only": 1
+  },
+  {
+   "fieldname": "connections_tab",
+   "fieldtype": "Tab Break",
+   "label": "Connections",
+   "show_dashboard": 1
+  }
+ ],
+ "index_web_pages_for_search": 0,
+ "links": [
+  {
+   "group": "Scopes",
+   "link_doctype": "Estimate Scope",
+   "link_fieldname": "estimate"
+  }
+ ],
+ "modified": "2026-03-11 00:00:00.000000",
+ "modified_by": "Administrator",
+ "module": "Estimate",
+ "name": "Estimate",
+ "naming_rule": "By \"Naming Series\" field",
+ "owner": "Administrator",
+ "permissions": [
+  {
+   "create": 1, "delete": 1, "email": 1, "export": 1,
+   "print": 1, "read": 1, "report": 1, "role": "System Manager",
+   "share": 1, "write": 1
+  },
+  {
+   "create": 1, "delete": 1, "email": 1, "export": 1,
+   "print": 1, "read": 1, "report": 1, "role": "Estimate Manager",
+   "share": 1, "write": 1
+  },
+  {
+   "create": 1, "email": 1, "export": 1,
+   "print": 1, "read": 1, "report": 1, "role": "Estimate User",
+   "write": 1
+  }
+ ],
+ "search_fields": "estimate_title,client,status",
+ "show_name_in_global_search": 1,
+ "sort_field": "modified",
+ "sort_order": "DESC",
+ "states": [],
+ "title_field": "estimate_title",
+ "track_changes": 1
+}
