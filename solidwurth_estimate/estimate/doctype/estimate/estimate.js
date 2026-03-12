@@ -168,7 +168,7 @@ function render_scope_summary(frm) {
             });
 
             const rows = scopes.map(s => {
-                const link = frappe.utils.get_url_to_form("Estimate Scope", s.name);
+                const link = `/app/estimate-scope/${encodeURIComponent(s.name)}`;
                 const optFlag = s.is_optional ? "&#10003;" : "";
                 const dc = format_currency(flt(s.direct_cost), "PHP");
                 return `<tr>
