@@ -119,6 +119,14 @@ frappe.ui.form.on("Estimate Scope Material", {
         const row = locals[cdt][cdn];
         if (!row.item) return;
 
+        // Auto-fill UOM from Item's stock_uom
+        frappe.db.get_value("Item", row.item, "stock_uom", (r) => {
+            if (r && r.stock_uom) {
+                frappe.model.set_value(cdt, cdn, "uom", r.stock_uom);
+            }
+        });
+
+        // Auto-fill buying_rate via waterfall lookup
         frappe.call({
             method: "solidwurth_estimate.estimate.doctype.estimate_scope.estimate_scope.get_buying_rate",
             args: { item_code: row.item },
