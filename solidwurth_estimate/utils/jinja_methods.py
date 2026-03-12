@@ -56,6 +56,25 @@ def num_format(value):
         return "0.00"
 
 
+def int_format(value):
+    """Format a number as integer (no decimals) for counts like persons, units.
+
+    Args:
+        value: Numeric value or None
+    Returns:
+        str: Integer string e.g. '5', or '2.5' if not whole
+    """
+    if value is None or value == "":
+        return "0"
+    try:
+        f = float(value)
+        if f == int(f):
+            return str(int(f))
+        return "{:.1f}".format(f)
+    except (TypeError, ValueError):
+        return "0"
+
+
 # ---------------------------------------------------------------------------
 # Font Embedding (D40, AC-7)
 # ---------------------------------------------------------------------------
@@ -213,20 +232,18 @@ def render_labor_table(labor_rows, duration_days):
             td=td,
             tdr=td_right,
             role=row.get("role", ""),
-            persons=num_format(row.get("persons", 0)),
+            persons=int_format(row.get("persons", 0)),
             daily_rate=php_format(row.get("daily_rate", 0)),
             total_rate=php_format(row.get("total_rate", 0)),
             total_cost=php_format(row.get("total_cost", 0)),
         )
 
     table_html = (
-        '<p style="margin: 4px 0; font-size: 0.85em; color: #555;">Duration: {duration} days</p>'
         '<table class="dlia-table" style="width: 100%; border-collapse: collapse; font-size: 0.9em;">'
         "<thead>{header}</thead>"
         "<tbody>{rows}</tbody>"
         "</table>"
     ).format(
-        duration=num_format(duration_days),
         header=header_row,
         rows=rows_html,
     )
@@ -282,20 +299,18 @@ def render_equipment_table(equipment_rows, duration_days):
             td=td,
             tdr=td_right,
             item_name=row.get("item_name", ""),
-            units=num_format(row.get("units", 0)),
+            units=int_format(row.get("units", 0)),
             daily_rate=php_format(row.get("daily_rate", 0)),
             total_rate=php_format(row.get("total_rate", 0)),
             total_cost=php_format(row.get("total_cost", 0)),
         )
 
     table_html = (
-        '<p style="margin: 4px 0; font-size: 0.85em; color: #555;">Duration: {duration} days</p>'
         '<table class="dlia-table" style="width: 100%; border-collapse: collapse; font-size: 0.9em;">'
         "<thead>{header}</thead>"
         "<tbody>{rows}</tbody>"
         "</table>"
     ).format(
-        duration=num_format(duration_days),
         header=header_row,
         rows=rows_html,
     )

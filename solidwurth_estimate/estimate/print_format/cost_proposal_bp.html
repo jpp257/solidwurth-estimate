@@ -1,7 +1,7 @@
-{# BP VARIANT — accent: #C89A2E (gold). Diff from cost_proposal.html: CSS --accent, doc.name+'-BP', BP waterfall via bp_rate_factor/bp_ocm_percent/bp_profit_percent #}
+{# BP VARIANT — accent: #C89A2E (gold). Diff from cost_proposal.html: CSS accent, doc.name+'-BP', BP waterfall via bp_rate_factor/bp_ocm_percent/bp_profit_percent #}
 {# COST PROPOSAL (BP) — Bank Purpose Print Format (SolidWurth Corp.) #}
-{# Plan 13-03: BP variant. Based on Plan 13-02 standard template. #}
-{# Accent color: #C89A2E (gold) | Target renderer: wkhtmltopdf #}
+{# Phase 13: wkhtmltopdf-safe rewrite — table layout, Frappe footer-html, no flex/fixed/opacity #}
+{# Accent color: #C89A2E (gold) | Target renderer: wkhtmltopdf (Qt WebKit) #}
 
 {%- set logo_path = frappe.db.get_single_value("Website Settings", "banner_image") -%}
 {%- set fonts = get_fonts() -%}
@@ -12,22 +12,44 @@
 
 <style>
   /* -----------------------------------------------------------------------
-     CSS Variables — SolidWurth Cost Proposal (BP)
-     D2: Navy + gold accent palette (BP variant)
+     Page Setup — A4 Portrait (D9, D10)
+     Bottom margin accommodates Frappe footer-html
   ----------------------------------------------------------------------- */
-  :root {
-    --accent:      #C89A2E;
-    --navy:        #1B2E4A;
-    --sub-header:  #2E5FA3;
-    --zebra:       #F4F6F9;
-    --body-text:   #2D3142;
-    --col-header:  #3B5998;
+  @page {
+    size: A4 portrait;
+    margin: 15mm 15mm 20mm 20mm; /* T R B L — L:20mm for binding */
   }
 
   /* -----------------------------------------------------------------------
-     Base64 Font Embedding (D40, AC-7)
-     Guarantees Montserrat/Inter/Roboto Mono render in wkhtmltopdf
-     without network access.
+     Global Reset & Print Color Fix
+  ----------------------------------------------------------------------- */
+  * {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+    -webkit-print-color-adjust: exact !important;
+    print-color-adjust: exact !important;
+  }
+
+  body {
+    font-family: 'Inter', 'Helvetica Neue', Arial, sans-serif;
+    font-size: 9pt;
+    color: #2D3142;
+    line-height: 1.4;
+  }
+
+  h1, h2, h3 {
+    font-family: 'Montserrat', 'Segoe UI', Arial, sans-serif;
+    font-weight: 700;
+  }
+
+  .amount-cell {
+    font-family: 'Roboto Mono', 'Courier New', monospace;
+    text-align: right;
+  }
+
+  /* -----------------------------------------------------------------------
+     Font Embedding (base64, graceful degradation)
   ----------------------------------------------------------------------- */
   {% if fonts.montserrat_bold %}
   @font-face {
@@ -55,326 +77,56 @@
   {% endif %}
 
   /* -----------------------------------------------------------------------
-     Page Setup — A4 Portrait with binding-friendly margins (D9, D10)
+     Table Defaults — wkhtmltopdf-safe (no flexbox)
   ----------------------------------------------------------------------- */
-  @page {
-    size: A4 portrait;
-    margin: 15mm 15mm 18mm 20mm; /* T R B L — L:20mm for binding (D10) */
-  }
-
-  /* -----------------------------------------------------------------------
-     Global Reset & Base Typography (D6)
-  ----------------------------------------------------------------------- */
-  * {
-    box-sizing: border-box;
-    margin: 0;
-    padding: 0;
-  }
-
-  body {
-    font-family: 'Inter', 'Helvetica Neue', Arial, sans-serif;
-    font-size: 9pt;
-    color: var(--body-text);
-    line-height: 1.4;
-  }
-
-  h1, h2, h3 {
-    font-family: 'Montserrat', 'Helvetica Neue', Arial, sans-serif;
-    font-weight: 700;
-  }
-
-  .amount-cell {
-    font-family: 'Roboto Mono', 'Courier New', monospace;
-    text-align: right;
-  }
-
-  /* -----------------------------------------------------------------------
-     Continuation Header — Fixed at top of every page after cover (D7, D36)
-     Thin navy bar: logo | "COST PROPOSAL — EST-XX-XXXX-BP | Rev N" | page X/Y
-     Gold bottom border 2px #C89A2E (BP variant)
-  ----------------------------------------------------------------------- */
-  .continuation-header {
-    position: fixed;
-    top: 0;
-    left: 0;
-    right: 0;
-    height: 12mm;
-    background-color: var(--navy);
-    color: #ffffff;
-    padding: 0 15mm 0 20mm;
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    font-size: 8pt;
-    border-bottom: 2px solid var(--accent);
-    z-index: 1000;
-  }
-
-  .continuation-header .header-logo {
-    max-height: 10mm;
-    width: auto;
-  }
-
-  .continuation-header .header-title {
-    font-family: 'Montserrat', 'Helvetica Neue', Arial, sans-serif;
-    font-weight: 700;
-    font-size: 9pt;
-    letter-spacing: 0.5px;
-    text-align: center;
-    flex: 1;
-    margin: 0 8mm;
-  }
-
-  .continuation-header .header-ref {
-    font-size: 7.5pt;
-    text-align: right;
-    white-space: nowrap;
-  }
-
-  /* -----------------------------------------------------------------------
-     Footer Bar — Fixed at bottom of every page (D8)
-     Company name + TIN left | "CONFIDENTIAL..." center | Page X of Y right
-  ----------------------------------------------------------------------- */
-  .footer-bar {
-    position: fixed;
-    bottom: 0;
-    left: 0;
-    right: 0;
-    height: 10mm;
-    background-color: #f8f8f8;
-    border-top: 1px solid var(--navy);
-    padding: 0 15mm 0 20mm;
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    font-size: 7pt;
-    color: #555;
-    z-index: 1000;
-  }
-
-  .footer-bar .footer-company {
-    text-align: left;
-    font-weight: bold;
-  }
-
-  .footer-bar .footer-confidential {
-    text-align: center;
-    flex: 1;
-    font-style: italic;
-    color: var(--accent);
-    font-size: 7pt;
-  }
-
-  .footer-bar .footer-page {
-    text-align: right;
-  }
-
-  /* -----------------------------------------------------------------------
-     Content Body — main document area with space for fixed header/footer
-  ----------------------------------------------------------------------- */
-  .content-body {
-    margin-top: 16mm;
-    margin-bottom: 14mm;
-  }
-
-  /* -----------------------------------------------------------------------
-     Cover Page (D3, D11, D12)
-  ----------------------------------------------------------------------- */
-  .cover-page {
-    page-break-after: always;
-    min-height: 260mm;
-    display: flex;
-    flex-direction: column;
-  }
-
-  .cover-navy-band {
-    background-color: var(--navy);
-    width: 100%;
-    padding: 18mm 20mm 14mm 20mm;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    text-align: center;
-  }
-
-  .cover-navy-band .cover-logo {
-    max-height: 50mm;
-    max-width: 120mm;
-    margin-bottom: 8mm;
-  }
-
-  .cover-title {
-    font-family: 'Montserrat', 'Helvetica Neue', Arial, sans-serif;
-    font-weight: 700;
-    font-size: 28pt;
-    color: #ffffff;
-    letter-spacing: 2px;
-    text-transform: uppercase;
-  }
-
-  .cover-accent-line {
-    width: 80mm;
-    height: 3px;
-    background-color: var(--accent);
-    margin: 6mm auto 0 auto;
-  }
-
-  .cover-info-block {
-    padding: 10mm 20mm;
-    flex: 1;
-  }
-
-  .cover-info-table {
+  table {
     width: 100%;
     border-collapse: collapse;
-    margin-bottom: 6mm;
   }
 
-  .cover-info-table td {
-    padding: 4px 8px;
-    vertical-align: top;
-    font-size: 10pt;
-    border-bottom: 1px solid #e0e0e0;
+  thead {
+    display: table-header-group;
   }
 
-  .cover-info-table .info-label {
-    font-weight: bold;
-    color: var(--navy);
-    width: 35%;
-    white-space: nowrap;
-  }
-
-  .cover-info-table .info-value {
-    color: var(--body-text);
-  }
-
-  .cover-signature-block {
-    margin-top: auto;
-    padding: 8mm 20mm 10mm 20mm;
-    border-top: 2px solid var(--navy);
-  }
-
-  .cover-signature-row {
-    display: flex;
-    justify-content: space-around;
-    gap: 10mm;
-  }
-
-  .cover-signature-col {
-    flex: 1;
-    text-align: center;
-  }
-
-  .cover-signature-label {
-    font-size: 7.5pt;
-    font-weight: bold;
-    color: var(--navy);
-    letter-spacing: 1px;
-    text-transform: uppercase;
-    margin-bottom: 10mm;
-  }
-
-  .cover-signature-line {
-    border-bottom: 1px solid var(--navy);
-    margin: 0 4mm 2mm 4mm;
-  }
-
-  .cover-signature-name {
-    font-size: 8.5pt;
-    color: var(--body-text);
-    font-weight: bold;
-    min-height: 12px;
-  }
-
-  /* -----------------------------------------------------------------------
-     Summary Page (D5, D13, D14)
-  ----------------------------------------------------------------------- */
-  .summary-page {
-    page-break-after: always;
-  }
-
-  .summary-heading {
-    background-color: var(--navy);
-    color: #ffffff;
-    font-family: 'Montserrat', 'Helvetica Neue', Arial, sans-serif;
-    font-size: 13pt;
-    font-weight: 700;
-    padding: 8px 12px;
-    letter-spacing: 1px;
-    margin-bottom: 8mm;
+  tbody tr {
+    page-break-inside: avoid;
   }
 
   .summary-table {
-    width: 100%;
-    border-collapse: collapse;
-    margin-bottom: 6mm;
-    font-size: 9pt;
+    table-layout: fixed;
   }
 
-  .summary-table thead tr th {
-    background-color: var(--col-header);
-    color: #ffffff;
-    padding: 6px 8px;
-    text-align: left;
-  }
-
-  .summary-table thead tr th.amount-header {
-    text-align: right;
-  }
-
-  .summary-table tbody tr td {
-    padding: 5px 8px;
-    border-bottom: 1px solid #e8e8e8;
-  }
-
-  .summary-table tbody tr.zebra-even {
-    background-color: var(--zebra);
-  }
-
-  .summary-subtotal-row td {
-    font-weight: bold;
-    background-color: #dde4f0 !important;
-    border-top: 2px solid var(--sub-header);
-    border-bottom: 2px solid var(--sub-header);
-  }
-
-  .optional-label {
-    font-style: italic;
-    color: #666;
+  .waterfall-table {
+    page-break-inside: avoid;
   }
 
   /* -----------------------------------------------------------------------
-     Scope Detail Pages (D15, D20, D22, D25, AC-1)
+     Cover Page Info Table
   ----------------------------------------------------------------------- */
-  .scope-group-header {
-    background-color: var(--navy);
-    color: #ffffff;
+  .info-label {
+    padding: 4px 8px;
     font-weight: bold;
-    font-family: 'Montserrat', 'Helvetica Neue', Arial, sans-serif;
-    padding: 6px 10px;
-    margin-top: 8px;
-    letter-spacing: 1px;
-    font-size: 9.5pt;
+    color: #1B2E4A;
+    width: 35%;
+    white-space: nowrap;
+    font-size: 10pt;
+    border-bottom: 1px solid #e0e0e0;
+    vertical-align: top;
   }
 
-  .scope-detail-page {
-    display: flex;
-    flex-direction: column;
-    min-height: 240mm;
-    page-break-before: always;
+  .info-value {
+    padding: 4px 8px;
+    color: #2D3142;
+    font-size: 10pt;
+    border-bottom: 1px solid #e0e0e0;
+    vertical-align: top;
   }
 
-  .scope-header {
-    background-color: var(--navy);
-    color: #ffffff;
-    padding: 8px 10px;
-    font-family: 'Montserrat', 'Helvetica Neue', Arial, sans-serif;
-    font-size: 9pt;
-    margin-bottom: 4mm;
-  }
-
+  /* -----------------------------------------------------------------------
+     Section Headers (DLIA sections A/B/F)
+  ----------------------------------------------------------------------- */
   .section-header {
-    background-color: var(--sub-header);
+    background-color: #2E5FA3;
     color: #ffffff;
     padding: 4px 10px;
     font-size: 8pt;
@@ -383,119 +135,71 @@
     margin-top: 4mm;
   }
 
-  .col-header {
-    background-color: var(--col-header);
-    color: #ffffff;
-  }
-
-  .zebra-even {
-    background-color: var(--zebra);
-  }
-
-  table {
-    width: 100%;
-    border-collapse: collapse;
-  }
-
-  thead {
-    /* Repeat column headers on page breaks (D34) — wkhtmltopdf CSS */
-    display: table-header-group;
-  }
-
-  tbody tr {
-    page-break-inside: avoid;
-  }
-
-  /* -----------------------------------------------------------------------
-     Scope Waterfall — pinned to page bottom (D35, D37)
-  ----------------------------------------------------------------------- */
-  .scope-waterfall {
-    margin-top: auto;
-    page-break-inside: avoid;
-  }
-
-  .waterfall-table {
-    page-break-inside: avoid;
-  }
-
-  /* -----------------------------------------------------------------------
-     Table utilities
-  ----------------------------------------------------------------------- */
-  .detail-table {
-    width: 100%;
-    border-collapse: collapse;
-    font-size: 9pt;
-  }
-
-  .detail-table thead tr th {
-    padding: 6px 8px;
-  }
-
-  .detail-table tbody tr td {
-    padding: 5px 8px;
-    border-bottom: 1px solid #e8e8e8;
+  .optional-label {
+    font-style: italic;
+    color: #666666;
   }
 </style>
 
 {# =========================================================================
-   Fixed Continuation Header (D7) — appears on every page via position:fixed
-   Shows: logo | "COST PROPOSAL — EST-XX-BP | Rev N" | Page X of Y
-   BP variant: doc.name appended with "-BP" suffix (D28, D29)
+   FRAPPE FOOTER — BP variant (gold accent)
 ========================================================================= #}
-<div class="continuation-header">
-  <div>
-    {% if logo_path %}
-      <img src="{{ logo_path }}" class="header-logo" alt="SolidWurth" />
-    {% endif %}
-  </div>
-  <div class="header-title">
-    COST PROPOSAL &mdash; {{ doc.name }}-BP{% if doc.revision %} | Rev {{ doc.revision }}{% endif %}
-  </div>
-  <div class="header-ref">
-    Page <pdf:pagenumber> of <pdf:pagecount>
+<div id="footer-html" class="visible-pdf">
+  <div style="width: 100%; border-top: 1px solid #1B2E4A; padding: 2mm 0; font-size: 7pt; color: #555555;">
+    <table style="width: 100%; border-collapse: collapse;">
+      <tr>
+        <td style="text-align: left; padding: 0 4mm; font-weight: bold;">
+          SolidWurth Corp.{% if company_tin %} | TIN: {{ company_tin }}{% endif %}
+        </td>
+        <td style="text-align: center; padding: 0 4mm; font-style: italic; color: #C89A2E;">
+          CONFIDENTIAL &mdash; FOR PROPOSAL PURPOSES ONLY
+        </td>
+        <td style="text-align: right; padding: 0 4mm;">
+          Page <span class="page"></span> of <span class="topage"></span>
+        </td>
+      </tr>
+    </table>
   </div>
 </div>
 
 {# =========================================================================
-   Fixed Footer Bar (D8) — appears on every page
-   Left: company + TIN | Center: CONFIDENTIAL | Right: page X of Y
+   MACRO: Inline Continuation Header — BP variant (gold accent, -BP suffix)
 ========================================================================= #}
-<div class="footer-bar">
-  <div class="footer-company">
-    SolidWurth Corp.{% if company_tin %} | TIN: {{ company_tin }}{% endif %}
-  </div>
-  <div class="footer-confidential">CONFIDENTIAL &mdash; FOR PROPOSAL PURPOSES ONLY</div>
-  <div class="footer-page">Page <pdf:pagenumber> of <pdf:pagecount></div>
-</div>
+{% macro cont_header() %}
+<table style="width: 100%; background-color: #1B2E4A; border-bottom: 2px solid #C89A2E; margin-bottom: 6mm; border-collapse: collapse;">
+  <tr>
+    <td style="padding: 2mm 4mm; width: 25mm; vertical-align: middle;">
+      {% if logo_path %}<img src="{{ logo_path }}" style="max-height: 8mm; width: auto;" alt="" />{% endif %}
+    </td>
+    <td style="padding: 2mm 4mm; text-align: center; font-family: 'Montserrat', 'Segoe UI', Arial, sans-serif; font-weight: 700; font-size: 9pt; color: #ffffff; letter-spacing: 0.5px; vertical-align: middle;">
+      COST PROPOSAL &mdash; {{ doc.name }}-BP{% if doc.revision %} | Rev {{ doc.revision }}{% endif %}
+    </td>
+    <td style="padding: 2mm 4mm; text-align: right; width: 35mm; font-size: 7.5pt; color: #D0D7E0; white-space: nowrap; vertical-align: middle;">
+      {{ doc.name }}-BP
+    </td>
+  </tr>
+</table>
+{% endmacro %}
 
 {# =========================================================================
-   Main Content Body
+   COVER PAGE — BP variant (gold accent, -BP suffix)
 ========================================================================= #}
-<div class="content-body">
+<div style="page-break-after: always;">
 
-{# =========================================================================
-   COVER PAGE (D3, D11, D12)
-   - Navy band at top: logo centered + "COST PROPOSAL" title + gold accent line
-   - Project info table: estimate_title, client, estimate_date, valid_until, etc.
-   - Estimate No. shows doc.name + "-BP" suffix (D28, D29)
-   - Signature block at bottom: prepared_by, checked_by, approved_by (3 columns)
-========================================================================= #}
-<div class="cover-page">
-
-  {# Top navy band — logo + "COST PROPOSAL" heading + gold accent underline #}
-  <div class="cover-navy-band">
+  {# Navy band — gold accent line #}
+  <div style="background-color: #1B2E4A; width: 100%; padding: 18mm 20mm 14mm 20mm; text-align: center;">
     {% if logo_path %}
-      <img src="{{ logo_path }}" class="cover-logo" alt="SolidWurth Corp." />
+      <img src="{{ logo_path }}" style="max-height: 50mm; max-width: 120mm; margin-bottom: 8mm;" alt="SolidWurth Corp." />
     {% else %}
-      <div style="font-family: 'Montserrat', Arial, sans-serif; font-size: 20pt; font-weight: 700; color: #ffffff; margin-bottom: 6mm;">SolidWurth Corp.</div>
+      <div style="font-family: 'Montserrat', 'Segoe UI', Arial, sans-serif; font-size: 20pt; font-weight: 700; color: #ffffff; margin-bottom: 6mm;">SolidWurth Corp.</div>
     {% endif %}
-    <div class="cover-title">COST PROPOSAL</div>
-    <div class="cover-accent-line"></div>
+    <div style="font-family: 'Montserrat', 'Segoe UI', Arial, sans-serif; font-weight: 700; font-size: 28pt; color: #ffffff; letter-spacing: 2px; text-transform: uppercase;">COST PROPOSAL</div>
+    <div style="width: 80mm; height: 4px; background-color: #C89A2E; margin: 6mm auto 0 auto;"></div>
   </div>
 
-  {# Project info block — white background, two-column label/value table #}
-  <div class="cover-info-block">
-    <table class="cover-info-table">
+  {# Project info table — Estimate No. shows -BP suffix #}
+  <div style="padding: 10mm 20mm;">
+    <table style="width: 100%; border-collapse: collapse; margin-bottom: 6mm;">
       <tbody>
         <tr>
           <td class="info-label">Project:</td>
@@ -531,35 +235,36 @@
     </table>
   </div>
 
-  {# Signature block — 3 equal columns: PREPARED BY | CHECKED BY | APPROVED BY #}
-  <div class="cover-signature-block">
-    <div class="cover-signature-row">
-      <div class="cover-signature-col">
-        <div class="cover-signature-label">Prepared By</div>
-        <div class="cover-signature-line">&nbsp;</div>
-        <div class="cover-signature-name">{{ prepared_by_name or "&nbsp;" }}</div>
-      </div>
-      <div class="cover-signature-col">
-        <div class="cover-signature-label">Checked By</div>
-        <div class="cover-signature-line">&nbsp;</div>
-        <div class="cover-signature-name">{{ checked_by_name or "&nbsp;" }}</div>
-      </div>
-      <div class="cover-signature-col">
-        <div class="cover-signature-label">Approved By</div>
-        <div class="cover-signature-line">&nbsp;</div>
-        <div class="cover-signature-name">{{ approved_by_name or "&nbsp;" }}</div>
-      </div>
-    </div>
+  {# Signature block — TABLE-based #}
+  <div style="padding: 8mm 20mm 10mm 20mm; border-top: 2px solid #1B2E4A; margin-top: 40mm;">
+    <table style="width: 100%; border-collapse: collapse;">
+      <tr>
+        <td style="width: 33.33%; text-align: center; padding: 0 4mm; vertical-align: top;">
+          <div style="font-size: 7.5pt; font-weight: bold; color: #1B2E4A; letter-spacing: 1px; text-transform: uppercase; margin-bottom: 10mm;">Prepared By</div>
+          <div style="border-bottom: 1px solid #1B2E4A; margin: 0 4mm 2mm 4mm;">&nbsp;</div>
+          <div style="font-size: 8.5pt; color: #2D3142; font-weight: bold; min-height: 12px;">{{ prepared_by_name or "&nbsp;" }}</div>
+        </td>
+        <td style="width: 33.33%; text-align: center; padding: 0 4mm; vertical-align: top;">
+          <div style="font-size: 7.5pt; font-weight: bold; color: #1B2E4A; letter-spacing: 1px; text-transform: uppercase; margin-bottom: 10mm;">Checked By</div>
+          <div style="border-bottom: 1px solid #1B2E4A; margin: 0 4mm 2mm 4mm;">&nbsp;</div>
+          <div style="font-size: 8.5pt; color: #2D3142; font-weight: bold; min-height: 12px;">{{ checked_by_name or "&nbsp;" }}</div>
+        </td>
+        <td style="width: 33.33%; text-align: center; padding: 0 4mm; vertical-align: top;">
+          <div style="font-size: 7.5pt; font-weight: bold; color: #1B2E4A; letter-spacing: 1px; text-transform: uppercase; margin-bottom: 10mm;">Approved By</div>
+          <div style="border-bottom: 1px solid #1B2E4A; margin: 0 4mm 2mm 4mm;">&nbsp;</div>
+          <div style="font-size: 8.5pt; color: #2D3142; font-weight: bold; min-height: 12px;">{{ approved_by_name or "&nbsp;" }}</div>
+        </td>
+      </tr>
+    </table>
   </div>
 
-</div>{# end .cover-page #}
+</div>{# end cover page #}
 
 {# =========================================================================
-   SUMMARY PAGE (D5, D13, D14) — BP VARIANT
-   Shows scope table using standard direct_cost values for reference.
-   Summary waterfall uses BP parameters: bp_rate_factor applied to material costs,
-   bp_ocm_percent and bp_profit_percent for waterfall computation.
-   "BP Contract Amount" label instead of "Grand Total".
+   SUMMARY PAGE — BP VARIANT
+   Scope table uses standard direct_cost for reference.
+   Summary waterfall uses BP parameters: bp_rate_factor on material costs,
+   bp_ocm_percent and bp_profit_percent.
 ========================================================================= #}
 
 {% set scopes = frappe.db.sql("""
@@ -573,13 +278,12 @@
 {% set base_scopes = scopes | selectattr("is_optional", "eq", 0) | list %}
 {% set optional_scopes = scopes | selectattr("is_optional", "ne", 0) | list %}
 
-{# BP parameters — use bp_ native fields from Estimate doc (no custom_ prefix) #}
+{# BP parameters #}
 {% set bp_rate = doc.bp_rate_factor | float or 1.0 %}
 {% set bp_ocm_pct = doc.bp_ocm_percent | float %}
 {% set bp_profit_pct = doc.bp_profit_percent | float %}
 
 {# Compute total BP direct cost across all scopes #}
-{# BP material cost = standard material amount * bp_rate_factor (D26, D30) #}
 {% set bp_totals = namespace(base_dc=0, optional_dc=0) %}
 
 {% for scope in scopes %}
@@ -596,136 +300,133 @@
 
 {% set bp_all_dc = bp_totals.base_dc + bp_totals.optional_dc %}
 
-<div class="summary-page">
+<div style="page-break-after: always;">
 
-  <div class="summary-heading">SUMMARY OF COST ESTIMATE</div>
+  {{ cont_header() }}
+
+  <div style="background-color: #1B2E4A; color: #ffffff; font-family: 'Montserrat', 'Segoe UI', Arial, sans-serif; font-size: 13pt; font-weight: 700; padding: 8px 12px; letter-spacing: 1px; margin-bottom: 8mm;">
+    SUMMARY OF COST ESTIMATE
+  </div>
 
   {% if scopes %}
-  <table class="summary-table">
+  <table class="summary-table" style="table-layout: fixed; width: 100%; border-collapse: collapse; font-size: 9pt;">
+    <colgroup>
+      <col style="width: 35%;">
+      <col style="width: 14%;">
+      <col style="width: 8%;">
+      <col style="width: 8%;">
+      <col style="width: 20%;">
+      <col style="width: 15%;">
+    </colgroup>
     <thead>
       <tr>
-        <th>Scope of Work</th>
-        <th>Scope Group</th>
-        <th>UOM</th>
-        <th class="amount-header">Qty</th>
-        <th class="amount-header">Direct Cost</th>
-        <th>Note</th>
+        <th style="background-color: #3B5998; color: #ffffff; padding: 6px 8px; text-align: left;">Scope of Work</th>
+        <th style="background-color: #3B5998; color: #ffffff; padding: 6px 8px; text-align: left;">Scope Group</th>
+        <th style="background-color: #3B5998; color: #ffffff; padding: 6px 8px; text-align: left;">UOM</th>
+        <th style="background-color: #3B5998; color: #ffffff; padding: 6px 8px; text-align: right;">Qty</th>
+        <th style="background-color: #3B5998; color: #ffffff; padding: 6px 8px; text-align: right;">Direct Cost</th>
+        <th style="background-color: #3B5998; color: #ffffff; padding: 6px 8px; text-align: left;">Note</th>
       </tr>
     </thead>
     <tbody>
 
-      {# Base (non-optional) scopes #}
+      {# Base scopes #}
       {% for scope in base_scopes %}
-      <tr{% if loop.index0 % 2 == 0 %} class="zebra-even"{% endif %}>
-        <td>{{ scope.scope_name }}</td>
-        <td>{{ scope.scope_group }}</td>
-        <td>{{ scope.uom }}</td>
-        <td class="amount-cell">{{ num_format(scope.quantity) }}</td>
-        <td class="amount-cell">{{ php_format(scope.direct_cost) }}</td>
-        <td></td>
+      <tr{% if loop.index0 % 2 == 0 %} style="background-color: #F4F6F9;"{% endif %}>
+        <td style="padding: 5px 8px; border-bottom: 1px solid #e8e8e8;">{{ scope.scope_name }}</td>
+        <td style="padding: 5px 8px; border-bottom: 1px solid #e8e8e8;">{{ scope.scope_group }}</td>
+        <td style="padding: 5px 8px; border-bottom: 1px solid #e8e8e8;">{{ scope.uom if scope.uom and scope.uom != "None" else "&mdash;" }}</td>
+        <td class="amount-cell" style="padding: 5px 8px; border-bottom: 1px solid #e8e8e8;">{{ num_format(scope.quantity) }}</td>
+        <td class="amount-cell" style="padding: 5px 8px; border-bottom: 1px solid #e8e8e8;">{{ php_format(scope.direct_cost) }}</td>
+        <td style="padding: 5px 8px; border-bottom: 1px solid #e8e8e8;"></td>
       </tr>
       {% endfor %}
 
-      {# Base scopes subtotal row #}
+      {# Base subtotal #}
       {% if base_scopes %}
-      <tr class="summary-subtotal-row">
-        <td colspan="4" style="text-align: right;">Base Scope Subtotal</td>
-        <td class="amount-cell">{{ php_format(doc.base_direct_cost) }}</td>
-        <td></td>
+      <tr>
+        <td colspan="4" style="text-align: right; font-weight: bold; padding: 5px 8px; background-color: #dde4f0; border-top: 2px solid #2E5FA3; border-bottom: 2px solid #2E5FA3;">Base Scope Subtotal</td>
+        <td class="amount-cell" style="font-weight: bold; padding: 5px 8px; background-color: #dde4f0; border-top: 2px solid #2E5FA3; border-bottom: 2px solid #2E5FA3;">{{ php_format(doc.base_direct_cost) }}</td>
+        <td style="padding: 5px 8px; background-color: #dde4f0; border-top: 2px solid #2E5FA3; border-bottom: 2px solid #2E5FA3;"></td>
       </tr>
       {% endif %}
 
-      {# Optional scopes (if any) #}
+      {# Optional scopes #}
       {% if optional_scopes %}
       <tr>
-        <td colspan="6" style="padding: 8px 8px 2px 8px; font-weight: bold; color: var(--sub-header); font-size: 8.5pt; font-style: italic;">
+        <td colspan="6" style="padding: 8px 8px 2px 8px; font-weight: bold; color: #2E5FA3; font-size: 8.5pt; font-style: italic;">
           Optional Scopes
         </td>
       </tr>
       {% for scope in optional_scopes %}
-      <tr{% if loop.index0 % 2 == 0 %} class="zebra-even"{% endif %}>
-        <td>{{ scope.scope_name }}</td>
-        <td>{{ scope.scope_group }}</td>
-        <td>{{ scope.uom }}</td>
-        <td class="amount-cell">{{ num_format(scope.quantity) }}</td>
-        <td class="amount-cell">{{ php_format(scope.direct_cost) }}</td>
-        <td><span class="optional-label">(Optional)</span></td>
+      <tr{% if loop.index0 % 2 == 0 %} style="background-color: #F4F6F9;"{% endif %}>
+        <td style="padding: 5px 8px; border-bottom: 1px solid #e8e8e8;">{{ scope.scope_name }}</td>
+        <td style="padding: 5px 8px; border-bottom: 1px solid #e8e8e8;">{{ scope.scope_group }}</td>
+        <td style="padding: 5px 8px; border-bottom: 1px solid #e8e8e8;">{{ scope.uom if scope.uom and scope.uom != "None" else "&mdash;" }}</td>
+        <td class="amount-cell" style="padding: 5px 8px; border-bottom: 1px solid #e8e8e8;">{{ num_format(scope.quantity) }}</td>
+        <td class="amount-cell" style="padding: 5px 8px; border-bottom: 1px solid #e8e8e8;">{{ php_format(scope.direct_cost) }}</td>
+        <td style="padding: 5px 8px; border-bottom: 1px solid #e8e8e8;"><span class="optional-label">(Optional)</span></td>
       </tr>
       {% endfor %}
 
-      {# Optional scopes subtotal (standard direct cost for reference) #}
+      {# Optional subtotal #}
       {% set optional_dc = namespace(total=0) %}
       {% for s in optional_scopes %}{% set optional_dc.total = optional_dc.total + (s.direct_cost | float) %}{% endfor %}
-      <tr class="summary-subtotal-row">
-        <td colspan="4" style="text-align: right;">Optional Scope Subtotal</td>
-        <td class="amount-cell">{{ php_format(optional_dc.total) }}</td>
-        <td></td>
+      <tr>
+        <td colspan="4" style="text-align: right; font-weight: bold; padding: 5px 8px; background-color: #dde4f0; border-top: 2px solid #2E5FA3; border-bottom: 2px solid #2E5FA3;">Optional Scope Subtotal</td>
+        <td class="amount-cell" style="font-weight: bold; padding: 5px 8px; background-color: #dde4f0; border-top: 2px solid #2E5FA3; border-bottom: 2px solid #2E5FA3;">{{ php_format(optional_dc.total) }}</td>
+        <td style="padding: 5px 8px; background-color: #dde4f0; border-top: 2px solid #2E5FA3; border-bottom: 2px solid #2E5FA3;"></td>
       </tr>
       {% endif %}
 
-      {# Grand Total row (all scopes including optional) — standard direct cost for reference #}
-      <tr style="background-color: var(--navy); color: #ffffff; font-weight: bold;">
-        <td colspan="4" style="padding: 6px 8px; text-align: right; font-family: 'Montserrat', Arial, sans-serif;">Grand Total Direct Cost (All Scopes)</td>
-        <td class="amount-cell" style="padding: 6px 8px;">{{ php_format(doc.direct_cost) }}</td>
-        <td></td>
+      {# Grand Total #}
+      <tr>
+        <td colspan="4" style="padding: 6px 8px; text-align: right; font-family: 'Montserrat', 'Segoe UI', Arial, sans-serif; font-weight: bold; background-color: #1B2E4A; color: #ffffff;">Grand Total Direct Cost (All Scopes)</td>
+        <td class="amount-cell" style="padding: 6px 8px; font-weight: bold; background-color: #1B2E4A; color: #ffffff;">{{ php_format(doc.direct_cost) }}</td>
+        <td style="padding: 6px 8px; background-color: #1B2E4A;"></td>
       </tr>
-      {% if optional_scopes %}
-      <tr style="background-color: var(--sub-header); color: #ffffff;">
-        <td colspan="4" style="padding: 4px 8px; text-align: right; font-size: 8pt;">Base Scope Grand Total Direct Cost</td>
-        <td class="amount-cell" style="padding: 4px 8px; font-size: 8pt;">{{ php_format(doc.base_direct_cost) }}</td>
-        <td></td>
+      {% if base_scopes and optional_scopes %}
+      <tr>
+        <td colspan="4" style="padding: 4px 8px; text-align: right; font-size: 8pt; background-color: #2E5FA3; color: #ffffff;">Base Scope Grand Total Direct Cost</td>
+        <td class="amount-cell" style="padding: 4px 8px; font-size: 8pt; background-color: #2E5FA3; color: #ffffff;">{{ php_format(doc.base_direct_cost) }}</td>
+        <td style="padding: 4px 8px; background-color: #2E5FA3;"></td>
       </tr>
       {% endif %}
 
     </tbody>
   </table>
 
-  {# BP Summary waterfall — uses bp_rate_factor on material costs + bp_ocm_percent/bp_profit_percent #}
-  {# D26, D30: BP direct cost = labor + equipment + (material * bp_rate_factor) #}
-  <div style="max-width: 300px; margin-left: auto; margin-top: 6mm;">
+  {# BP Summary waterfall — uses BP direct cost + BP parameters, gold accent #}
+  <div style="width: 380px; margin-left: auto; margin-top: 6mm;">
     {{ render_waterfall_block(bp_all_dc, bp_ocm_pct, bp_profit_pct, doc.vat_inclusive, doc.vat_percent | float, "#C89A2E") }}
   </div>
 
-  {# BP parameters shown below waterfall for reference #}
-  <div style="max-width: 300px; margin-left: auto; margin-top: 3mm; font-size: 7.5pt; color: #666; text-align: right; font-style: italic;">
+  {# BP parameters note #}
+  <div style="width: 380px; margin-left: auto; margin-top: 3mm; font-size: 7.5pt; color: #666666; text-align: right; font-style: italic;">
     BP Contract Amount (rate factor: {{ num_format(bp_rate) }}x, OCM: {{ num_format(bp_ocm_pct) }}%, Profit: {{ num_format(bp_profit_pct) }}%)
   </div>
 
   {% if optional_scopes %}
-  <div style="max-width: 300px; margin-left: auto; margin-top: 4mm; font-size: 8pt; font-style: italic; color: #666; text-align: right;">
+  <div style="width: 380px; margin-left: auto; margin-top: 4mm; font-size: 8pt; font-style: italic; color: #666666; text-align: right;">
     * BP Contract Amount includes optional scopes ({{ optional_scopes | length }} scope{{ 's' if optional_scopes | length != 1 }}).
   </div>
   {% endif %}
 
   {% else %}
-  {# Empty estimate — D45, AC-9 #}
-  <div style="padding: 20mm 0; text-align: center; color: #888; font-style: italic;">
+  {# Empty estimate #}
+  <div style="padding: 20mm 0; text-align: center; color: #888888; font-style: italic;">
     <p style="font-size: 11pt;">No scopes added</p>
     <p style="margin-top: 4mm; font-size: 9pt;">BP Contract Amount: {{ php_format(0) }}</p>
   </div>
   {% endif %}
 
-</div>{# end .summary-page #}
+</div>{# end summary page #}
 
 {# =========================================================================
-   SCOPE DETAIL PAGES — BP VARIANT (D15, D22, D24, D25, AC-1, AC-2, AC-4, AC-5, AC-6, AC-9)
-
-   Two modes controlled by doc.cost_display_mode:
-   - "Detailed (DPWH)" [default]: full DLIA tables (Labor/Equipment/Materials)
-   - "Summary (Private)":  scope name + BP unit cost + total only (no DLIA detail)
-
-   BP difference from standard: waterfall at bottom uses bp_rate_factor on material costs,
-   bp_ocm_percent and bp_profit_percent instead of standard ocm_percent/profit_percent.
-
-   Scope group headers emitted on group change (D25).
-   Scopes numbered "SCOPE N of M" (D24).
-   Optional scopes labeled "(Optional)" (D14, D22).
-   Waterfall pinned to bottom via flex + margin-top: auto (D35, D37).
-   Column headers repeat across page breaks via thead { display: table-header-group } (D34).
-   Empty section rows skipped when labor_rows/equipment_rows/material_rows empty (D22).
+   SCOPE DETAIL PAGES — BP VARIANT
+   BP waterfall: bp_rate_factor on material costs, bp_ocm/bp_profit percentages
 ========================================================================= #}
 
-{# Fetch full scope data with all fields needed for detail pages #}
 {% set scopes_detail = frappe.db.sql("""
     SELECT name, scope_name, scope_group, is_optional, dpwh_pay_item,
            uom, quantity, output_per_day, duration_days, display_order,
@@ -743,63 +444,64 @@
 
 {% if doc.cost_display_mode == "Summary (Private)" %}
 {# -----------------------------------------------------------------------
-   D43/AC-6: Summary (Private) mode
-   Each scope: header bar + one-row table (BP unit cost + total) + BP waterfall
+   Summary (Private) mode — BP variant
 ----------------------------------------------------------------------- #}
 {% for scope in scopes_detail %}
   {% set scope_num.value = scope_num.value + 1 %}
 
-  {# Compute BP direct cost for this scope (material costs * bp_rate_factor) #}
+  {# Compute BP direct cost for this scope #}
   {% set scope_mat_rows = frappe.db.sql("SELECT amount FROM `tabEstimate Scope Material` WHERE parent = %s", scope.name, as_dict=True) %}
   {% set scope_bp_mat = namespace(value=0) %}
   {% for row in scope_mat_rows %}{% set scope_bp_mat.value = scope_bp_mat.value + (row.amount | float) * bp_rate %}{% endfor %}
   {% set scope_bp_dc = (scope.total_labor_cost | float) + (scope.total_equipment_cost | float) + scope_bp_mat.value %}
 
-  <div class="scope-detail-page">
+  <div style="page-break-before: always;">
 
-    {# Scope header bar #}
-    <div class="scope-header">
-      <div style="display: flex; justify-content: space-between; align-items: center;">
-        <div>
+    {{ cont_header() }}
+
+    {# Scope header — TABLE-based #}
+    <table style="width: 100%; background-color: #1B2E4A; color: #ffffff; margin-bottom: 4mm; border-collapse: collapse;">
+      <tr>
+        <td style="padding: 8px 10px; font-family: 'Montserrat', 'Segoe UI', Arial, sans-serif; font-size: 9pt; vertical-align: top;">
           <strong>{{ scope.scope_name }}</strong>
-          {% if scope.is_optional %}<span class="optional-label"> (Optional)</span>{% endif %}
-        </div>
-        <div style="text-align: right; font-size: 8.5pt;">
-          {{ scope.uom }} &times; {{ num_format(scope.quantity) }}
-        </div>
-      </div>
-      <div style="font-size: 8pt; margin-top: 3px; opacity: 0.85;">
-        {{ scope.scope_group }}
-        {% if scope.dpwh_pay_item %} | Pay Item: {{ scope.dpwh_pay_item }}{% endif %}
-      </div>
-    </div>
+          {% if scope.is_optional %}<span style="font-style: italic; color: #CCCCCC;"> (Optional)</span>{% endif %}
+        </td>
+        <td style="padding: 8px 10px; text-align: right; font-size: 8.5pt; vertical-align: top; white-space: nowrap;">
+          {{ scope.uom if scope.uom and scope.uom != "None" else "" }} &times; {{ num_format(scope.quantity) }}
+        </td>
+      </tr>
+      <tr>
+        <td colspan="2" style="padding: 0 10px 6px 10px; font-size: 8pt; color: #D0D7E0;">
+          {{ scope.scope_group }}
+          {% if scope.dpwh_pay_item %} | Pay Item: {{ scope.dpwh_pay_item }}{% endif %}
+        </td>
+      </tr>
+    </table>
 
-    {# Summary-mode: BP unit cost + total table only, no DLIA breakdown #}
+    {# BP unit cost + total #}
     <div style="margin-bottom: 4mm;">
-      <table class="detail-table">
+      <table style="width: 100%; border-collapse: collapse; font-size: 9pt;">
         <thead>
           <tr>
-            <th class="col-header" style="padding: 6px 8px; text-align: left;">Description</th>
-            <th class="col-header" style="padding: 6px 8px; text-align: right;">BP Unit Cost</th>
-            <th class="col-header" style="padding: 6px 8px; text-align: right;">BP Direct Cost</th>
+            <th style="background-color: #3B5998; color: #ffffff; padding: 6px 8px; text-align: left;">Description</th>
+            <th style="background-color: #3B5998; color: #ffffff; padding: 6px 8px; text-align: right;">BP Unit Cost</th>
+            <th style="background-color: #3B5998; color: #ffffff; padding: 6px 8px; text-align: right;">BP Direct Cost</th>
           </tr>
         </thead>
         <tbody>
           <tr>
-            <td style="padding: 5px 8px;">{{ scope.scope_name }}</td>
+            <td style="padding: 5px 8px; border-bottom: 1px solid #e8e8e8;">{{ scope.scope_name }}</td>
             {% set bp_unit_cost = scope_bp_dc / (scope.quantity | float) if (scope.quantity | float) > 0 else 0 %}
-            <td class="amount-cell" style="padding: 5px 8px;">{{ php_format(bp_unit_cost) }}</td>
-            <td class="amount-cell" style="padding: 5px 8px;">{{ php_format(scope_bp_dc) }}</td>
+            <td class="amount-cell" style="padding: 5px 8px; border-bottom: 1px solid #e8e8e8;">{{ php_format(bp_unit_cost) }}</td>
+            <td class="amount-cell" style="padding: 5px 8px; border-bottom: 1px solid #e8e8e8;">{{ php_format(scope_bp_dc) }}</td>
           </tr>
         </tbody>
       </table>
     </div>
 
-    {# BP Waterfall pinned to bottom (D35, D37) — uses BP parameters #}
-    <div class="scope-waterfall">
-      <div style="max-width: 280px; margin-left: auto;">
-        {{ render_waterfall_block(scope_bp_dc, bp_ocm_pct, bp_profit_pct, doc.vat_inclusive, doc.vat_percent | float, "#C89A2E") }}
-      </div>
+    {# BP Waterfall — gold accent, 380px wide #}
+    <div style="width: 380px; margin-left: auto; margin-top: 8mm; page-break-inside: avoid;">
+      {{ render_waterfall_block(scope_bp_dc, bp_ocm_pct, bp_profit_pct, doc.vat_inclusive, doc.vat_percent | float, "#C89A2E") }}
     </div>
 
   </div>
@@ -807,86 +509,83 @@
 
 {% else %}
 {# -----------------------------------------------------------------------
-   D15/AC-1: Detailed (DPWH) mode — full DLIA sections per scope
-   Section A: Labor (if labor rows exist)
-   Section B: Equipment (if equipment rows exist)
-   Section F: Materials (if material rows exist) — shown with standard buying rates
-   BP waterfall at bottom uses bp_rate_factor applied to material amounts
+   Detailed (DPWH) mode — BP variant
+   DLIA tables shown with standard rates; BP waterfall at bottom
 ----------------------------------------------------------------------- #}
 {% for scope in scopes_detail %}
   {% set scope_num.value = scope_num.value + 1 %}
 
-  {# Compute BP direct cost for this scope (material costs * bp_rate_factor) #}
+  {# Compute BP direct cost for this scope #}
   {% set scope_mat_rows_bp = frappe.db.sql("SELECT amount FROM `tabEstimate Scope Material` WHERE parent = %s", scope.name, as_dict=True) %}
   {% set scope_bp_mat_cost = namespace(value=0) %}
   {% for row in scope_mat_rows_bp %}{% set scope_bp_mat_cost.value = scope_bp_mat_cost.value + (row.amount | float) * bp_rate %}{% endfor %}
   {% set scope_bp_dc = (scope.total_labor_cost | float) + (scope.total_equipment_cost | float) + scope_bp_mat_cost.value %}
 
-  {# D25: Emit scope_group header when group changes #}
-  {% if scope.scope_group != current_group.value %}
-    {% set current_group.value = scope.scope_group %}
-    {% if not loop.first %}
-    <div style="page-break-before: always;"></div>
+  <div style="page-break-before: always;">
+
+    {{ cont_header() }}
+
+    {# Scope group header on group change #}
+    {% if scope.scope_group != current_group.value %}
+      {% set current_group.value = scope.scope_group %}
+      <div style="background-color: #1B2E4A; color: #ffffff; font-weight: bold; font-family: 'Montserrat', 'Segoe UI', Arial, sans-serif; padding: 6px 10px; letter-spacing: 1px; font-size: 9.5pt; margin-bottom: 4mm;">
+        {{ scope.scope_group | upper }}
+      </div>
     {% endif %}
-    <div class="scope-group-header">{{ scope.scope_group | upper }}</div>
-  {% endif %}
 
-  <div class="scope-detail-page">
-
-    {# D20, D24: Scope header bar — "SCOPE N of M" + pay item + group + qty info #}
-    <div class="scope-header">
-      <div style="display: flex; justify-content: space-between;">
-        <div>
+    {# Scope header — TABLE-based #}
+    <table style="width: 100%; background-color: #1B2E4A; color: #ffffff; margin-bottom: 4mm; border-collapse: collapse;">
+      <tr>
+        <td style="padding: 8px 10px; font-family: 'Montserrat', 'Segoe UI', Arial, sans-serif; font-size: 9pt; vertical-align: top;">
           <strong>SCOPE {{ scope_num.value }} of {{ scope_count }}</strong>: {{ scope.scope_name }}
-          {% if scope.is_optional %}<span class="optional-label"> (Optional)</span>{% endif %}
+          {% if scope.is_optional %}<span style="font-style: italic; color: #CCCCCC;"> (Optional)</span>{% endif %}
           {% if scope.dpwh_pay_item %}
-          <div style="font-size: 8pt; opacity: 0.8; margin-top: 2px;">Pay Item: {{ scope.dpwh_pay_item }}</div>
+          <div style="font-size: 8pt; color: #D0D7E0; margin-top: 2px;">Pay Item: {{ scope.dpwh_pay_item }}</div>
           {% endif %}
-        </div>
-        <div style="text-align: right; font-size: 8.5pt;">
+        </td>
+        <td style="padding: 8px 10px; text-align: right; font-size: 8.5pt; vertical-align: top; white-space: nowrap;">
           {{ scope.scope_group }}
-        </div>
-      </div>
-      <div style="font-size: 8pt; margin-top: 4px; opacity: 0.9;">
-        UOM: {{ scope.uom }}
-        &nbsp;|&nbsp; Qty: {{ num_format(scope.quantity) }}
-        &nbsp;|&nbsp; Output/Day: {{ num_format(scope.output_per_day) }}
-        &nbsp;|&nbsp; Duration: {{ num_format(scope.duration_days) }} days
-      </div>
-    </div>
+        </td>
+      </tr>
+      <tr>
+        <td colspan="2" style="padding: 0 10px 6px 10px; font-size: 8pt; color: #E0E4E8;">
+          {% set uom_display = scope.uom if scope.uom and scope.uom != "None" else "" %}
+          {% if uom_display %}UOM: {{ uom_display }} &nbsp;|&nbsp; {% endif %}Qty: {{ num_format(scope.quantity) }}
+          &nbsp;|&nbsp; Output/Day: {{ num_format(scope.output_per_day) }}
+          &nbsp;|&nbsp; Duration: {{ num_format(scope.duration_days) }} days
+        </td>
+      </tr>
+    </table>
 
-    {# D22: Section A — Labor (skip if no labor rows) #}
+    {# Section A — Labor #}
     {% set labor_rows = frappe.db.sql("SELECT role, persons, daily_rate, total_rate, total_cost FROM `tabEstimate Scope Labor` WHERE parent = %s ORDER BY idx", scope.name, as_dict=True) %}
     {% if labor_rows %}
     <div class="section-header">A &mdash; LABOR</div>
     {{ render_labor_table(labor_rows, scope.duration_days | float) }}
     {% endif %}
 
-    {# D22: Section B — Equipment (skip if no equipment rows) #}
-    {% set equipment_rows = frappe.db.sql("SELECT item AS item_name, units, daily_rate, total_rate, total_cost FROM `tabEstimate Scope Equipment` WHERE parent = %s ORDER BY idx", scope.name, as_dict=True) %}
+    {# Section B — Equipment (LEFT JOIN tabItem for item_name) #}
+    {% set equipment_rows = frappe.db.sql("SELECT COALESCE(i.item_name, e.item) AS item_name, e.units, e.daily_rate, e.total_rate, e.total_cost FROM `tabEstimate Scope Equipment` e LEFT JOIN `tabItem` i ON i.name = e.item WHERE e.parent = %s ORDER BY e.idx", scope.name, as_dict=True) %}
     {% if equipment_rows %}
     <div class="section-header">B &mdash; EQUIPMENT &amp; PLANT</div>
     {{ render_equipment_table(equipment_rows, scope.duration_days | float) }}
     {% endif %}
 
-    {# D22: Section F — Materials shown with standard buying rates for reference #}
+    {# Section F — Materials (standard rates shown for reference) #}
     {% set material_rows = frappe.db.sql("SELECT item_name, adjusted_qty, uom, buying_rate, amount FROM `tabEstimate Scope Material` WHERE parent = %s ORDER BY idx", scope.name, as_dict=True) %}
     {% if material_rows %}
     <div class="section-header">F &mdash; MATERIALS</div>
     {{ render_material_table(material_rows) }}
     {% if bp_rate != 1.0 %}
-    <div style="font-size: 7.5pt; color: #777; font-style: italic; text-align: right; margin-top: 2mm; margin-right: 4mm;">
+    <div style="font-size: 7.5pt; color: #777777; font-style: italic; text-align: right; margin-top: 2mm; margin-right: 4mm;">
       * Material amounts adjusted by BP factor {{ num_format(bp_rate) }}x in waterfall below.
     </div>
     {% endif %}
     {% endif %}
 
-    {# D21, D35, D37: BP Waterfall pinned to page bottom — no split (page-break-inside: avoid) #}
-    {# Uses bp_rate_factor on material costs + bp_ocm_percent/bp_profit_percent #}
-    <div class="scope-waterfall">
-      <div style="max-width: 280px; margin-left: auto; margin-top: 6mm;">
-        {{ render_waterfall_block(scope_bp_dc, bp_ocm_pct, bp_profit_pct, doc.vat_inclusive, doc.vat_percent | float, "#C89A2E") }}
-      </div>
+    {# BP Waterfall — gold accent, 380px wide #}
+    <div style="width: 380px; margin-left: auto; margin-top: 8mm; page-break-inside: avoid;">
+      {{ render_waterfall_block(scope_bp_dc, bp_ocm_pct, bp_profit_pct, doc.vat_inclusive, doc.vat_percent | float, "#C89A2E") }}
     </div>
 
   </div>
@@ -894,5 +593,3 @@
 {% endif %}
 
 {% endif %}{# end scope_count > 0 #}
-
-</div>{# end .content-body #}
