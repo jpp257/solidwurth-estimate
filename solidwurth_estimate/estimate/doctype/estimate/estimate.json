@@ -25,6 +25,8 @@
   "vat_inclusive",
   "cb_vat",
   "vat_percent",
+  "sb_scopes",
+  "scope_summary_html",
   "sb_totals",
   "direct_cost",
   "cb_ocm_amt",
@@ -34,6 +36,9 @@
   "subtotal",
   "vat_amount",
   "grand_total",
+  "cb_base",
+  "base_direct_cost",
+  "base_grand_total",
   "sb_revision",
   "status",
   "cb_amended",
@@ -142,15 +147,26 @@
    "label": "VAT %"
   },
   {
+   "fieldname": "sb_scopes",
+   "fieldtype": "Section Break",
+   "label": "Scopes"
+  },
+  {
+   "fieldname": "scope_summary_html",
+   "fieldtype": "HTML",
+   "label": "Scope Summary",
+   "read_only": 1
+  },
+  {
    "fieldname": "sb_totals",
    "fieldtype": "Section Break",
-   "label": "Totals (Phase 12)"
+   "label": "Totals"
   },
   {
    "fieldname": "direct_cost",
    "fieldtype": "Currency",
    "default": "0",
-   "label": "Direct Cost (₱)",
+   "label": "Direct Cost (\u20b1)",
    "read_only": 1
   },
   {
@@ -161,14 +177,14 @@
    "fieldname": "ocm_amount",
    "fieldtype": "Currency",
    "default": "0",
-   "label": "OCM Amount (₱)",
+   "label": "OCM Amount (\u20b1)",
    "read_only": 1
   },
   {
    "fieldname": "profit_amount",
    "fieldtype": "Currency",
    "default": "0",
-   "label": "Profit Amount (₱)",
+   "label": "Profit Amount (\u20b1)",
    "read_only": 1
   },
   {
@@ -179,23 +195,44 @@
    "fieldname": "subtotal",
    "fieldtype": "Currency",
    "default": "0",
-   "label": "Subtotal (₱)",
+   "label": "Subtotal (\u20b1)",
    "read_only": 1
   },
   {
    "fieldname": "vat_amount",
    "fieldtype": "Currency",
    "default": "0",
-   "label": "VAT Amount (₱)",
+   "label": "VAT Amount (\u20b1)",
    "read_only": 1
   },
   {
    "fieldname": "grand_total",
    "fieldtype": "Currency",
    "default": "0",
-   "label": "Grand Total (₱)",
+   "label": "Grand Total (\u20b1)",
    "read_only": 1,
    "bold": 1
+  },
+  {
+   "fieldname": "cb_base",
+   "fieldtype": "Column Break"
+  },
+  {
+   "fieldname": "base_direct_cost",
+   "fieldtype": "Currency",
+   "default": "0",
+   "label": "Base Direct Cost (\u20b1)",
+   "read_only": 1,
+   "description": "Sum of non-optional scope direct costs"
+  },
+  {
+   "fieldname": "base_grand_total",
+   "fieldtype": "Currency",
+   "default": "0",
+   "label": "Base Grand Total (\u20b1)",
+   "read_only": 1,
+   "bold": 1,
+   "description": "Waterfall total from non-optional scopes only"
   },
   {
    "fieldname": "sb_revision",

@@ -15,6 +15,8 @@ frappe.ui.form.on("Estimate", {
                 () => show_template_picker(frm)
             );
         }
+
+        render_scope_summary(frm);
     },
 });
 
@@ -107,6 +109,7 @@ function show_template_picker(frm) {
                     if (!r.exc) {
                         const count = r.message ? r.message.length : 0;
                         frm.reload_doc();
+                        frm.once("after_load", () => render_scope_summary(frm));
                         frappe.show_alert({
                             message: __(
                                 "{0} scope(s) added under '{1}'.",
@@ -121,4 +124,91 @@ function show_template_picker(frm) {
     });
 
     dialog.show();
+}
+
+
+/**
+ * Render a summary table of all Estimate Scopes linked to this Estimate.
+ * Displays scope name (linked), group, optional flag, and direct cost.
+ * Shows Base Total and Optional Total in the table footer.
+ *
+ * Phase 12-02: D9, D10, D11 — complements the dual waterfall totals.
+ */
+function render_scope_summary(frm) {
+    if (!frm.doc.name || frm.doc.__islocal) {
+        frm.fields_dict.scope_summary_html.$wrapper.html(
+            '<p class="text-muted" style="padding:8px;">' + __("No scopes added") + '</p>'
+        );
+        return;
+    }
+
+    frappe.call({
+        method: "frappe.client.get_list",
+        args: {
+            doctype: "Estimate Scope",
+            filters: { estimate: frm.doc.name },
+            fields: ["name", "scope_name", "scope_group", "is_optional", "direct_cost"],
+            order_by: "scope_group asc, scope_name asc",
+            limit: 200,
+        },
+        callback(r) {
+            const scopes = r.message || [];
+            const wrapper = frm.fields_dict.scope_summary_html.$wrapper;
+
+            if (!scopes.length) {
+                wrapper.html(
+                    '<p class="text-muted" style="padding:8px;">' + __("No scopes added") + '</p>'
+                );
+                return;
+            }
+
+            let baseTotal = 0;
+            let optionalTotal = 0;
+            scopes.forEach(s => {
+                const dc = flt(s.direct_cost);
+                if (s.is_optional) {
+                    optionalTotal += dc;
+                } else {
+                    baseTotal += dc;
+                }
+            });
+
+            const rows = scopes.map(s => {
+                const link = frappe.utils.get_url_to_form("Estimate Scope", s.name);
+                const optFlag = s.is_optional ? "&#10003;" : "";
+                const dc = format_currency(flt(s.direct_cost), "PHP");
+                return `<tr>
+                    <td><a href="${link}">${frappe.utils.escape_html(s.scope_name || s.name)}</a></td>
+                    <td>${frappe.utils.escape_html(s.scope_group || "")}</td>
+                    <td style="text-align:center;">${optFlag}</td>
+                    <td style="text-align:right;">${dc}</td>
+                </tr>`;
+            }).join("");
+
+            const html = `
+<table class="table table-bordered table-condensed" style="margin:0;font-size:13px;">
+  <thead>
+    <tr>
+      <th>${__("Scope Name")}</th>
+      <th>${__("Group")}</th>
+      <th style="text-align:center;">${__("Opt")}</th>
+      <th style="text-align:right;">${__("Direct Cost")}</th>
+    </tr>
+  </thead>
+  <tbody>${rows}</tbody>
+  <tfoot>
+    <tr style="font-weight:bold;">
+      <td colspan="3">${__("Base Total")}</td>
+      <td style="text-align:right;">${format_currency(baseTotal, "PHP")}</td>
+    </tr>
+    <tr style="font-weight:bold;">
+      <td colspan="3">${__("Optional Total")}</td>
+      <td style="text-align:right;">${format_currency(optionalTotal, "PHP")}</td>
+    </tr>
+  </tfoot>
+</table>`;
+
+            wrapper.html(html);
+        },
+    });
 }

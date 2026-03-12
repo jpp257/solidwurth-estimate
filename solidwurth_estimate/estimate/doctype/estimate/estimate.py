@@ -3,6 +3,7 @@
 
 import frappe
 from frappe.model.document import Document
+from frappe.utils import flt
 
 
 class Estimate(Document):
@@ -43,12 +44,17 @@ class Estimate(Document):
 
     def validate(self):
         """
-        Enforce valid status transitions.
+        Enforce valid status transitions and compute waterfall totals.
         D30 from CONTEXT.md: Invalid transitions throw error.
-        Phase 14 replaces this with Frappe native Workflow.
+        D9/D10/D11: Dual waterfall — all scopes and non-optional scopes.
+        Phase 14 replaces status transitions with Frappe native Workflow.
         """
+        self._validate_status_transition()
+        self._calculate_totals()
+
+    def _validate_status_transition(self):
+        """Enforce valid status transitions (D30). Extracted from original validate."""
         if self.is_new():
-            # New document — no previous status to compare against
             return
 
         previous_status = frappe.db.get_value("Estimate", self.name, "status")
@@ -68,6 +74,43 @@ class Estimate(Document):
                 f"Cannot transition Estimate from '{previous_status}' to '{self.status}'. "
                 f"Allowed next status: {allowed_str}."
             )
+
+    def _calculate_totals(self):
+        """
+        Compute dual waterfall totals from all linked Estimate Scopes.
+        D9: Recalculation runs on Estimate save only.
+        D10: Optional scopes get full waterfall.
+        D11: grand_total = all scopes. base_grand_total = non-optional only.
+        """
+        scopes = frappe.get_all(
+            "Estimate Scope",
+            filters={"estimate": self.name},
+            fields=["name", "direct_cost", "is_optional"]
+        )
+
+        total_direct = flt(sum(flt(s.direct_cost) for s in scopes), 2)
+        base_direct = flt(sum(flt(s.direct_cost) for s in scopes if not s.is_optional), 2)
+
+        def waterfall(dc):
+            ocm = flt(dc * flt(self.ocm_percent) / 100, 2)
+            profit = flt((dc + ocm) * flt(self.profit_percent) / 100, 2)
+            sub = flt(dc + ocm + profit, 2)
+            vat = flt(sub * flt(self.vat_percent) / 100, 2) if self.vat_inclusive else 0.0
+            grand = flt(sub + vat, 2)
+            return ocm, profit, sub, vat, grand
+
+        ocm_amt, profit_amt, sub_amt, vat_amt, grand = waterfall(total_direct)
+
+        self.direct_cost = total_direct
+        self.ocm_amount = ocm_amt
+        self.profit_amount = profit_amt
+        self.subtotal = sub_amt
+        self.vat_amount = vat_amt
+        self.grand_total = grand
+
+        _, _, _, _, base_grand = waterfall(base_direct)
+        self.base_direct_cost = base_direct
+        self.base_grand_total = base_grand
 
 
 @frappe.whitelist()
