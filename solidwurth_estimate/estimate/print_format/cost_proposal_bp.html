@@ -540,13 +540,13 @@
     {{ render_labor_table(labor_rows, scope.duration_days | float) }}
     {% endif %}
 
-    {% set equipment_rows = frappe.db.sql("SELECT COALESCE(i.item_name, e.item) AS item_name, e.units, e.daily_rate, e.total_rate, e.total_cost FROM `tabEstimate Scope Equipment` e LEFT JOIN `tabItem` i ON i.name = e.item WHERE e.parent = %s ORDER BY e.idx", scope.name, as_dict=True) %}
+    {% set equipment_rows = frappe.db.sql("SELECT e.item AS item_code, COALESCE(i.item_name, e.item) AS item_name, e.units, e.daily_rate, e.total_rate, e.total_cost FROM `tabEstimate Scope Equipment` e LEFT JOIN `tabItem` i ON i.name = e.item WHERE e.parent = %s ORDER BY e.idx", scope.name, as_dict=True) %}
     {% if equipment_rows %}
     <div class="section-header">B &mdash; EQUIPMENT &amp; PLANT</div>
     {{ render_equipment_table(equipment_rows, scope.duration_days | float) }}
     {% endif %}
 
-    {% set material_rows = frappe.db.sql("SELECT item_name, adjusted_qty, uom, buying_rate, amount FROM `tabEstimate Scope Material` WHERE parent = %s ORDER BY idx", scope.name, as_dict=True) %}
+    {% set material_rows = frappe.db.sql("SELECT item AS item_code, item_name, adjusted_qty, uom, buying_rate, amount FROM `tabEstimate Scope Material` WHERE parent = %s ORDER BY idx", scope.name, as_dict=True) %}
     {% if material_rows %}
     <div class="section-header">C &mdash; MATERIALS</div>
     {{ render_material_table(material_rows) }}

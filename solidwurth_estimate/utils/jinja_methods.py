@@ -268,8 +268,8 @@ def render_equipment_table(equipment_rows, duration_days):
     NOTE: ownership_type column is intentionally hidden from print (D18).
 
     Args:
-        equipment_rows: List of dicts with keys: item_name, units, daily_rate, total_rate, total_cost
-        duration_days: Scope duration in days (shown as caption)
+        equipment_rows: List of dicts with keys: item_code, item_name, units, daily_rate, total_rate, total_cost
+        duration_days: Scope duration in days
 
     Returns:
         str: Complete HTML section with <div class="dlia-section section-b"> wrapper
@@ -280,6 +280,7 @@ def render_equipment_table(equipment_rows, duration_days):
     header_row = (
         "<tr>"
         "<th {h}>Item</th>"
+        "<th {h}>Equipment Name</th>"
         "<th {h}>Units</th>"
         "<th {hr}>Daily Rate</th>"
         "<th {hr}>Total Daily Rate</th>"
@@ -295,6 +296,7 @@ def render_equipment_table(equipment_rows, duration_days):
         td_right = 'style="padding: 5px 8px; text-align: right; font-family: \'Roboto Mono\', monospace;"'
         rows_html += (
             "<tr {row}>"
+            "<td {td}>{item_code}</td>"
             "<td {td}>{item_name}</td>"
             "<td {td}>{units}</td>"
             "<td {tdr}>{daily_rate}</td>"
@@ -305,6 +307,7 @@ def render_equipment_table(equipment_rows, duration_days):
             row=row_style,
             td=td,
             tdr=td_right,
+            item_code=row.get("item_code", ""),
             item_name=row.get("item_name", ""),
             units=int_format(row.get("units", 0)),
             daily_rate=php_format(row.get("daily_rate", 0)),
@@ -313,7 +316,15 @@ def render_equipment_table(equipment_rows, duration_days):
         )
 
     table_html = (
-        '<table class="dlia-table" style="width: 100%; border-collapse: collapse; font-size: 0.9em;">'
+        '<table class="dlia-table" style="width: 100%; border-collapse: collapse; font-size: 0.9em; table-layout: fixed;">'
+        "<colgroup>"
+        '<col style="width: 12%;">'
+        '<col style="width: 28%;">'
+        '<col style="width: 8%;">'
+        '<col style="width: 17%;">'
+        '<col style="width: 17%;">'
+        '<col style="width: 18%;">'
+        "</colgroup>"
         "<thead>{header}</thead>"
         "<tbody>{rows}</tbody>"
         "</table>"
@@ -330,16 +341,16 @@ def render_equipment_table(equipment_rows, duration_days):
 # ---------------------------------------------------------------------------
 
 def render_material_table(material_rows):
-    """Render Section F (Materials) HTML table.
+    """Render Section C (Materials) HTML table.
 
     NOTE: buying_rate IS the Rate column (D19). margin, wastage_percent are hidden from print.
-    Columns: Item | Qty | UOM | Rate | Amount
+    Columns: Item | Material Name | Qty | UOM | Rate | Amount
 
     Args:
-        material_rows: List of dicts with keys: item_name, adjusted_qty, uom, buying_rate, amount
+        material_rows: List of dicts with keys: item_code, item_name, adjusted_qty, uom, buying_rate, amount
 
     Returns:
-        str: Complete HTML section with <div class="dlia-section section-f"> wrapper
+        str: Complete HTML section with <div class="dlia-section section-c"> wrapper
     """
     header_style = 'style="background-color: #3B5998; color: #ffffff; padding: 6px 8px; text-align: left;"'
     header_right = 'style="background-color: #3B5998; color: #ffffff; padding: 6px 8px; text-align: right;"'
@@ -347,6 +358,7 @@ def render_material_table(material_rows):
     header_row = (
         "<tr>"
         "<th {h}>Item</th>"
+        "<th {h}>Material Name</th>"
         "<th {hr}>Qty</th>"
         "<th {h}>UOM</th>"
         "<th {hr}>Rate</th>"
@@ -362,6 +374,7 @@ def render_material_table(material_rows):
         td_right = 'style="padding: 5px 8px; text-align: right; font-family: \'Roboto Mono\', monospace;"'
         rows_html += (
             "<tr {row}>"
+            "<td {td}>{item_code}</td>"
             "<td {td}>{item_name}</td>"
             "<td {tdr}>{adjusted_qty}</td>"
             "<td {td}>{uom}</td>"
@@ -372,6 +385,7 @@ def render_material_table(material_rows):
             row=row_style,
             td=td,
             tdr=td_right,
+            item_code=row.get("item_code", ""),
             item_name=row.get("item_name", ""),
             adjusted_qty=num_format(row.get("adjusted_qty", 0)),
             uom=row.get("uom", ""),
@@ -380,7 +394,15 @@ def render_material_table(material_rows):
         )
 
     table_html = (
-        '<table class="dlia-table" style="width: 100%; border-collapse: collapse; font-size: 0.9em;">'
+        '<table class="dlia-table" style="width: 100%; border-collapse: collapse; font-size: 0.9em; table-layout: fixed;">'
+        "<colgroup>"
+        '<col style="width: 12%;">'
+        '<col style="width: 24%;">'
+        '<col style="width: 8%;">'
+        '<col style="width: 10%;">'
+        '<col style="width: 22%;">'
+        '<col style="width: 24%;">'
+        "</colgroup>"
         "<thead>{header}</thead>"
         "<tbody>{rows}</tbody>"
         "</table>"
@@ -389,4 +411,4 @@ def render_material_table(material_rows):
         rows=rows_html,
     )
 
-    return '<div class="dlia-section section-f">{}</div>'.format(table_html)
+    return '<div class="dlia-section section-c">{}</div>'.format(table_html)
