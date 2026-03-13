@@ -151,19 +151,25 @@ def render_waterfall_block(direct_cost, ocm_percent, profit_percent, vat_inclusi
 
     rows_html = ""
 
-    def _row(label, letter, amount, style=""):
+    def _row(label, letter, amount, pct_str="", style=""):
+        """Render a 3-column waterfall row: Component | % | Amount.
+
+        The style param is applied to <tr> — child <td> elements inherit color/font-weight
+        so the total row (white text on accent bg) renders correctly without per-cell overrides.
+        """
         return (
             '<tr style="{style}">'
-            '<td class="waterfall-label">{letter}&nbsp;&nbsp;{label}</td>'
-            '<td class="amount-cell" style="font-family: \'Roboto Mono\', monospace; text-align: right;">{amount}</td>'
+            '<td style="padding: 4px 8px;">{letter}&nbsp;&nbsp;{label}</td>'
+            '<td style="text-align: center; padding: 4px 8px; font-size: 8pt;">{pct}</td>'
+            '<td style="font-family: \'Roboto Mono\', \'Courier New\', monospace; text-align: right; padding: 4px 8px;">{amount}</td>'
             "</tr>"
-        ).format(label=label, letter=letter, amount=php_format(amount), style=style)
+        ).format(label=label, letter=letter, amount=php_format(amount), pct=pct_str, style=style)
 
     rows_html += _row("Direct Cost", "G", dc)
-    rows_html += _row("OCM ({pct}%)".format(pct=num_format(ocm_pct)), "H", ocm)
-    rows_html += _row("Profit ({pct}%)".format(pct=num_format(profit_pct)), "I", profit)
+    rows_html += _row("OCM", "H", ocm, pct_str="{:.2f}%".format(ocm_pct))
+    rows_html += _row("Profit", "I", profit, pct_str="{:.2f}%".format(profit_pct))
     if vat_inclusive:
-        rows_html += _row("VAT ({pct}%)".format(pct=num_format(vat_pct)), "J", vat)
+        rows_html += _row("VAT", "J", vat, pct_str="{:.2f}%".format(vat_pct))
     else:
         rows_html += _row("VAT (exempt)", "J", 0)
 
@@ -176,6 +182,7 @@ def render_waterfall_block(direct_cost, ocm_percent, profit_percent, vat_inclusi
         "<thead>"
         '<tr style="background-color: #1B2E4A; color: #ffffff;">'
         '<th style="text-align: left; padding: 4px 8px;">Cost Component</th>'
+        '<th style="text-align: center; padding: 4px 8px;">%</th>'
         '<th style="text-align: right; padding: 4px 8px;">Amount</th>'
         "</tr>"
         "</thead>"
