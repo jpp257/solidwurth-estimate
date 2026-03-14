@@ -159,9 +159,9 @@ def render_waterfall_block(direct_cost, ocm_percent, profit_percent, vat_inclusi
         """
         return (
             '<tr style="{style}">'
-            '<td style="padding: 4px 8px;">{letter}&nbsp;&nbsp;{label}</td>'
-            '<td style="text-align: center; padding: 4px 8px; font-size: 8pt;">{pct}</td>'
-            '<td style="font-family: \'Roboto Mono\', \'Courier New\', monospace; text-align: right; padding: 4px 8px;">{amount}</td>'
+            '<td style="padding: 5px 8px; font-size: 9pt;">{letter}&nbsp;&nbsp;{label}</td>'
+            '<td style="text-align: center; padding: 5px 8px; font-size: 9pt;">{pct}</td>'
+            '<td style="font-family: \'Roboto Mono\', \'Courier New\', monospace; text-align: right; padding: 5px 8px; font-size: 9pt;">{amount}</td>'
             "</tr>"
         ).format(label=label, letter=letter, amount=php_format(amount), pct=pct_str, style=style)
 
@@ -178,12 +178,12 @@ def render_waterfall_block(direct_cost, ocm_percent, profit_percent, vat_inclusi
     rows_html += _row("TOTAL", "K", total, style=total_style)
 
     return (
-        '<table class="waterfall-table" style="width: 100%; border-collapse: collapse; margin-top: 8px;">'
+        '<table class="waterfall-table" style="width: 100%; border-collapse: collapse; margin-top: 8px; font-size: 9pt; font-family: Inter, \'Helvetica Neue\', Arial, sans-serif;">'
         "<thead>"
-        '<tr style="background-color: #1B2E4A; color: #ffffff;">'
-        '<th style="text-align: left; padding: 4px 8px;">Cost Component</th>'
-        '<th style="text-align: center; padding: 4px 8px;">%</th>'
-        '<th style="text-align: right; padding: 4px 8px;">Amount</th>'
+        '<tr style="background-color: #3B5998; color: #ffffff;">'
+        '<th style="text-align: left; padding: 6px 8px; font-family: Inter, \'Helvetica Neue\', Arial, sans-serif; font-weight: bold;">Cost Component</th>'
+        '<th style="text-align: center; padding: 6px 8px; font-family: Inter, \'Helvetica Neue\', Arial, sans-serif; font-weight: bold;">%</th>'
+        '<th style="text-align: right; padding: 6px 8px; font-family: Inter, \'Helvetica Neue\', Arial, sans-serif; font-weight: bold;">Amount</th>'
         "</tr>"
         "</thead>"
         "<tbody>"

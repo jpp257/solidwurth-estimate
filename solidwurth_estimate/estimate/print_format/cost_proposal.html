@@ -141,9 +141,10 @@
 
 {# =========================================================================
    FRAPPE FOOTER — extracted for --footer-html in wkhtmltopdf
+   Hidden in browser print preview via @media screen rule above.
    <span class="page"> / <span class="topage"> = reliable page numbers
 ========================================================================= #}
-<div id="footer-html" class="visible-pdf">
+<div id="footer-html" class="visible-pdf" style="display: none;">
   <div style="width: 100%; border-top: 1px solid #1B2E4A; padding: 2mm 0; font-size: 7pt; color: #555555;">
     <table style="width: 100%; border-collapse: collapse;">
       <tr>
@@ -235,8 +236,8 @@
     </table>
   </div>
 
-  {# Signature block — TABLE-based (3 equal columns) #}
-  <div style="padding: 8mm 20mm 10mm 20mm; border-top: 2px solid #1B2E4A; margin-top: 40mm;">
+  {# Signature block — TABLE-based (3 equal columns), pinned near page bottom #}
+  <div style="padding: 8mm 20mm 10mm 20mm; border-top: 2px solid #1B2E4A; margin-top: 15mm;">
     <table style="width: 100%; border-collapse: collapse;">
       <tr>
         <td style="width: 33.33%; text-align: center; padding: 0 4mm; vertical-align: top;">
