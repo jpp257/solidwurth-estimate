@@ -1,6 +1,7 @@
-{# COST PROPOSAL — Standard Print Format (SolidWurth Corp.) #}
-{# Phase 13: wkhtmltopdf-safe rewrite — table layout, Frappe footer-html, no flex/fixed/opacity #}
-{# Accent color: #A52422 (SW red) | Target renderer: wkhtmltopdf (Qt WebKit) #}
+{# BP VARIANT (LONG) — accent: #C89A2E (gold). Legal/Long paper variant. #}
+{# COST PROPOSAL (BP) — Bank Purpose Print Format, Long Paper (SolidWurth Corp.) #}
+{# Generous spacing for Legal (8.5x14) paper #}
+{# Accent color: #C89A2E (gold) | Target renderer: wkhtmltopdf (Qt WebKit) #}
 
 {%- set logo_path = frappe.db.get_single_value("Website Settings", "banner_image") or frappe.db.get_value("Company", "SolidWurth Corp.", "company_logo") -%}
 {%- set fonts = get_fonts() -%}
@@ -10,17 +11,11 @@
 {%- set company_tin = frappe.db.get_value("Company", "SolidWurth Corp.", "tax_id") or "" -%}
 
 <style>
-  /* -----------------------------------------------------------------------
-     Page Setup — Letter/A4 Portrait (D9, D10)
-  ----------------------------------------------------------------------- */
   @page {
-    size: letter portrait;
+    size: legal portrait;
     margin: 15mm 15mm 20mm 20mm;
   }
 
-  /* -----------------------------------------------------------------------
-     Global Reset & Print Color Fix
-  ----------------------------------------------------------------------- */
   * {
     box-sizing: border-box;
     margin: 0;
@@ -46,9 +41,6 @@
     text-align: right;
   }
 
-  /* -----------------------------------------------------------------------
-     Font Embedding (base64, graceful degradation)
-  ----------------------------------------------------------------------- */
   {% if fonts.montserrat_bold %}
   @font-face {
     font-family: 'Montserrat';
@@ -74,9 +66,6 @@
   }
   {% endif %}
 
-  /* -----------------------------------------------------------------------
-     Table Defaults — wkhtmltopdf-safe (NO flexbox anywhere)
-  ----------------------------------------------------------------------- */
   table {
     width: 100%;
     border-collapse: collapse;
@@ -98,9 +87,6 @@
     page-break-inside: avoid;
   }
 
-  /* -----------------------------------------------------------------------
-     Cover Page Info Table
-  ----------------------------------------------------------------------- */
   .info-label {
     padding: 3px 6px;
     font-weight: bold;
@@ -120,9 +106,6 @@
     vertical-align: top;
   }
 
-  /* -----------------------------------------------------------------------
-     Section Headers (DLIA sections A/B/C)
-  ----------------------------------------------------------------------- */
   .section-header {
     background-color: #2E5FA3;
     color: #ffffff;
@@ -133,11 +116,7 @@
     margin-top: 3mm;
   }
 
-  /* -----------------------------------------------------------------------
-     Terms & Conditions Content Styling
-     Styles semantic HTML from Frappe's Text Editor (Quill WYSIWYG)
-     to match professional construction proposal formatting.
-  ----------------------------------------------------------------------- */
+  /* Terms & Conditions Content Styling */
   .terms-content ol {
     counter-reset: terms-counter;
     list-style: none;
@@ -203,11 +182,7 @@
 
 </style>
 
-{# =========================================================================
-   FRAPPE FOOTER — extracted for --footer-html in wkhtmltopdf
-   Hidden in browser print preview via @media screen rule above.
-   <span class="page"> / <span class="topage"> = reliable page numbers
-========================================================================= #}
+{# FRAPPE FOOTER — BP variant (gold accent) #}
 <div id="footer-html" class="visible-pdf" style="display: none;">
   <div style="width: 100%; border-top: 1px solid #1B2E4A; padding: 2mm 0; font-size: 7pt; color: #555555;">
     <table style="width: 100%; border-collapse: collapse;">
@@ -215,7 +190,7 @@
         <td style="text-align: left; padding: 0 4mm; font-weight: bold;">
           SolidWurth Corp.{% if company_tin %} | TIN: {{ company_tin }}{% endif %}
         </td>
-        <td style="text-align: center; padding: 0 4mm; font-style: italic; color: #A52422;">
+        <td style="text-align: center; padding: 0 4mm; font-style: italic; color: #C89A2E;">
           CONFIDENTIAL &mdash; FOR PROPOSAL PURPOSES ONLY
         </td>
         <td style="text-align: right; padding: 0 4mm;">
@@ -226,45 +201,40 @@
   </div>
 </div>
 
-{# =========================================================================
-   MACRO: Inline Continuation Header
-   Table-based (not position:fixed). Placed at top of each section after cover.
-========================================================================= #}
+{# MACRO: Continuation Header — BP variant (gold accent, -BP suffix) #}
 {% macro cont_header() %}
-<table style="width: 100%; background-color: #1B2E4A; border-bottom: 2px solid #A52422; margin-bottom: 6mm; border-collapse: collapse;">
+<table style="width: 100%; background-color: #1B2E4A; border-bottom: 2px solid #C89A2E; margin-bottom: 6mm; border-collapse: collapse;">
   <tr>
     <td style="padding: 2mm 4mm; width: 25mm; vertical-align: middle;">
       {% if logo_path %}<img src="{{ logo_path }}" style="max-height: 8mm; width: auto;" alt="" />{% endif %}
     </td>
     <td style="padding: 2mm 4mm; text-align: center; font-family: 'Montserrat', 'Segoe UI', Arial, sans-serif; font-weight: 700; font-size: 9pt; color: #ffffff; letter-spacing: 0.5px; vertical-align: middle;">
-      COST PROPOSAL &mdash; {{ doc.name }}{% if doc.revision %} | Rev {{ doc.revision }}{% endif %}
+      COST PROPOSAL &mdash; {{ doc.name }}-BP{% if doc.revision %} | Rev {{ doc.revision }}{% endif %}
     </td>
     <td style="padding: 2mm 4mm; text-align: right; width: 35mm; font-size: 7.5pt; color: #D0D7E0; white-space: nowrap; vertical-align: middle;">
-      {{ doc.name }}
+      {{ doc.name }}-BP
     </td>
   </tr>
 </table>
 {% endmacro %}
 
 {# =========================================================================
-   COVER PAGE (D3, D11, D12)
+   COVER PAGE — BP variant (gold accent, -BP suffix)
 ========================================================================= #}
 <div style="page-break-after: always;">
 
-  {# Navy band — centered via text-align (no flexbox) #}
-  <div style="background-color: #1B2E4A; width: 100%; padding: 12mm 20mm 10mm 20mm; text-align: center;">
+  <div style="background-color: #1B2E4A; width: 100%; padding: 22mm 20mm 16mm 20mm; text-align: center;">
     {% if logo_path %}
-      <img src="{{ logo_path }}" style="max-height: 35mm; max-width: 100mm; margin-bottom: 6mm;" alt="SolidWurth Corp." />
+      <img src="{{ logo_path }}" style="max-height: 50mm; max-width: 120mm; margin-bottom: 10mm;" alt="SolidWurth Corp." />
     {% else %}
-      <div style="font-family: 'Montserrat', 'Segoe UI', Arial, sans-serif; font-size: 20pt; font-weight: 700; color: #ffffff; margin-bottom: 6mm;">SolidWurth Corp.</div>
+      <div style="font-family: 'Montserrat', 'Segoe UI', Arial, sans-serif; font-size: 22pt; font-weight: 700; color: #ffffff; margin-bottom: 8mm;">SolidWurth Corp.</div>
     {% endif %}
-    <div style="font-family: 'Montserrat', 'Segoe UI', Arial, sans-serif; font-weight: 700; font-size: 28pt; color: #ffffff; letter-spacing: 2px; text-transform: uppercase;">COST PROPOSAL</div>
-    <div style="width: 80mm; height: 4px; background-color: #A52422; margin: 5mm auto 0 auto;"></div>
+    <div style="font-family: 'Montserrat', 'Segoe UI', Arial, sans-serif; font-weight: 700; font-size: 30pt; color: #ffffff; letter-spacing: 2px; text-transform: uppercase;">COST PROPOSAL</div>
+    <div style="width: 80mm; height: 4px; background-color: #C89A2E; margin: 8mm auto 0 auto;"></div>
   </div>
 
-  {# Project info table #}
-  <div style="padding: 6mm 20mm;">
-    <table style="width: 100%; border-collapse: collapse; margin-bottom: 4mm;">
+  <div style="padding: 12mm 20mm;">
+    <table style="width: 100%; border-collapse: collapse; margin-bottom: 8mm;">
       <tbody>
         <tr>
           <td class="info-label">Project:</td>
@@ -280,7 +250,7 @@
         </tr>
         <tr>
           <td class="info-label">Estimate No.:</td>
-          <td class="info-value">{{ doc.name }}</td>
+          <td class="info-value">{{ doc.name }}-BP</td>
         </tr>
         <tr>
           <td class="info-label">Date:</td>
@@ -300,8 +270,7 @@
     </table>
   </div>
 
-  {# Signature block — TABLE-based (3 equal columns), pinned near page bottom #}
-  <div style="padding: 6mm 20mm 8mm 20mm; border-top: 2px solid #1B2E4A; margin-top: 8mm;">
+  <div style="padding: 10mm 20mm 12mm 20mm; border-top: 2px solid #1B2E4A; margin-top: 20mm;">
     <table style="width: 100%; border-collapse: collapse;">
       <tr>
         <td style="width: 33.33%; text-align: center; padding: 0 4mm; vertical-align: top;">
@@ -326,14 +295,12 @@
 </div>{# end cover page #}
 
 {# =========================================================================
-   SUMMARY PAGE (D5, D13, D14)
-   - Grouped by scope_group (header rows) — no Scope Group column
-   - 4 columns: Scope of Work | UOM | Qty | Direct Cost
-   - Waterfall: full-width, 3-column (Component | % | Amount)
+   SUMMARY PAGE — BP VARIANT (grouped by scope_group)
 ========================================================================= #}
 
 {% set scopes = frappe.db.sql("""
-    SELECT name, scope_name, scope_group, is_optional, direct_cost, quantity, uom
+    SELECT name, scope_name, scope_group, is_optional, direct_cost, quantity, uom,
+           total_labor_cost, total_equipment_cost, total_material_cost
     FROM `tabEstimate Scope`
     WHERE estimate = %s
     ORDER BY scope_group ASC, COALESCE(display_order, 999) ASC, name ASC
@@ -342,6 +309,28 @@
 {% set base_scopes = scopes | selectattr("is_optional", "eq", 0) | list %}
 {% set optional_scopes = scopes | selectattr("is_optional", "ne", 0) | list %}
 {% set wbs = build_scope_wbs(base_scopes, optional_scopes) %}
+
+{# BP parameters #}
+{% set bp_rate = doc.bp_rate_factor | float or 1.0 %}
+{% set bp_ocm_pct = doc.bp_ocm_percent | float %}
+{% set bp_profit_pct = doc.bp_profit_percent | float %}
+
+{# Compute total BP direct cost across all scopes #}
+{% set bp_totals = namespace(base_dc=0, optional_dc=0) %}
+
+{% for scope in scopes %}
+  {% set mat_rows = frappe.db.sql("SELECT amount FROM `tabEstimate Scope Material` WHERE parent = %s", scope.name, as_dict=True) %}
+  {% set bp_mat = namespace(value=0) %}
+  {% for row in mat_rows %}{% set bp_mat.value = bp_mat.value + (row.amount | float) * bp_rate %}{% endfor %}
+  {% set scope_bp_dc = (scope.total_labor_cost | float) + (scope.total_equipment_cost | float) + bp_mat.value %}
+  {% if scope.is_optional %}
+    {% set bp_totals.optional_dc = bp_totals.optional_dc + scope_bp_dc %}
+  {% else %}
+    {% set bp_totals.base_dc = bp_totals.base_dc + scope_bp_dc %}
+  {% endif %}
+{% endfor %}
+
+{% set bp_all_dc = bp_totals.base_dc + bp_totals.optional_dc %}
 
 <div style="page-break-after: always;">
 
@@ -369,7 +358,7 @@
     </thead>
     <tbody>
 
-      {# === BASE SCOPES — grouped by scope_group with WBS letters === #}
+      {# Base scopes — grouped by scope_group #}
       {% set current_grp = namespace(value=None) %}
       {% set grp_idx = namespace(value=0) %}
       {% for scope in base_scopes %}
@@ -391,7 +380,6 @@
         </tr>
       {% endfor %}
 
-      {# Base scopes subtotal #}
       {% if base_scopes %}
       <tr>
         <td colspan="3" style="text-align: right; font-weight: bold; padding: 3px 6px; background-color: #dde4f0; border-top: 2px solid #2E5FA3; border-bottom: 2px solid #2E5FA3;">Base Scope Subtotal</td>
@@ -399,7 +387,7 @@
       </tr>
       {% endif %}
 
-      {# === OPTIONAL SCOPES — grouped by scope_group === #}
+      {# Optional scopes — grouped #}
       {% if optional_scopes %}
       <tr>
         <td colspan="4" style="padding: 8px 8px 2px 8px; font-weight: bold; color: #2E5FA3; font-size: 8.5pt; font-style: italic;">
@@ -427,7 +415,6 @@
         </tr>
       {% endfor %}
 
-      {# Optional scopes subtotal #}
       {% set optional_dc = namespace(total=0) %}
       {% for s in optional_scopes %}{% set optional_dc.total = optional_dc.total + (s.direct_cost | float) %}{% endfor %}
       <tr>
@@ -436,12 +423,11 @@
       </tr>
       {% endif %}
 
-      {# Grand Total row #}
+      {# Grand Total #}
       <tr>
         <td colspan="3" style="padding: 4px 6px; text-align: right; font-family: 'Montserrat', 'Segoe UI', Arial, sans-serif; font-weight: bold; background-color: #1B2E4A; color: #ffffff;">Grand Total Direct Cost (All Scopes)</td>
         <td class="amount-cell" style="padding: 4px 6px; font-weight: bold; background-color: #1B2E4A; color: #ffffff;">{{ php_format(doc.direct_cost) }}</td>
       </tr>
-      {# Base Grand Total — only when BOTH base and optional exist #}
       {% if base_scopes and optional_scopes %}
       <tr>
         <td colspan="3" style="padding: 4px 8px; text-align: right; font-size: 8pt; background-color: #2E5FA3; color: #ffffff;">Base Scope Grand Total Direct Cost</td>
@@ -452,39 +438,38 @@
     </tbody>
   </table>
 
-  {# Waterfall — full-width, 3-column (Component | % | Amount) #}
+  {# BP Waterfall — full-width, gold accent #}
   <div style="margin-top: 6mm;">
-    {{ render_waterfall_block(doc.direct_cost | float, doc.ocm_percent | float, doc.profit_percent | float, doc.vat_inclusive, doc.vat_percent | float, "#A52422") }}
+    {{ render_waterfall_block(bp_all_dc, bp_ocm_pct, bp_profit_pct, doc.vat_inclusive, doc.vat_percent | float, "#C89A2E") }}
   </div>
 
   {# Amount in words — formal Philippine construction proposal convention #}
   <div style="margin-top: 5mm; padding: 4px 8px; font-size: 8.5pt; font-style: italic; color: #2D3142; border-top: 1px solid #e0e0e0;">
-    <strong>Amount in Words:</strong> {{ amount_in_words(doc.grand_total) }}
+    <strong>Amount in Words:</strong> {{ amount_in_words(doc.bp_grand_total) }}
+  </div>
+
+  <div style="margin-top: 3mm; font-size: 7.5pt; color: #666666; text-align: right; font-style: italic;">
+    BP Contract Amount (rate factor: {{ num_format(bp_rate) }}x, OCM: {{ num_format(bp_ocm_pct) }}%, Profit: {{ num_format(bp_profit_pct) }}%)
   </div>
 
   {% if optional_scopes %}
-  <div style="margin-top: 3mm; font-size: 8pt; font-style: italic; color: #666666; text-align: right;">
-    * Grand Total includes optional scopes ({{ optional_scopes | length }} scope{{ 's' if optional_scopes | length != 1 }}).
-    Base-only Grand Total: {{ php_format(doc.base_grand_total) }}
+  <div style="margin-top: 4mm; font-size: 8pt; font-style: italic; color: #666666; text-align: right;">
+    * BP Contract Amount includes optional scopes ({{ optional_scopes | length }} scope{{ 's' if optional_scopes | length != 1 }}).
   </div>
   {% endif %}
 
   {% else %}
-  {# Empty estimate #}
   <div style="padding: 20mm 0; text-align: center; color: #888888; font-style: italic;">
     <p style="font-size: 11pt;">No scopes added</p>
-    <p style="margin-top: 4mm; font-size: 9pt;">Grand Total: {{ php_format(0) }}</p>
+    <p style="margin-top: 4mm; font-size: 9pt;">BP Contract Amount: {{ php_format(0) }}</p>
   </div>
   {% endif %}
 
 </div>{# end summary page #}
 
 {# =========================================================================
-   SCOPE DETAIL PAGES
-   - Sections: A (Labor), B (Equipment & Plant), C (Materials)
-   - Equipment SQL: LEFT JOIN tabItem for item_name
-   - Waterfall: full-width, margin-top: 8mm
-   - All dark backgrounds have explicit white text
+   SCOPE DETAIL PAGES — BP VARIANT
+   Sections A/B/C, Equipment LEFT JOIN, full-width waterfall
 ========================================================================= #}
 
 {% set scopes_detail = frappe.db.sql("""
@@ -502,16 +487,19 @@
 {% if scope_count > 0 %}
 
 {% if doc.cost_display_mode == "Summary (Private)" %}
-{# -----------------------------------------------------------------------
-   Summary (Private) mode
------------------------------------------------------------------------ #}
+{# Summary (Private) mode — BP variant #}
 {% for scope in scopes_detail %}
+
+  {# Compute BP direct cost for this scope #}
+  {% set scope_mat_rows = frappe.db.sql("SELECT amount FROM `tabEstimate Scope Material` WHERE parent = %s", scope.name, as_dict=True) %}
+  {% set scope_bp_mat = namespace(value=0) %}
+  {% for row in scope_mat_rows %}{% set scope_bp_mat.value = scope_bp_mat.value + (row.amount | float) * bp_rate %}{% endfor %}
+  {% set scope_bp_dc = (scope.total_labor_cost | float) + (scope.total_equipment_cost | float) + scope_bp_mat.value %}
 
   <div style="page-break-before: always;">
 
     {{ cont_header() }}
 
-    {# Scope header — TABLE-based, all text white on navy, WBS numbered #}
     <table style="width: 100%; background-color: #1B2E4A; color: #ffffff; margin-bottom: 4mm; border-collapse: collapse;">
       <tr>
         <td style="padding: 5px 8px; font-family: 'Montserrat', 'Segoe UI', Arial, sans-serif; font-size: 9pt; color: #ffffff; vertical-align: top;">
@@ -530,46 +518,47 @@
       </tr>
     </table>
 
-    {# Unit cost + total table #}
     <div style="margin-bottom: 4mm;">
       <table style="width: 100%; border-collapse: collapse; font-size: 9pt;">
         <thead>
           <tr>
             <th style="background-color: #3B5998; color: #ffffff; padding: 4px 6px; text-align: left;">Description</th>
-            <th style="background-color: #3B5998; color: #ffffff; padding: 4px 6px; text-align: right;">Unit Cost</th>
-            <th style="background-color: #3B5998; color: #ffffff; padding: 4px 6px; text-align: right;">Total Direct Cost</th>
+            <th style="background-color: #3B5998; color: #ffffff; padding: 4px 6px; text-align: right;">BP Unit Cost</th>
+            <th style="background-color: #3B5998; color: #ffffff; padding: 4px 6px; text-align: right;">BP Direct Cost</th>
           </tr>
         </thead>
         <tbody>
           <tr>
             <td style="padding: 3px 6px; border-bottom: 1px solid #e8e8e8;">{{ scope.scope_name }}</td>
-            {% set unit_cost = (scope.direct_cost | float) / (scope.quantity | float) if (scope.quantity | float) > 0 else 0 %}
-            <td class="amount-cell" style="padding: 3px 6px; border-bottom: 1px solid #e8e8e8;">{{ php_format(unit_cost) }}</td>
-            <td class="amount-cell" style="padding: 3px 6px; border-bottom: 1px solid #e8e8e8;">{{ php_format(scope.direct_cost) }}</td>
+            {% set bp_unit_cost = scope_bp_dc / (scope.quantity | float) if (scope.quantity | float) > 0 else 0 %}
+            <td class="amount-cell" style="padding: 3px 6px; border-bottom: 1px solid #e8e8e8;">{{ php_format(bp_unit_cost) }}</td>
+            <td class="amount-cell" style="padding: 3px 6px; border-bottom: 1px solid #e8e8e8;">{{ php_format(scope_bp_dc) }}</td>
           </tr>
         </tbody>
       </table>
     </div>
 
-    {# Waterfall — full-width #}
     <div style="margin-top: 8mm; page-break-inside: avoid;">
-      {{ render_waterfall_block(scope.direct_cost | float, doc.ocm_percent | float, doc.profit_percent | float, doc.vat_inclusive, doc.vat_percent | float, "#A52422", scope.scope_name) }}
+      {{ render_waterfall_block(scope_bp_dc, bp_ocm_pct, bp_profit_pct, doc.vat_inclusive, doc.vat_percent | float, "#C89A2E", scope.scope_name) }}
     </div>
 
   </div>
 {% endfor %}
 
 {% else %}
-{# -----------------------------------------------------------------------
-   Detailed (DPWH) mode — DLIA sections A/B/C per scope
------------------------------------------------------------------------ #}
+{# Detailed (DPWH) mode — BP variant #}
 {% for scope in scopes_detail %}
+
+  {# Compute BP direct cost for this scope #}
+  {% set scope_mat_rows_bp = frappe.db.sql("SELECT amount FROM `tabEstimate Scope Material` WHERE parent = %s", scope.name, as_dict=True) %}
+  {% set scope_bp_mat_cost = namespace(value=0) %}
+  {% for row in scope_mat_rows_bp %}{% set scope_bp_mat_cost.value = scope_bp_mat_cost.value + (row.amount | float) * bp_rate %}{% endfor %}
+  {% set scope_bp_dc = (scope.total_labor_cost | float) + (scope.total_equipment_cost | float) + scope_bp_mat_cost.value %}
 
   <div style="page-break-before: always;">
 
     {{ cont_header() }}
 
-    {# Scope group header on group change — WBS lettered #}
     {% if scope.scope_group != current_group.value %}
       {% set current_group.value = scope.scope_group %}
       <div style="background-color: #1B2E4A; color: #ffffff; font-weight: bold; font-family: 'Montserrat', 'Segoe UI', Arial, sans-serif; padding: 4px 8px; letter-spacing: 1px; font-size: 9.5pt; margin-bottom: 4mm;">
@@ -577,7 +566,6 @@
       </div>
     {% endif %}
 
-    {# Scope header bar — WBS numbered #}
     <table style="width: 100%; background-color: #1B2E4A; color: #ffffff; margin-bottom: 4mm; border-collapse: collapse;">
       <tr>
         <td style="padding: 5px 8px; font-family: 'Montserrat', 'Segoe UI', Arial, sans-serif; font-size: 9pt; color: #ffffff; vertical-align: top;">
@@ -601,30 +589,31 @@
       </tr>
     </table>
 
-    {# Section A — LABOR #}
     {% set labor_rows = frappe.db.sql("SELECT role, persons, daily_rate, total_rate, total_cost FROM `tabEstimate Scope Labor` WHERE parent = %s ORDER BY idx", scope.name, as_dict=True) %}
     {% if labor_rows %}
     <div class="section-header">A &mdash; LABOR</div>
     {{ render_labor_table(labor_rows, scope.duration_days | float) }}
     {% endif %}
 
-    {# Section B — EQUIPMENT & PLANT (LEFT JOIN tabItem for item_name) #}
     {% set equipment_rows = frappe.db.sql("SELECT e.item AS item_code, COALESCE(i.item_name, e.item) AS item_name, e.units, e.daily_rate, e.total_rate, e.total_cost FROM `tabEstimate Scope Equipment` e LEFT JOIN `tabItem` i ON i.name = e.item WHERE e.parent = %s ORDER BY e.idx", scope.name, as_dict=True) %}
     {% if equipment_rows %}
     <div class="section-header">B &mdash; EQUIPMENT &amp; PLANT</div>
     {{ render_equipment_table(equipment_rows, scope.duration_days | float) }}
     {% endif %}
 
-    {# Section C — MATERIALS — WBS-prefixed item numbers #}
     {% set material_rows = frappe.db.sql("SELECT m.item AS item_code, m.item_name, m.adjusted_qty, m.uom, m.buying_rate, m.amount, i.description AS item_description FROM `tabEstimate Scope Material` m LEFT JOIN `tabItem` i ON m.item = i.name WHERE m.parent = %s ORDER BY m.idx", scope.name, as_dict=True) %}
     {% if material_rows %}
     <div class="section-header">C &mdash; MATERIALS</div>
     {{ render_material_table(material_rows, wbs[scope.name].scope_num) }}
+    {% if bp_rate != 1.0 %}
+    <div style="font-size: 7.5pt; color: #777777; font-style: italic; text-align: right; margin-top: 2mm; margin-right: 4mm;">
+      * Material amounts adjusted by BP factor {{ num_format(bp_rate) }}x in waterfall below.
+    </div>
+    {% endif %}
     {% endif %}
 
-    {# Waterfall — full-width #}
     <div style="margin-top: 8mm; page-break-inside: avoid;">
-      {{ render_waterfall_block(scope.direct_cost | float, doc.ocm_percent | float, doc.profit_percent | float, doc.vat_inclusive, doc.vat_percent | float, "#A52422", scope.scope_name) }}
+      {{ render_waterfall_block(scope_bp_dc, bp_ocm_pct, bp_profit_pct, doc.vat_inclusive, doc.vat_percent | float, "#C89A2E", scope.scope_name) }}
     </div>
 
   </div>
@@ -634,9 +623,8 @@
 {% endif %}{# end scope_count > 0 #}
 
 {# =========================================================================
-   TERMS & CONDITIONS PAGE
-   Renders from doc.terms field (editable per estimate via Estimate Terms Template).
-   Falls back to a minimal message if terms field is empty.
+   TERMS & CONDITIONS PAGE — BP variant (gold accent)
+   Renders from doc.terms field (same as standard variant).
 ========================================================================= #}
 <div style="page-break-before: always;">
 

@@ -1,5 +1,5 @@
-{# COST PROPOSAL — Standard Print Format (SolidWurth Corp.) #}
-{# Phase 13: wkhtmltopdf-safe rewrite — table layout, Frappe footer-html, no flex/fixed/opacity #}
+{# COST PROPOSAL (LONG) — Legal/Long Paper Print Format (SolidWurth Corp.) #}
+{# Variant of Cost Proposal with generous spacing for Legal (8.5x14) paper #}
 {# Accent color: #A52422 (SW red) | Target renderer: wkhtmltopdf (Qt WebKit) #}
 
 {%- set logo_path = frappe.db.get_single_value("Website Settings", "banner_image") or frappe.db.get_value("Company", "SolidWurth Corp.", "company_logo") -%}
@@ -11,10 +11,10 @@
 
 <style>
   /* -----------------------------------------------------------------------
-     Page Setup — Letter/A4 Portrait (D9, D10)
+     Page Setup — A4 Portrait (D9, D10)
   ----------------------------------------------------------------------- */
   @page {
-    size: letter portrait;
+    size: legal portrait;
     margin: 15mm 15mm 20mm 20mm;
   }
 
@@ -252,19 +252,19 @@
 <div style="page-break-after: always;">
 
   {# Navy band — centered via text-align (no flexbox) #}
-  <div style="background-color: #1B2E4A; width: 100%; padding: 12mm 20mm 10mm 20mm; text-align: center;">
+  <div style="background-color: #1B2E4A; width: 100%; padding: 22mm 20mm 16mm 20mm; text-align: center;">
     {% if logo_path %}
-      <img src="{{ logo_path }}" style="max-height: 35mm; max-width: 100mm; margin-bottom: 6mm;" alt="SolidWurth Corp." />
+      <img src="{{ logo_path }}" style="max-height: 50mm; max-width: 120mm; margin-bottom: 10mm;" alt="SolidWurth Corp." />
     {% else %}
-      <div style="font-family: 'Montserrat', 'Segoe UI', Arial, sans-serif; font-size: 20pt; font-weight: 700; color: #ffffff; margin-bottom: 6mm;">SolidWurth Corp.</div>
+      <div style="font-family: 'Montserrat', 'Segoe UI', Arial, sans-serif; font-size: 22pt; font-weight: 700; color: #ffffff; margin-bottom: 8mm;">SolidWurth Corp.</div>
     {% endif %}
-    <div style="font-family: 'Montserrat', 'Segoe UI', Arial, sans-serif; font-weight: 700; font-size: 28pt; color: #ffffff; letter-spacing: 2px; text-transform: uppercase;">COST PROPOSAL</div>
-    <div style="width: 80mm; height: 4px; background-color: #A52422; margin: 5mm auto 0 auto;"></div>
+    <div style="font-family: 'Montserrat', 'Segoe UI', Arial, sans-serif; font-weight: 700; font-size: 30pt; color: #ffffff; letter-spacing: 2px; text-transform: uppercase;">COST PROPOSAL</div>
+    <div style="width: 80mm; height: 4px; background-color: #A52422; margin: 8mm auto 0 auto;"></div>
   </div>
 
   {# Project info table #}
-  <div style="padding: 6mm 20mm;">
-    <table style="width: 100%; border-collapse: collapse; margin-bottom: 4mm;">
+  <div style="padding: 12mm 20mm;">
+    <table style="width: 100%; border-collapse: collapse; margin-bottom: 8mm;">
       <tbody>
         <tr>
           <td class="info-label">Project:</td>
@@ -301,7 +301,7 @@
   </div>
 
   {# Signature block — TABLE-based (3 equal columns), pinned near page bottom #}
-  <div style="padding: 6mm 20mm 8mm 20mm; border-top: 2px solid #1B2E4A; margin-top: 8mm;">
+  <div style="padding: 10mm 20mm 12mm 20mm; border-top: 2px solid #1B2E4A; margin-top: 20mm;">
     <table style="width: 100%; border-collapse: collapse;">
       <tr>
         <td style="width: 33.33%; text-align: center; padding: 0 4mm; vertical-align: top;">

@@ -31,6 +31,8 @@ FIXTURE_PATH = os.path.join(APP_DIR, "solidwurth_estimate", "fixtures", "print_f
 PRINT_FORMAT_RECORDS = [
     ("cost_proposal.html", "Cost Proposal", "Estimate"),
     ("cost_proposal_bp.html", "Cost Proposal (BP)", "Estimate"),
+    ("cost_proposal_long.html", "Cost Proposal - Long", "Estimate"),
+    ("cost_proposal_bp_long.html", "Cost Proposal (BP) - Long", "Estimate"),
 ]
 
 

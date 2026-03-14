@@ -255,6 +255,6 @@ fixtures = [
     {"dt": "Price List", "filters": [["name", "=", "Estimate Selling"]]},
     {"dt": "Custom Field", "filters": [["module", "=", "Estimate"]]},
     {"dt": "Role", "filters": [["name", "in", ["Estimate Manager", "Estimate User"]]]},
-    {"dt": "Print Format", "filters": [["name", "in", ["Cost Proposal", "Cost Proposal (BP)"]]]}
+    {"dt": "Print Format", "filters": [["name", "in", ["Cost Proposal", "Cost Proposal (BP)", "Cost Proposal - Long", "Cost Proposal (BP) - Long"]]]}
 ]
 
