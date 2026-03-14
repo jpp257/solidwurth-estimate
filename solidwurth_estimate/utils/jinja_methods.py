@@ -344,8 +344,8 @@ def render_material_table(material_rows):
     """Render Section C (Materials) HTML table with item descriptions.
 
     NOTE: buying_rate IS the Rate column (D19). margin, wastage_percent are hidden from print.
-    Columns: Item | Material Name | Qty | UOM | Rate | Amount
-    Description appears as a sub-row spanning all columns below each item.
+    Columns: No. | Material Name | Qty | UOM | Rate | Amount
+    Description appears as a sub-row aligned under Material Name column.
 
     Args:
         material_rows: List of dicts with keys: item_code, item_name, adjusted_qty, uom,
@@ -356,27 +356,29 @@ def render_material_table(material_rows):
     """
     header_style = 'style="background-color: #3B5998; color: #ffffff; padding: 6px 8px; text-align: left;"'
     header_right = 'style="background-color: #3B5998; color: #ffffff; padding: 6px 8px; text-align: right;"'
+    header_center = 'style="background-color: #3B5998; color: #ffffff; padding: 6px 8px; text-align: center;"'
 
     header_row = (
         "<tr>"
-        "<th {h}>Item</th>"
+        "<th {hc}>No.</th>"
         "<th {h}>Material Name</th>"
         "<th {hr}>Qty</th>"
         "<th {h}>UOM</th>"
         "<th {hr}>Rate</th>"
         "<th {hr}>Amount</th>"
         "</tr>"
-    ).format(h=header_style, hr=header_right)
+    ).format(h=header_style, hr=header_right, hc=header_center)
 
     rows_html = ""
     for i, row in enumerate(material_rows or []):
         bg = "#F4F6F9" if i % 2 == 0 else "#ffffff"
         row_style = 'style="background-color: {bg};"'.format(bg=bg)
         td = 'style="padding: 5px 8px;"'
+        td_center = 'style="padding: 5px 8px; text-align: center;"'
         td_right = 'style="padding: 5px 8px; text-align: right; font-family: \'Roboto Mono\', monospace;"'
         rows_html += (
             "<tr {row}>"
-            "<td {td}>{item_code}</td>"
+            "<td {tdc}>{row_num}</td>"
             "<td {td}>{item_name}</td>"
             "<td {tdr}>{adjusted_qty}</td>"
             "<td {td}>{uom}</td>"
@@ -386,8 +388,9 @@ def render_material_table(material_rows):
         ).format(
             row=row_style,
             td=td,
+            tdc=td_center,
             tdr=td_right,
-            item_code=row.get("item_code", ""),
+            row_num=i + 1,
             item_name=row.get("item_name", ""),
             adjusted_qty=num_format(row.get("adjusted_qty", 0)),
             uom=row.get("uom", ""),
@@ -395,14 +398,15 @@ def render_material_table(material_rows):
             amount=php_format(row.get("amount", 0)),
         )
 
-        # Description sub-row — spans all 6 columns
+        # Description sub-row — skips No. column, spans remaining 5 columns
         desc = row.get("item_description") or ""
         if desc and desc.strip():
             rows_html += (
                 '<tr style="background-color: {bg};">'
-                '<td colspan="6" style="padding: 2px 8px 8px 8px; font-size: 8pt; color: #444444; '
+                '<td style="border-top: none;"></td>'
+                '<td colspan="5" style="padding: 2px 8px 8px 8px; font-size: 8pt; color: #444444; '
                 'border-top: none; line-height: 1.4;">'
-                '<div style="margin-left: 4px;">{desc}</div>'
+                '{desc}'
                 '</td>'
                 '</tr>'
             ).format(bg=bg, desc=desc)
@@ -410,8 +414,8 @@ def render_material_table(material_rows):
     table_html = (
         '<table class="dlia-table" style="width: 100%; border-collapse: collapse; font-size: 0.9em; table-layout: fixed;">'
         "<colgroup>"
-        '<col style="width: 12%;">'
-        '<col style="width: 24%;">'
+        '<col style="width: 6%;">'
+        '<col style="width: 30%;">'
         '<col style="width: 8%;">'
         '<col style="width: 10%;">'
         '<col style="width: 22%;">'
