@@ -101,7 +101,7 @@
      Cover Page Info Table
   ----------------------------------------------------------------------- */
   .info-label {
-    padding: 4px 8px;
+    padding: 3px 6px;
     font-weight: bold;
     color: #1B2E4A;
     width: 35%;
@@ -112,7 +112,7 @@
   }
 
   .info-value {
-    padding: 4px 8px;
+    padding: 3px 6px;
     color: #2D3142;
     font-size: 10pt;
     border-bottom: 1px solid #e0e0e0;
@@ -125,11 +125,11 @@
   .section-header {
     background-color: #2E5FA3;
     color: #ffffff;
-    padding: 4px 10px;
+    padding: 2px 8px;
     font-size: 8pt;
     font-weight: bold;
-    margin-bottom: 2mm;
-    margin-top: 4mm;
+    margin-bottom: 1mm;
+    margin-top: 3mm;
   }
 
 </style>
@@ -278,7 +278,7 @@
 
   {{ cont_header() }}
 
-  <div style="background-color: #1B2E4A; color: #ffffff; font-family: 'Montserrat', 'Segoe UI', Arial, sans-serif; font-size: 13pt; font-weight: 700; padding: 8px 12px; letter-spacing: 1px; margin-bottom: 8mm;">
+  <div style="background-color: #1B2E4A; color: #ffffff; font-family: 'Montserrat', 'Segoe UI', Arial, sans-serif; font-size: 13pt; font-weight: 700; padding: 5px 10px; letter-spacing: 1px; margin-bottom: 8mm;">
     SUMMARY OF COST ESTIMATE
   </div>
 
@@ -292,10 +292,10 @@
     </colgroup>
     <thead>
       <tr>
-        <th style="background-color: #3B5998; color: #ffffff; padding: 6px 8px; text-align: left;">Scope of Work</th>
-        <th style="background-color: #3B5998; color: #ffffff; padding: 6px 8px; text-align: left;">UOM</th>
-        <th style="background-color: #3B5998; color: #ffffff; padding: 6px 8px; text-align: right;">Qty</th>
-        <th style="background-color: #3B5998; color: #ffffff; padding: 6px 8px; text-align: right;">Direct Cost</th>
+        <th style="background-color: #3B5998; color: #ffffff; padding: 4px 6px; text-align: left;">Scope of Work</th>
+        <th style="background-color: #3B5998; color: #ffffff; padding: 4px 6px; text-align: left;">UOM</th>
+        <th style="background-color: #3B5998; color: #ffffff; padding: 4px 6px; text-align: right;">Qty</th>
+        <th style="background-color: #3B5998; color: #ffffff; padding: 4px 6px; text-align: right;">Direct Cost</th>
       </tr>
     </thead>
     <tbody>
@@ -308,25 +308,25 @@
           {% set current_grp.value = scope.scope_group %}
           {% set grp_idx.value = 0 %}
           <tr>
-            <td colspan="4" style="background-color: #1B2E4A; color: #ffffff; font-weight: bold; font-family: 'Montserrat', 'Segoe UI', Arial, sans-serif; padding: 5px 10px; font-size: 9pt; letter-spacing: 0.5px;">
+            <td colspan="4" style="background-color: #1B2E4A; color: #ffffff; font-weight: bold; font-family: 'Montserrat', 'Segoe UI', Arial, sans-serif; padding: 2px 6px; font-size: 9pt; letter-spacing: 0.5px;">
               {{ wbs._group_numerals[scope.scope_group] }}. {{ scope.scope_group }}
             </td>
           </tr>
         {% endif %}
         {% set grp_idx.value = grp_idx.value + 1 %}
         <tr{% if grp_idx.value % 2 == 0 %} style="background-color: #F4F6F9;"{% endif %}>
-          <td style="padding: 5px 8px 5px 16px; border-bottom: 1px solid #e8e8e8;">{{ wbs[scope.name].scope_num }} {{ scope.scope_name }}</td>
-          <td style="padding: 5px 8px; border-bottom: 1px solid #e8e8e8;">{{ scope.uom if scope.uom and scope.uom != "None" else "&mdash;" }}</td>
-          <td class="amount-cell" style="padding: 5px 8px; border-bottom: 1px solid #e8e8e8;">{{ num_format(scope.quantity) if (scope.quantity | float) > 0 else "" }}</td>
-          <td class="amount-cell" style="padding: 5px 8px; border-bottom: 1px solid #e8e8e8;">{{ php_format(scope.direct_cost) }}</td>
+          <td style="padding: 3px 6px 3px 12px; border-bottom: 1px solid #e8e8e8;">{{ wbs[scope.name].scope_num }} {{ scope.scope_name }}</td>
+          <td style="padding: 3px 6px; border-bottom: 1px solid #e8e8e8;">{{ scope.uom if scope.uom and scope.uom != "None" else "&mdash;" }}</td>
+          <td class="amount-cell" style="padding: 3px 6px; border-bottom: 1px solid #e8e8e8;">{{ num_format(scope.quantity) if (scope.quantity | float) > 0 else "" }}</td>
+          <td class="amount-cell" style="padding: 3px 6px; border-bottom: 1px solid #e8e8e8;">{{ php_format(scope.direct_cost) }}</td>
         </tr>
       {% endfor %}
 
       {# Base scopes subtotal #}
       {% if base_scopes %}
       <tr>
-        <td colspan="3" style="text-align: right; font-weight: bold; padding: 5px 8px; background-color: #dde4f0; border-top: 2px solid #2E5FA3; border-bottom: 2px solid #2E5FA3;">Base Scope Subtotal</td>
-        <td class="amount-cell" style="font-weight: bold; padding: 5px 8px; background-color: #dde4f0; border-top: 2px solid #2E5FA3; border-bottom: 2px solid #2E5FA3;">{{ php_format(doc.base_direct_cost) }}</td>
+        <td colspan="3" style="text-align: right; font-weight: bold; padding: 3px 6px; background-color: #dde4f0; border-top: 2px solid #2E5FA3; border-bottom: 2px solid #2E5FA3;">Base Scope Subtotal</td>
+        <td class="amount-cell" style="font-weight: bold; padding: 3px 6px; background-color: #dde4f0; border-top: 2px solid #2E5FA3; border-bottom: 2px solid #2E5FA3;">{{ php_format(doc.base_direct_cost) }}</td>
       </tr>
       {% endif %}
 
@@ -351,10 +351,10 @@
         {% endif %}
         {% set grp_idx_opt.value = grp_idx_opt.value + 1 %}
         <tr{% if grp_idx_opt.value % 2 == 0 %} style="background-color: #F4F6F9;"{% endif %}>
-          <td style="padding: 5px 8px 5px 16px; border-bottom: 1px solid #e8e8e8;">{{ wbs[scope.name].scope_num }} {{ scope.scope_name }}</td>
-          <td style="padding: 5px 8px; border-bottom: 1px solid #e8e8e8;">{{ scope.uom if scope.uom and scope.uom != "None" else "&mdash;" }}</td>
-          <td class="amount-cell" style="padding: 5px 8px; border-bottom: 1px solid #e8e8e8;">{{ num_format(scope.quantity) if (scope.quantity | float) > 0 else "" }}</td>
-          <td class="amount-cell" style="padding: 5px 8px; border-bottom: 1px solid #e8e8e8;">{{ php_format(scope.direct_cost) }}</td>
+          <td style="padding: 3px 6px 3px 12px; border-bottom: 1px solid #e8e8e8;">{{ wbs[scope.name].scope_num }} {{ scope.scope_name }}</td>
+          <td style="padding: 3px 6px; border-bottom: 1px solid #e8e8e8;">{{ scope.uom if scope.uom and scope.uom != "None" else "&mdash;" }}</td>
+          <td class="amount-cell" style="padding: 3px 6px; border-bottom: 1px solid #e8e8e8;">{{ num_format(scope.quantity) if (scope.quantity | float) > 0 else "" }}</td>
+          <td class="amount-cell" style="padding: 3px 6px; border-bottom: 1px solid #e8e8e8;">{{ php_format(scope.direct_cost) }}</td>
         </tr>
       {% endfor %}
 
@@ -362,15 +362,15 @@
       {% set optional_dc = namespace(total=0) %}
       {% for s in optional_scopes %}{% set optional_dc.total = optional_dc.total + (s.direct_cost | float) %}{% endfor %}
       <tr>
-        <td colspan="3" style="text-align: right; font-weight: bold; padding: 5px 8px; background-color: #dde4f0; border-top: 2px solid #2E5FA3; border-bottom: 2px solid #2E5FA3;">Optional Scope Subtotal</td>
-        <td class="amount-cell" style="font-weight: bold; padding: 5px 8px; background-color: #dde4f0; border-top: 2px solid #2E5FA3; border-bottom: 2px solid #2E5FA3;">{{ php_format(optional_dc.total) }}</td>
+        <td colspan="3" style="text-align: right; font-weight: bold; padding: 3px 6px; background-color: #dde4f0; border-top: 2px solid #2E5FA3; border-bottom: 2px solid #2E5FA3;">Optional Scope Subtotal</td>
+        <td class="amount-cell" style="font-weight: bold; padding: 3px 6px; background-color: #dde4f0; border-top: 2px solid #2E5FA3; border-bottom: 2px solid #2E5FA3;">{{ php_format(optional_dc.total) }}</td>
       </tr>
       {% endif %}
 
       {# Grand Total row #}
       <tr>
-        <td colspan="3" style="padding: 6px 8px; text-align: right; font-family: 'Montserrat', 'Segoe UI', Arial, sans-serif; font-weight: bold; background-color: #1B2E4A; color: #ffffff;">Grand Total Direct Cost (All Scopes)</td>
-        <td class="amount-cell" style="padding: 6px 8px; font-weight: bold; background-color: #1B2E4A; color: #ffffff;">{{ php_format(doc.direct_cost) }}</td>
+        <td colspan="3" style="padding: 4px 6px; text-align: right; font-family: 'Montserrat', 'Segoe UI', Arial, sans-serif; font-weight: bold; background-color: #1B2E4A; color: #ffffff;">Grand Total Direct Cost (All Scopes)</td>
+        <td class="amount-cell" style="padding: 4px 6px; font-weight: bold; background-color: #1B2E4A; color: #ffffff;">{{ php_format(doc.direct_cost) }}</td>
       </tr>
       {# Base Grand Total — only when BOTH base and optional exist #}
       {% if base_scopes and optional_scopes %}
@@ -445,11 +445,11 @@
     {# Scope header — TABLE-based, all text white on navy, WBS numbered #}
     <table style="width: 100%; background-color: #1B2E4A; color: #ffffff; margin-bottom: 4mm; border-collapse: collapse;">
       <tr>
-        <td style="padding: 8px 10px; font-family: 'Montserrat', 'Segoe UI', Arial, sans-serif; font-size: 9pt; color: #ffffff; vertical-align: top;">
+        <td style="padding: 5px 8px; font-family: 'Montserrat', 'Segoe UI', Arial, sans-serif; font-size: 9pt; color: #ffffff; vertical-align: top;">
           <strong>SCOPE {{ wbs[scope.name].scope_num }}</strong>: {{ scope.scope_name }}
           {% if scope.is_optional %}<span style="font-style: italic; color: #CCCCCC;"> (Optional)</span>{% endif %}
         </td>
-        <td style="padding: 8px 10px; text-align: right; font-size: 8.5pt; color: #ffffff; vertical-align: top; white-space: nowrap;">
+        <td style="padding: 5px 8px; text-align: right; font-size: 8.5pt; color: #ffffff; vertical-align: top; white-space: nowrap;">
           {{ scope.uom if scope.uom and scope.uom != "None" else "" }} &times; {{ num_format(scope.quantity) }}
         </td>
       </tr>
@@ -466,17 +466,17 @@
       <table style="width: 100%; border-collapse: collapse; font-size: 9pt;">
         <thead>
           <tr>
-            <th style="background-color: #3B5998; color: #ffffff; padding: 6px 8px; text-align: left;">Description</th>
-            <th style="background-color: #3B5998; color: #ffffff; padding: 6px 8px; text-align: right;">Unit Cost</th>
-            <th style="background-color: #3B5998; color: #ffffff; padding: 6px 8px; text-align: right;">Total Direct Cost</th>
+            <th style="background-color: #3B5998; color: #ffffff; padding: 4px 6px; text-align: left;">Description</th>
+            <th style="background-color: #3B5998; color: #ffffff; padding: 4px 6px; text-align: right;">Unit Cost</th>
+            <th style="background-color: #3B5998; color: #ffffff; padding: 4px 6px; text-align: right;">Total Direct Cost</th>
           </tr>
         </thead>
         <tbody>
           <tr>
-            <td style="padding: 5px 8px; border-bottom: 1px solid #e8e8e8;">{{ scope.scope_name }}</td>
+            <td style="padding: 3px 6px; border-bottom: 1px solid #e8e8e8;">{{ scope.scope_name }}</td>
             {% set unit_cost = (scope.direct_cost | float) / (scope.quantity | float) if (scope.quantity | float) > 0 else 0 %}
-            <td class="amount-cell" style="padding: 5px 8px; border-bottom: 1px solid #e8e8e8;">{{ php_format(unit_cost) }}</td>
-            <td class="amount-cell" style="padding: 5px 8px; border-bottom: 1px solid #e8e8e8;">{{ php_format(scope.direct_cost) }}</td>
+            <td class="amount-cell" style="padding: 3px 6px; border-bottom: 1px solid #e8e8e8;">{{ php_format(unit_cost) }}</td>
+            <td class="amount-cell" style="padding: 3px 6px; border-bottom: 1px solid #e8e8e8;">{{ php_format(scope.direct_cost) }}</td>
           </tr>
         </tbody>
       </table>
@@ -503,7 +503,7 @@
     {# Scope group header on group change — WBS lettered #}
     {% if scope.scope_group != current_group.value %}
       {% set current_group.value = scope.scope_group %}
-      <div style="background-color: #1B2E4A; color: #ffffff; font-weight: bold; font-family: 'Montserrat', 'Segoe UI', Arial, sans-serif; padding: 6px 10px; letter-spacing: 1px; font-size: 9.5pt; margin-bottom: 4mm;">
+      <div style="background-color: #1B2E4A; color: #ffffff; font-weight: bold; font-family: 'Montserrat', 'Segoe UI', Arial, sans-serif; padding: 4px 8px; letter-spacing: 1px; font-size: 9.5pt; margin-bottom: 4mm;">
         {{ wbs._group_numerals[scope.scope_group] }}. {{ scope.scope_group | upper }}
       </div>
     {% endif %}
@@ -511,14 +511,14 @@
     {# Scope header bar — WBS numbered #}
     <table style="width: 100%; background-color: #1B2E4A; color: #ffffff; margin-bottom: 4mm; border-collapse: collapse;">
       <tr>
-        <td style="padding: 8px 10px; font-family: 'Montserrat', 'Segoe UI', Arial, sans-serif; font-size: 9pt; color: #ffffff; vertical-align: top;">
+        <td style="padding: 5px 8px; font-family: 'Montserrat', 'Segoe UI', Arial, sans-serif; font-size: 9pt; color: #ffffff; vertical-align: top;">
           <strong>SCOPE {{ wbs[scope.name].scope_num }}</strong>: {{ scope.scope_name }}
           {% if scope.is_optional %}<span style="font-style: italic; color: #CCCCCC;"> (Optional)</span>{% endif %}
           {% if scope.dpwh_pay_item %}
           <div style="font-size: 8pt; color: #D0D7E0; margin-top: 2px;">Pay Item: {{ scope.dpwh_pay_item }}</div>
           {% endif %}
         </td>
-        <td style="padding: 8px 10px; text-align: right; font-size: 8.5pt; color: #ffffff; vertical-align: top; white-space: nowrap;">
+        <td style="padding: 5px 8px; text-align: right; font-size: 8.5pt; color: #ffffff; vertical-align: top; white-space: nowrap;">
           {{ wbs._group_numerals[scope.scope_group] }}. {{ scope.scope_group }}
         </td>
       </tr>
@@ -573,7 +573,7 @@
 
   {{ cont_header() }}
 
-  <div style="background-color: #1B2E4A; color: #ffffff; font-family: 'Montserrat', 'Segoe UI', Arial, sans-serif; font-size: 13pt; font-weight: 700; padding: 8px 12px; letter-spacing: 1px; margin-bottom: 6mm;">
+  <div style="background-color: #1B2E4A; color: #ffffff; font-family: 'Montserrat', 'Segoe UI', Arial, sans-serif; font-size: 13pt; font-weight: 700; padding: 5px 10px; letter-spacing: 1px; margin-bottom: 6mm;">
     TERMS &amp; CONDITIONS
   </div>
 
@@ -588,24 +588,24 @@
 
     <table style="width: 100%; border-collapse: collapse;">
       <tr>
-        <td style="padding: 3px 8px; font-weight: bold; vertical-align: top; width: 5%; color: #1B2E4A;">1.</td>
-        <td style="padding: 3px 8px;">
+        <td style="padding: 2px 6px; font-weight: bold; vertical-align: top; width: 5%; color: #1B2E4A;">1.</td>
+        <td style="padding: 2px 6px;">
           <strong>Payment Terms</strong><br/>
           Payment schedule shall be agreed upon per scope of work as specified in the proposal.
           Payments are accepted through cash, check, or bank transactions.
         </td>
       </tr>
       <tr>
-        <td style="padding: 3px 8px; font-weight: bold; vertical-align: top; color: #1B2E4A;">2.</td>
-        <td style="padding: 3px 8px;">
+        <td style="padding: 2px 6px; font-weight: bold; vertical-align: top; color: #1B2E4A;">2.</td>
+        <td style="padding: 2px 6px;">
           <strong>Mobilization</strong><br/>
           Mobilization will commence ONLY upon receipt of downpayment, signed contract,
           NOA (Notice of Award) and NTP (Notice to Proceed)/purchase order.
         </td>
       </tr>
       <tr>
-        <td style="padding: 3px 8px; font-weight: bold; vertical-align: top; color: #1B2E4A;">3.</td>
-        <td style="padding: 3px 8px;">
+        <td style="padding: 2px 6px; font-weight: bold; vertical-align: top; color: #1B2E4A;">3.</td>
+        <td style="padding: 2px 6px;">
           <strong>Project Completion</strong><br/>
           Based on the specified items and their quantities specified in this document, SolidWurth commits to the delivery schedule as stated in the proposal.
           Additional working days may apply depending on the city&rsquo;s building permit application duration with Client&rsquo;s notice.
@@ -613,67 +613,67 @@
         </td>
       </tr>
       <tr>
-        <td style="padding: 3px 8px; font-weight: bold; vertical-align: top; color: #1B2E4A;">4.</td>
-        <td style="padding: 3px 8px;">
+        <td style="padding: 2px 6px; font-weight: bold; vertical-align: top; color: #1B2E4A;">4.</td>
+        <td style="padding: 2px 6px;">
           <strong>Retention of Title / Clause of Ownership</strong><br/>
           Ownership of the discussed project shall remain with SolidWurth Corp. in case 100% payment is not settled by the Client.
           The Client is not allowed to sell the goods to third parties, nor to cede or to mortgage or to give them as a security, either in the original or in altered state, as long as the goods have not been paid in full.
         </td>
       </tr>
       <tr>
-        <td style="padding: 3px 8px; font-weight: bold; vertical-align: top; color: #1B2E4A;">5.</td>
-        <td style="padding: 3px 8px;">
+        <td style="padding: 2px 6px; font-weight: bold; vertical-align: top; color: #1B2E4A;">5.</td>
+        <td style="padding: 2px 6px;">
           <strong>Offer Validity</strong><br/>
           2 weeks from offer date.
         </td>
       </tr>
       <tr>
-        <td style="padding: 3px 8px; font-weight: bold; vertical-align: top; color: #1B2E4A;">6.</td>
-        <td style="padding: 3px 8px;">
+        <td style="padding: 2px 6px; font-weight: bold; vertical-align: top; color: #1B2E4A;">6.</td>
+        <td style="padding: 2px 6px;">
           <strong>Change Orders</strong><br/>
           In the event that Change Orders are received after the permanent structures have been erected into construction, SolidWurth will inform the client about eventual costs that need to be settled and possible consequences on erection time. Reduction in scope of supply in principal is not allowed.
         </td>
       </tr>
       <tr>
-        <td style="padding: 3px 8px; font-weight: bold; vertical-align: top; color: #1B2E4A;">7.</td>
-        <td style="padding: 3px 8px;">
+        <td style="padding: 2px 6px; font-weight: bold; vertical-align: top; color: #1B2E4A;">7.</td>
+        <td style="padding: 2px 6px;">
           <strong>Intellectual Property Rights</strong><br/>
           All drawings and technical documents relating to the Project submitted by one party to the other prior or subsequent to the formation of the Contract shall remain the property of the submitting party. Drawings, technical documents or other technical information received by one party shall not, without the consent of the other party, be used for any other purpose than that for which they were provided. They may not, without the consent of the submitting party, otherwise be used or copied, reproduced, transmitted or communicated to a third party. SolidWurth shall not be obliged to provide construction drawings for the Project.
         </td>
       </tr>
       <tr>
-        <td style="padding: 3px 8px; font-weight: bold; vertical-align: top; color: #1B2E4A;">8.</td>
-        <td style="padding: 3px 8px;">
+        <td style="padding: 2px 6px; font-weight: bold; vertical-align: top; color: #1B2E4A;">8.</td>
+        <td style="padding: 2px 6px;">
           <strong>Penalty for Late Payment</strong><br/>
           In the event that the buyer does not punctually fulfill its payment obligations as specified in this quotation, SolidWurth shall be entitled to claim a penalty for late payment of 0.1% of the outstanding balance per day the payment is delayed. This penalty for late payment does not interfere or replace SolidWurth&rsquo;s right to claim full damages and losses caused by the late payment.
         </td>
       </tr>
       <tr>
-        <td style="padding: 3px 8px; font-weight: bold; vertical-align: top; color: #1B2E4A;">9.</td>
-        <td style="padding: 3px 8px;">
+        <td style="padding: 2px 6px; font-weight: bold; vertical-align: top; color: #1B2E4A;">9.</td>
+        <td style="padding: 2px 6px;">
           <strong>Cancellation of Purchase Order</strong><br/>
           To cancel an official Purchase Order, please submit written notice duly signed by authorized persons.
           For cancelled Purchase Orders, client agrees to pay SolidWurth an equivalent amount of 30% of Total Project Cost in addition to cost of produced materials.
         </td>
       </tr>
       <tr>
-        <td style="padding: 3px 8px; font-weight: bold; vertical-align: top; color: #1B2E4A;">10.</td>
-        <td style="padding: 3px 8px;">
+        <td style="padding: 2px 6px; font-weight: bold; vertical-align: top; color: #1B2E4A;">10.</td>
+        <td style="padding: 2px 6px;">
           <strong>Warranty</strong><br/>
           All constructed civil works mentioned above carry a FIVE (5) YEARS warranty except resulting from force majeure and natural failure.
         </td>
       </tr>
       <tr>
-        <td style="padding: 3px 8px; font-weight: bold; vertical-align: top; color: #1B2E4A;">11.</td>
-        <td style="padding: 3px 8px;">
+        <td style="padding: 2px 6px; font-weight: bold; vertical-align: top; color: #1B2E4A;">11.</td>
+        <td style="padding: 2px 6px;">
           <strong>Project Take Over Procedure</strong><br/>
           At the end of the installation, Acceptance Certificate will be signed which is the start of the guarantee.
           In case no Acceptance Certificate has been signed, the date that the buyer starts using or occupying the project for commercial purposes will be considered as take over date and start of the guarantee period.
         </td>
       </tr>
       <tr>
-        <td style="padding: 3px 8px; font-weight: bold; vertical-align: top; color: #1B2E4A;">12.</td>
-        <td style="padding: 3px 8px;">
+        <td style="padding: 2px 6px; font-weight: bold; vertical-align: top; color: #1B2E4A;">12.</td>
+        <td style="padding: 2px 6px;">
           <strong>Construction Utilities</strong><br/>
           The Client should make the site available for the contractor.
           The contractor should keep the provided said utilities for sole construction purposes only.
@@ -681,37 +681,37 @@
         </td>
       </tr>
       <tr>
-        <td style="padding: 3px 8px; font-weight: bold; vertical-align: top; color: #1B2E4A;">13.</td>
-        <td style="padding: 3px 8px;">
+        <td style="padding: 2px 6px; font-weight: bold; vertical-align: top; color: #1B2E4A;">13.</td>
+        <td style="padding: 2px 6px;">
           <strong>Construction Safety and Health Program</strong><br/>
           The contractor should comply to DOLE&rsquo;s safety requirements.
           The client can intervene with the construction due to safety concerns.
         </td>
       </tr>
       <tr>
-        <td style="padding: 3px 8px; font-weight: bold; vertical-align: top; color: #1B2E4A;">14.</td>
-        <td style="padding: 3px 8px;">
+        <td style="padding: 2px 6px; font-weight: bold; vertical-align: top; color: #1B2E4A;">14.</td>
+        <td style="padding: 2px 6px;">
           <strong>No Damage for Delay</strong><br/>
           The contractor shall not have any claim for compensation for damages against the owner for any stoppage or delay from any cause whatsoever.
         </td>
       </tr>
       <tr>
-        <td style="padding: 3px 8px; font-weight: bold; vertical-align: top; color: #1B2E4A;">15.</td>
-        <td style="padding: 3px 8px;">
+        <td style="padding: 2px 6px; font-weight: bold; vertical-align: top; color: #1B2E4A;">15.</td>
+        <td style="padding: 2px 6px;">
           <strong>Applicable Law</strong><br/>
           Philippine Law is applicable. In case of translation of this document in any language, the English version will be binding.
         </td>
       </tr>
       <tr>
-        <td style="padding: 3px 8px; font-weight: bold; vertical-align: top; color: #1B2E4A;">16.</td>
-        <td style="padding: 3px 8px;">
+        <td style="padding: 2px 6px; font-weight: bold; vertical-align: top; color: #1B2E4A;">16.</td>
+        <td style="padding: 2px 6px;">
           <strong>Labor, Tools and Materials</strong><br/>
           All labor, tools, equipment, and materials to be used in the construction will be handled by the contractor.
         </td>
       </tr>
       <tr>
-        <td style="padding: 3px 8px; font-weight: bold; vertical-align: top; color: #1B2E4A;">17.</td>
-        <td style="padding: 3px 8px;">
+        <td style="padding: 2px 6px; font-weight: bold; vertical-align: top; color: #1B2E4A;">17.</td>
+        <td style="padding: 2px 6px;">
           <strong>Liability for Defects</strong><br/>
           SolidWurth will not accept any liability for loss of turnover and/or any other form of direct, indirect or consequential damage and damage towards third parties, in any form whatsoever, unless it is proven SolidWurth can be held grossly negligent.
           SolidWurth will under no circumstances be obliged to compensate for any loss suffered directly or indirectly (irrespective of its nature).

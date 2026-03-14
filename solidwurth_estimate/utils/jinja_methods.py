@@ -279,9 +279,9 @@ def render_waterfall_block(direct_cost, ocm_percent, profit_percent, vat_inclusi
         """
         return (
             '<tr style="{style}">'
-            '<td style="padding: 5px 8px; font-size: 9pt;">{letter}&nbsp;&nbsp;{label}</td>'
-            '<td style="text-align: center; padding: 5px 8px; font-size: 9pt;">{pct}</td>'
-            '<td style="font-family: \'Roboto Mono\', \'Courier New\', monospace; text-align: right; padding: 5px 8px; font-size: 9pt;">{amount}</td>'
+            '<td style="padding: 3px 6px; font-size: 9pt;">{letter}&nbsp;&nbsp;{label}</td>'
+            '<td style="text-align: center; padding: 3px 6px; font-size: 9pt;">{pct}</td>'
+            '<td style="font-family: \'Roboto Mono\', \'Courier New\', monospace; text-align: right; padding: 3px 6px; font-size: 9pt;">{amount}</td>'
             "</tr>"
         ).format(label=label, letter=letter, amount=php_format(amount), pct=pct_str, style=style)
 
@@ -301,9 +301,9 @@ def render_waterfall_block(direct_cost, ocm_percent, profit_percent, vat_inclusi
         '<table class="waterfall-table" style="width: 100%; border-collapse: collapse; margin-top: 8px; font-size: 9pt; font-family: Inter, \'Helvetica Neue\', Arial, sans-serif;">'
         "<thead>"
         '<tr style="background-color: #3B5998; color: #ffffff;">'
-        '<th style="text-align: left; padding: 6px 8px; font-family: Inter, \'Helvetica Neue\', Arial, sans-serif; font-weight: bold;">Cost Component</th>'
-        '<th style="text-align: center; padding: 6px 8px; font-family: Inter, \'Helvetica Neue\', Arial, sans-serif; font-weight: bold;">%</th>'
-        '<th style="text-align: right; padding: 6px 8px; font-family: Inter, \'Helvetica Neue\', Arial, sans-serif; font-weight: bold;">Amount</th>'
+        '<th style="text-align: left; padding: 4px 6px; font-family: Inter, \'Helvetica Neue\', Arial, sans-serif; font-weight: bold;">Cost Component</th>'
+        '<th style="text-align: center; padding: 4px 6px; font-family: Inter, \'Helvetica Neue\', Arial, sans-serif; font-weight: bold;">%</th>'
+        '<th style="text-align: right; padding: 4px 6px; font-family: Inter, \'Helvetica Neue\', Arial, sans-serif; font-weight: bold;">Amount</th>'
         "</tr>"
         "</thead>"
         "<tbody>"
@@ -327,8 +327,8 @@ def render_labor_table(labor_rows, duration_days):
     Returns:
         str: Complete HTML section with <div class="dlia-section section-a"> wrapper
     """
-    header_style = 'style="background-color: #3B5998; color: #ffffff; padding: 6px 8px; text-align: left;"'
-    header_right = 'style="background-color: #3B5998; color: #ffffff; padding: 6px 8px; text-align: right;"'
+    header_style = 'style="background-color: #3B5998; color: #ffffff; padding: 4px 6px; text-align: left;"'
+    header_right = 'style="background-color: #3B5998; color: #ffffff; padding: 4px 6px; text-align: right;"'
 
     header_row = (
         "<tr>"
@@ -345,8 +345,8 @@ def render_labor_table(labor_rows, duration_days):
     for i, row in enumerate(labor_rows or []):
         bg = "#F4F6F9" if i % 2 == 0 else "#ffffff"
         row_style = 'style="background-color: {bg};"'.format(bg=bg)
-        td = 'style="padding: 5px 8px;"'
-        td_right = 'style="padding: 5px 8px; text-align: right; font-family: \'Roboto Mono\', monospace;"'
+        td = 'style="padding: 3px 6px;"'
+        td_right = 'style="padding: 3px 6px; text-align: right; font-family: \'Roboto Mono\', monospace;"'
         labor_total += float(row.get("total_cost", 0) or 0)
         rows_html += (
             "<tr {row}>"
@@ -370,8 +370,8 @@ def render_labor_table(labor_rows, duration_days):
     # Subtotal row
     rows_html += (
         '<tr style="border-top: 2px solid #2E5FA3; background-color: #dde4f0;">'
-        '<td colspan="4" style="padding: 5px 8px; font-weight: bold; text-align: right;">Labor Subtotal</td>'
-        '<td style="padding: 5px 8px; text-align: right; font-family: \'Roboto Mono\', monospace; font-weight: bold;">{total}</td>'
+        '<td colspan="4" style="padding: 3px 6px; font-weight: bold; text-align: right;">Labor Subtotal</td>'
+        '<td style="padding: 3px 6px; text-align: right; font-family: \'Roboto Mono\', monospace; font-weight: bold;">{total}</td>'
         '</tr>'
     ).format(total=php_format(labor_total))
 
@@ -404,8 +404,8 @@ def render_equipment_table(equipment_rows, duration_days):
     Returns:
         str: Complete HTML section with <div class="dlia-section section-b"> wrapper
     """
-    header_style = 'style="background-color: #3B5998; color: #ffffff; padding: 6px 8px; text-align: left;"'
-    header_right = 'style="background-color: #3B5998; color: #ffffff; padding: 6px 8px; text-align: right;"'
+    header_style = 'style="background-color: #3B5998; color: #ffffff; padding: 4px 6px; text-align: left;"'
+    header_right = 'style="background-color: #3B5998; color: #ffffff; padding: 4px 6px; text-align: right;"'
 
     header_row = (
         "<tr>"
@@ -423,8 +423,8 @@ def render_equipment_table(equipment_rows, duration_days):
     for i, row in enumerate(equipment_rows or []):
         bg = "#F4F6F9" if i % 2 == 0 else "#ffffff"
         row_style = 'style="background-color: {bg};"'.format(bg=bg)
-        td = 'style="padding: 5px 8px;"'
-        td_right = 'style="padding: 5px 8px; text-align: right; font-family: \'Roboto Mono\', monospace;"'
+        td = 'style="padding: 3px 6px;"'
+        td_right = 'style="padding: 3px 6px; text-align: right; font-family: \'Roboto Mono\', monospace;"'
         equip_total += float(row.get("total_cost", 0) or 0)
         rows_html += (
             "<tr {row}>"
@@ -450,8 +450,8 @@ def render_equipment_table(equipment_rows, duration_days):
     # Subtotal row
     rows_html += (
         '<tr style="border-top: 2px solid #2E5FA3; background-color: #dde4f0;">'
-        '<td colspan="5" style="padding: 5px 8px; font-weight: bold; text-align: right;">Equipment Subtotal</td>'
-        '<td style="padding: 5px 8px; text-align: right; font-family: \'Roboto Mono\', monospace; font-weight: bold;">{total}</td>'
+        '<td colspan="5" style="padding: 3px 6px; font-weight: bold; text-align: right;">Equipment Subtotal</td>'
+        '<td style="padding: 3px 6px; text-align: right; font-family: \'Roboto Mono\', monospace; font-weight: bold;">{total}</td>'
         '</tr>'
     ).format(total=php_format(equip_total))
 
@@ -496,9 +496,9 @@ def render_material_table(material_rows, wbs_prefix=""):
     Returns:
         str: Complete HTML section with <div class="dlia-section section-c"> wrapper
     """
-    header_style = 'style="background-color: #3B5998; color: #ffffff; padding: 6px 8px; text-align: left;"'
-    header_right = 'style="background-color: #3B5998; color: #ffffff; padding: 6px 8px; text-align: right;"'
-    header_center = 'style="background-color: #3B5998; color: #ffffff; padding: 6px 8px; text-align: center;"'
+    header_style = 'style="background-color: #3B5998; color: #ffffff; padding: 4px 6px; text-align: left;"'
+    header_right = 'style="background-color: #3B5998; color: #ffffff; padding: 4px 6px; text-align: right;"'
+    header_center = 'style="background-color: #3B5998; color: #ffffff; padding: 4px 6px; text-align: center;"'
 
     header_row = (
         "<tr>"
@@ -518,8 +518,8 @@ def render_material_table(material_rows, wbs_prefix=""):
         row_style = 'style="background-color: {bg};"'.format(bg=bg)
         # Data rows: bold weight, dark color for emphasis over descriptions
         td = 'style="padding: 5px 8px; font-weight: 600; color: #2D3142;"'
-        td_center = 'style="padding: 5px 8px; text-align: center; font-weight: 600; color: #2D3142;"'
-        td_right = 'style="padding: 5px 8px; text-align: right; font-family: \'Roboto Mono\', monospace; font-weight: 600; color: #2D3142;"'
+        td_center = 'style="padding: 3px 6px; text-align: center; font-weight: 600; color: #2D3142;"'
+        td_right = 'style="padding: 3px 6px; text-align: right; font-family: \'Roboto Mono\', monospace; font-weight: 600; color: #2D3142;"'
 
         # WBS item number: "A.1.1" or fallback to "1"
         item_num = "{}.{}".format(wbs_prefix, i + 1) if wbs_prefix else str(i + 1)
@@ -558,7 +558,7 @@ def render_material_table(material_rows, wbs_prefix=""):
             rows_html += (
                 '<tr style="background-color: {bg};">'
                 '<td style="border-top: none;"></td>'
-                '<td colspan="5" style="padding: 2px 8px 6px 20px; font-size: 7.5pt; color: #555555; '
+                '<td colspan="5" style="padding: 1px 6px 4px 16px; font-size: 7.5pt; color: #555555; '
                 'border-top: none; line-height: 1.4; font-weight: 400;">'
                 '{desc}'
                 '</td>'
@@ -568,8 +568,8 @@ def render_material_table(material_rows, wbs_prefix=""):
     # Subtotal row
     rows_html += (
         '<tr style="border-top: 2px solid #2E5FA3; background-color: #dde4f0;">'
-        '<td colspan="5" style="padding: 5px 8px; font-weight: bold; text-align: right;">Materials Subtotal</td>'
-        '<td style="padding: 5px 8px; text-align: right; font-family: \'Roboto Mono\', monospace; font-weight: bold;">{total}</td>'
+        '<td colspan="5" style="padding: 3px 6px; font-weight: bold; text-align: right;">Materials Subtotal</td>'
+        '<td style="padding: 3px 6px; text-align: right; font-family: \'Roboto Mono\', monospace; font-weight: bold;">{total}</td>'
         '</tr>'
     ).format(total=php_format(mat_total))
 
