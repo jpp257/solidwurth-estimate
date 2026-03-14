@@ -341,13 +341,15 @@ def render_equipment_table(equipment_rows, duration_days):
 # ---------------------------------------------------------------------------
 
 def render_material_table(material_rows):
-    """Render Section C (Materials) HTML table.
+    """Render Section C (Materials) HTML table with item descriptions.
 
     NOTE: buying_rate IS the Rate column (D19). margin, wastage_percent are hidden from print.
     Columns: Item | Material Name | Qty | UOM | Rate | Amount
+    Description appears as a sub-row spanning all columns below each item.
 
     Args:
-        material_rows: List of dicts with keys: item_code, item_name, adjusted_qty, uom, buying_rate, amount
+        material_rows: List of dicts with keys: item_code, item_name, adjusted_qty, uom,
+                       buying_rate, amount, item_description (optional HTML from Item master)
 
     Returns:
         str: Complete HTML section with <div class="dlia-section section-c"> wrapper
@@ -392,6 +394,18 @@ def render_material_table(material_rows):
             buying_rate=php_format(row.get("buying_rate", 0)),
             amount=php_format(row.get("amount", 0)),
         )
+
+        # Description sub-row — spans all 6 columns
+        desc = row.get("item_description") or ""
+        if desc and desc.strip():
+            rows_html += (
+                '<tr style="background-color: {bg};">'
+                '<td colspan="6" style="padding: 2px 8px 8px 8px; font-size: 8pt; color: #444444; '
+                'border-top: none; line-height: 1.4;">'
+                '<div style="margin-left: 4px;">{desc}</div>'
+                '</td>'
+                '</tr>'
+            ).format(bg=bg, desc=desc)
 
     table_html = (
         '<table class="dlia-table" style="width: 100%; border-collapse: collapse; font-size: 0.9em; table-layout: fixed;">'

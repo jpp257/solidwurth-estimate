@@ -557,7 +557,7 @@
     {% endif %}
 
     {# Section C — MATERIALS #}
-    {% set material_rows = frappe.db.sql("SELECT item AS item_code, item_name, adjusted_qty, uom, buying_rate, amount FROM `tabEstimate Scope Material` WHERE parent = %s ORDER BY idx", scope.name, as_dict=True) %}
+    {% set material_rows = frappe.db.sql("SELECT m.item AS item_code, m.item_name, m.adjusted_qty, m.uom, m.buying_rate, m.amount, i.description AS item_description FROM `tabEstimate Scope Material` m LEFT JOIN `tabItem` i ON m.item = i.name WHERE m.parent = %s ORDER BY m.idx", scope.name, as_dict=True) %}
     {% if material_rows %}
     <div class="section-header">C &mdash; MATERIALS</div>
     {{ render_material_table(material_rows) }}
