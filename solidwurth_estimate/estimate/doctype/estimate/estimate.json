@@ -52,6 +52,9 @@
   "approved_by",
   "sb_display",
   "cost_display_mode",
+  "sb_terms",
+  "terms_template",
+  "terms",
   "sb_bp",
   "bp_rate_factor",
   "cb_bp_ocm",
@@ -330,6 +333,24 @@
    "default": "Detailed (DPWH)"
   },
   {
+   "fieldname": "sb_terms",
+   "fieldtype": "Section Break",
+   "label": "Terms & Conditions",
+   "collapsible": 1
+  },
+  {
+   "fieldname": "terms_template",
+   "fieldtype": "Link",
+   "label": "Terms Template",
+   "options": "Estimate Terms Template",
+   "description": "Select a template to auto-fill terms below. You can edit per estimate."
+  },
+  {
+   "fieldname": "terms",
+   "fieldtype": "Text Editor",
+   "label": "Terms and Conditions"
+  },
+  {
    "fieldname": "sb_bp",
    "fieldtype": "Section Break",
    "label": "Bank Purpose (BP) Fields"
@@ -389,7 +410,7 @@
    "link_fieldname": "estimate"
   }
  ],
- "modified": "2026-03-12 13:16:00.000000",
+ "modified": "2026-03-14 10:00:00.000000",
  "modified_by": "Administrator",
  "module": "Estimate",
  "name": "Estimate",

@@ -240,7 +240,7 @@ def get_fonts():
 # Waterfall Block (D15, D21, D35)
 # ---------------------------------------------------------------------------
 
-def render_waterfall_block(direct_cost, ocm_percent, profit_percent, vat_inclusive, vat_percent, accent_color):
+def render_waterfall_block(direct_cost, ocm_percent, profit_percent, vat_inclusive, vat_percent, accent_color, scope_name=""):
     """Render G->K waterfall table HTML for a scope's cost breakdown.
 
     Mirrors estimate.py._calculate_totals() waterfall formula exactly.
@@ -252,6 +252,7 @@ def render_waterfall_block(direct_cost, ocm_percent, profit_percent, vat_inclusi
         vat_inclusive: Boolean — apply VAT if True
         vat_percent: VAT percentage (for J row)
         accent_color: CSS color string for total row background (e.g. '#A52422')
+        scope_name: Optional scope name to show in the K TOTAL row
 
     Returns:
         str: Complete HTML table string
@@ -295,7 +296,8 @@ def render_waterfall_block(direct_cost, ocm_percent, profit_percent, vat_inclusi
 
     # Total row — accent color background, white text, bold
     total_style = "background-color: {color}; color: #ffffff; font-weight: bold;".format(color=accent_color)
-    rows_html += _row("TOTAL", "K", total, style=total_style)
+    total_label = "TOTAL &mdash; {}".format(scope_name) if scope_name else "TOTAL"
+    rows_html += _row(total_label, "K", total, style=total_style)
 
     return (
         '<table class="waterfall-table" style="width: 100%; border-collapse: collapse; margin-top: 8px; font-size: 9pt; font-family: Inter, \'Helvetica Neue\', Arial, sans-serif;">'
@@ -517,7 +519,7 @@ def render_material_table(material_rows, wbs_prefix=""):
         bg = "#F4F6F9" if i % 2 == 0 else "#ffffff"
         row_style = 'style="background-color: {bg};"'.format(bg=bg)
         # Data rows: bold weight, dark color for emphasis over descriptions
-        td = 'style="padding: 5px 8px; font-weight: 600; color: #2D3142;"'
+        td = 'style="padding: 3px 6px; font-weight: 600; color: #2D3142;"'
         td_center = 'style="padding: 3px 6px; text-align: center; font-weight: 600; color: #2D3142;"'
         td_right = 'style="padding: 3px 6px; text-align: right; font-family: \'Roboto Mono\', monospace; font-weight: 600; color: #2D3142;"'
 
@@ -577,9 +579,9 @@ def render_material_table(material_rows, wbs_prefix=""):
         '<table class="dlia-table" style="width: 100%; border-collapse: collapse; font-size: 0.9em; table-layout: fixed;">'
         "<colgroup>"
         '<col style="width: 8%;">'
-        '<col style="width: 28%;">'
+        '<col style="width: 26%;">'
         '<col style="width: 8%;">'
-        '<col style="width: 10%;">'
+        '<col style="width: 12%;">'
         '<col style="width: 22%;">'
         '<col style="width: 24%;">'
         "</colgroup>"

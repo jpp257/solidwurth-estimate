@@ -30,6 +30,25 @@ frappe.ui.form.on("Estimate", {
     bp_rate_factor(frm) { calculate_bp_totals(frm); },
     bp_ocm_percent(frm) { calculate_bp_totals(frm); },
     bp_profit_percent(frm) { calculate_bp_totals(frm); },
+
+    /**
+     * Auto-populate terms from selected template.
+     * User can still edit the terms field after — it's per-estimate.
+     */
+    terms_template(frm) {
+        if (frm.doc.terms_template) {
+            frappe.db.get_value(
+                "Estimate Terms Template",
+                frm.doc.terms_template,
+                "terms",
+                (r) => {
+                    if (r && r.terms) {
+                        frm.set_value("terms", r.terms);
+                    }
+                }
+            );
+        }
+    },
 });
 
 

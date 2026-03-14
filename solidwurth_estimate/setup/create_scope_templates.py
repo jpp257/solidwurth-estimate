@@ -52,7 +52,7 @@ SCOPE_TEMPLATES = [
     make_template(
         "Earthwork - Manual Excavation",
         dpwh_pay_item="802(1)b",
-        uom="Cubic Meter",
+        uom="cu.m.",
         output_per_day=4.0,
         description="Manual excavation of rock material for roadway and drainage works",
         labor=[
@@ -64,7 +64,7 @@ SCOPE_TEMPLATES = [
     make_template(
         "Earthwork - Backhoe Excavation",
         dpwh_pay_item="802(1)a",
-        uom="Cubic Meter",
+        uom="cu.m.",
         output_per_day=80.0,
         description="Machine excavation using backhoe/excavator for common material",
         labor=[
@@ -80,7 +80,7 @@ SCOPE_TEMPLATES = [
     make_template(
         "Compacted Embankment / Fill",
         dpwh_pay_item="804(4)",
-        uom="Cubic Meter",
+        uom="cu.m.",
         output_per_day=50.0,
         description="Compacted embankment using plate compactor or roller",
         labor=[
@@ -99,7 +99,7 @@ SCOPE_TEMPLATES = [
     make_template(
         "Concrete Pouring - Footing",
         dpwh_pay_item="900(1)",
-        uom="Cubic Meter",
+        uom="cu.m.",
         output_per_day=6.0,
         description="Structural concrete pouring for isolated/combined footings",
         labor=[
@@ -113,15 +113,15 @@ SCOPE_TEMPLATES = [
         ],
         materials=[
             M(qty=9.5, wastage_percent=3, uom="Bag"),
-            M(qty=0.5, wastage_percent=5, uom="Cubic Meter"),
-            M(qty=1.0, wastage_percent=5, uom="Cubic Meter"),
+            M(qty=0.5, wastage_percent=5, uom="cu.m."),
+            M(qty=1.0, wastage_percent=5, uom="cu.m."),
         ],
     ),
 
     make_template(
         "Concrete Pouring - Column/Beam",
         dpwh_pay_item="900(1)",
-        uom="Cubic Meter",
+        uom="cu.m.",
         output_per_day=4.0,
         description="Structural concrete pouring for columns and beams",
         labor=[
@@ -135,15 +135,15 @@ SCOPE_TEMPLATES = [
         ],
         materials=[
             M(qty=10.0, wastage_percent=3, uom="Bag"),
-            M(qty=0.5, wastage_percent=5, uom="Cubic Meter"),
-            M(qty=1.0, wastage_percent=5, uom="Cubic Meter"),
+            M(qty=0.5, wastage_percent=5, uom="cu.m."),
+            M(qty=1.0, wastage_percent=5, uom="cu.m."),
         ],
     ),
 
     make_template(
         "Concrete Pouring - Slab on Grade",
         dpwh_pay_item="900(1)",
-        uom="Cubic Meter",
+        uom="cu.m.",
         output_per_day=10.0,
         description="Structural concrete slab on grade — includes vibration and finishing",
         labor=[
@@ -157,15 +157,15 @@ SCOPE_TEMPLATES = [
         ],
         materials=[
             M(qty=9.5, wastage_percent=3, uom="Bag"),
-            M(qty=0.5, wastage_percent=5, uom="Cubic Meter"),
-            M(qty=1.0, wastage_percent=5, uom="Cubic Meter"),
+            M(qty=0.5, wastage_percent=5, uom="cu.m."),
+            M(qty=1.0, wastage_percent=5, uom="cu.m."),
         ],
     ),
 
     make_template(
         "Lean Concrete Subbase",
         dpwh_pay_item="901(1)",
-        uom="Cubic Meter",
+        uom="cu.m.",
         output_per_day=12.0,
         description="Lean concrete subbase/blinding layer",
         labor=[
@@ -467,7 +467,7 @@ SCOPE_TEMPLATES = [
     make_template(
         "Food Processing - Concrete Floor Slab (High-spec)",
         dpwh_pay_item="900(1)",
-        uom="Cubic Meter",
+        uom="cu.m.",
         output_per_day=8.0,
         description="Structural concrete slab for food processing — Class AA (40MPa), power-troweled",
         labor=[
@@ -594,7 +594,7 @@ SCOPE_TEMPLATES = [
     make_template(
         "Wastewater - Concrete Equalization Tank",
         dpwh_pay_item="900(1)",
-        uom="Cubic Meter",
+        uom="cu.m.",
         output_per_day=5.0,
         description="Reinforced concrete equalization tank for wastewater treatment",
         labor=[
@@ -747,7 +747,7 @@ SCOPE_TEMPLATES = [
 # ---------------------------------------------------------------------------
 
 REQUIRED_UOMS = [
-    "Bag", "Cubic Meter", "Kilogram", "Lot", "Meter", "Nos", "Set", "Square Meter", "TR",
+    "Bag", "cu.m.", "Kilogram", "Lot", "Meter", "Nos", "Set", "Square Meter", "TR",
 ]
 
 
