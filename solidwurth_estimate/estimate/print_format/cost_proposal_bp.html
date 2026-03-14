@@ -116,10 +116,6 @@
     margin-top: 4mm;
   }
 
-  .optional-label {
-    font-style: italic;
-    color: #666666;
-  }
 </style>
 
 {# FRAPPE FOOTER — BP variant (gold accent) #}
@@ -282,11 +278,10 @@
   {% if scopes %}
   <table class="summary-table" style="table-layout: fixed; width: 100%; border-collapse: collapse; font-size: 9pt;">
     <colgroup>
-      <col style="width: 40%;">
-      <col style="width: 10%;">
-      <col style="width: 10%;">
-      <col style="width: 25%;">
-      <col style="width: 15%;">
+      <col style="width: 45%;">
+      <col style="width: 12%;">
+      <col style="width: 13%;">
+      <col style="width: 30%;">
     </colgroup>
     <thead>
       <tr>
@@ -294,7 +289,6 @@
         <th style="background-color: #3B5998; color: #ffffff; padding: 6px 8px; text-align: left;">UOM</th>
         <th style="background-color: #3B5998; color: #ffffff; padding: 6px 8px; text-align: right;">Qty</th>
         <th style="background-color: #3B5998; color: #ffffff; padding: 6px 8px; text-align: right;">Direct Cost</th>
-        <th style="background-color: #3B5998; color: #ffffff; padding: 6px 8px; text-align: left;">Note</th>
       </tr>
     </thead>
     <tbody>
@@ -307,7 +301,7 @@
           {% set current_grp.value = scope.scope_group %}
           {% set grp_idx.value = 0 %}
           <tr>
-            <td colspan="5" style="background-color: #1B2E4A; color: #ffffff; font-weight: bold; font-family: 'Montserrat', 'Segoe UI', Arial, sans-serif; padding: 5px 10px; font-size: 9pt; letter-spacing: 0.5px;">
+            <td colspan="4" style="background-color: #1B2E4A; color: #ffffff; font-weight: bold; font-family: 'Montserrat', 'Segoe UI', Arial, sans-serif; padding: 5px 10px; font-size: 9pt; letter-spacing: 0.5px;">
               {{ scope.scope_group }}
             </td>
           </tr>
@@ -318,7 +312,6 @@
           <td style="padding: 5px 8px; border-bottom: 1px solid #e8e8e8;">{{ scope.uom if scope.uom and scope.uom != "None" else "&mdash;" }}</td>
           <td class="amount-cell" style="padding: 5px 8px; border-bottom: 1px solid #e8e8e8;">{{ num_format(scope.quantity) }}</td>
           <td class="amount-cell" style="padding: 5px 8px; border-bottom: 1px solid #e8e8e8;">{{ php_format(scope.direct_cost) }}</td>
-          <td style="padding: 5px 8px; border-bottom: 1px solid #e8e8e8;"></td>
         </tr>
       {% endfor %}
 
@@ -326,14 +319,13 @@
       <tr>
         <td colspan="3" style="text-align: right; font-weight: bold; padding: 5px 8px; background-color: #dde4f0; border-top: 2px solid #2E5FA3; border-bottom: 2px solid #2E5FA3;">Base Scope Subtotal</td>
         <td class="amount-cell" style="font-weight: bold; padding: 5px 8px; background-color: #dde4f0; border-top: 2px solid #2E5FA3; border-bottom: 2px solid #2E5FA3;">{{ php_format(doc.base_direct_cost) }}</td>
-        <td style="padding: 5px 8px; background-color: #dde4f0; border-top: 2px solid #2E5FA3; border-bottom: 2px solid #2E5FA3;"></td>
       </tr>
       {% endif %}
 
       {# Optional scopes — grouped #}
       {% if optional_scopes %}
       <tr>
-        <td colspan="5" style="padding: 8px 8px 2px 8px; font-weight: bold; color: #2E5FA3; font-size: 8.5pt; font-style: italic;">
+        <td colspan="4" style="padding: 8px 8px 2px 8px; font-weight: bold; color: #2E5FA3; font-size: 8.5pt; font-style: italic;">
           Optional Scopes
         </td>
       </tr>
@@ -344,7 +336,7 @@
           {% set current_grp_opt.value = scope.scope_group %}
           {% set grp_idx_opt.value = 0 %}
           <tr>
-            <td colspan="5" style="background-color: #2E5FA3; color: #ffffff; font-weight: bold; font-family: 'Montserrat', 'Segoe UI', Arial, sans-serif; padding: 4px 10px; font-size: 8.5pt; letter-spacing: 0.5px;">
+            <td colspan="4" style="background-color: #2E5FA3; color: #ffffff; font-weight: bold; font-family: 'Montserrat', 'Segoe UI', Arial, sans-serif; padding: 4px 10px; font-size: 8.5pt; letter-spacing: 0.5px;">
               {{ scope.scope_group }}
             </td>
           </tr>
@@ -355,7 +347,6 @@
           <td style="padding: 5px 8px; border-bottom: 1px solid #e8e8e8;">{{ scope.uom if scope.uom and scope.uom != "None" else "&mdash;" }}</td>
           <td class="amount-cell" style="padding: 5px 8px; border-bottom: 1px solid #e8e8e8;">{{ num_format(scope.quantity) }}</td>
           <td class="amount-cell" style="padding: 5px 8px; border-bottom: 1px solid #e8e8e8;">{{ php_format(scope.direct_cost) }}</td>
-          <td style="padding: 5px 8px; border-bottom: 1px solid #e8e8e8;"><span class="optional-label">(Optional)</span></td>
         </tr>
       {% endfor %}
 
@@ -364,7 +355,6 @@
       <tr>
         <td colspan="3" style="text-align: right; font-weight: bold; padding: 5px 8px; background-color: #dde4f0; border-top: 2px solid #2E5FA3; border-bottom: 2px solid #2E5FA3;">Optional Scope Subtotal</td>
         <td class="amount-cell" style="font-weight: bold; padding: 5px 8px; background-color: #dde4f0; border-top: 2px solid #2E5FA3; border-bottom: 2px solid #2E5FA3;">{{ php_format(optional_dc.total) }}</td>
-        <td style="padding: 5px 8px; background-color: #dde4f0; border-top: 2px solid #2E5FA3; border-bottom: 2px solid #2E5FA3;"></td>
       </tr>
       {% endif %}
 
@@ -372,13 +362,11 @@
       <tr>
         <td colspan="3" style="padding: 6px 8px; text-align: right; font-family: 'Montserrat', 'Segoe UI', Arial, sans-serif; font-weight: bold; background-color: #1B2E4A; color: #ffffff;">Grand Total Direct Cost (All Scopes)</td>
         <td class="amount-cell" style="padding: 6px 8px; font-weight: bold; background-color: #1B2E4A; color: #ffffff;">{{ php_format(doc.direct_cost) }}</td>
-        <td style="padding: 6px 8px; background-color: #1B2E4A; color: #ffffff;"></td>
       </tr>
       {% if base_scopes and optional_scopes %}
       <tr>
         <td colspan="3" style="padding: 4px 8px; text-align: right; font-size: 8pt; background-color: #2E5FA3; color: #ffffff;">Base Scope Grand Total Direct Cost</td>
         <td class="amount-cell" style="padding: 4px 8px; font-size: 8pt; background-color: #2E5FA3; color: #ffffff;">{{ php_format(doc.base_direct_cost) }}</td>
-        <td style="padding: 4px 8px; background-color: #2E5FA3; color: #ffffff;"></td>
       </tr>
       {% endif %}
 
