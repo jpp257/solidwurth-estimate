@@ -13,6 +13,61 @@ import base64
 
 
 # ---------------------------------------------------------------------------
+# WBS Numbering (Scope Group → Scope → Item)
+# ---------------------------------------------------------------------------
+
+def _to_roman(n):
+    """Convert integer to Roman numeral string (1-50 range)."""
+    vals = [(50, "L"), (40, "XL"), (10, "X"), (9, "IX"), (5, "V"), (4, "IV"), (1, "I")]
+    result = ""
+    for value, numeral in vals:
+        while n >= value:
+            result += numeral
+            n -= value
+    return result
+
+
+def build_scope_wbs(base_scopes, optional_scopes):
+    """Build hierarchical WBS numbering for scopes.
+
+    Groups get Roman numerals (I, II, III...) to avoid conflict with
+    DLIA section letters (A-Labor, B-Equipment, C-Materials).
+    Scopes: I.1, II.2... Materials: I.1.1, I.1.2... via wbs_prefix.
+
+    Args:
+        base_scopes: List of base scope dicts (from DB query, ordered by group)
+        optional_scopes: List of optional scope dicts (continue numbering after base)
+
+    Returns:
+        dict: Mapping scope name -> {"group_numeral": "I", "scope_num": "I.1"}
+              Also includes "_group_numerals" key: scope_group name -> Roman numeral
+    """
+    result = {}
+    group_numerals = {}  # scope_group name -> Roman numeral
+    group_scope_counts = {}  # scope_group name -> running count
+    numeral_index = 0
+
+    for scope in list(base_scopes or []) + list(optional_scopes or []):
+        grp = scope.get("scope_group", "Uncategorized")
+        if grp not in group_numerals:
+            numeral_index += 1
+            group_numerals[grp] = _to_roman(numeral_index)
+            group_scope_counts[grp] = 0
+
+        group_scope_counts[grp] += 1
+        numeral = group_numerals[grp]
+        scope_idx = group_scope_counts[grp]
+
+        result[scope.get("name", "")] = {
+            "group_numeral": numeral,
+            "scope_num": "{}.{}".format(numeral, scope_idx),
+        }
+
+    result["_group_numerals"] = group_numerals
+    return result
+
+
+# ---------------------------------------------------------------------------
 # Currency & Number Formatting (D41, D42)
 # ---------------------------------------------------------------------------
 
@@ -340,16 +395,18 @@ def render_equipment_table(equipment_rows, duration_days):
 # Section F: Material Table (D19, D23)
 # ---------------------------------------------------------------------------
 
-def render_material_table(material_rows):
-    """Render Section C (Materials) HTML table with item descriptions.
+def render_material_table(material_rows, wbs_prefix=""):
+    """Render Section C (Materials) HTML table with WBS numbering and descriptions.
 
     NOTE: buying_rate IS the Rate column (D19). margin, wastage_percent are hidden from print.
     Columns: No. | Material Name | Qty | UOM | Rate | Amount
-    Description appears as a sub-row aligned under Material Name column.
+    Description appears as a sub-row indented under Material Name column.
 
     Args:
         material_rows: List of dicts with keys: item_code, item_name, adjusted_qty, uom,
                        buying_rate, amount, item_description (optional HTML from Item master)
+        wbs_prefix: Scope WBS number e.g. "A.1" — items become "A.1.1", "A.1.2", etc.
+                    If empty, falls back to simple 1, 2, 3 numbering.
 
     Returns:
         str: Complete HTML section with <div class="dlia-section section-c"> wrapper
@@ -373,9 +430,14 @@ def render_material_table(material_rows):
     for i, row in enumerate(material_rows or []):
         bg = "#F4F6F9" if i % 2 == 0 else "#ffffff"
         row_style = 'style="background-color: {bg};"'.format(bg=bg)
-        td = 'style="padding: 5px 8px;"'
-        td_center = 'style="padding: 5px 8px; text-align: center;"'
-        td_right = 'style="padding: 5px 8px; text-align: right; font-family: \'Roboto Mono\', monospace;"'
+        # Data rows: bold weight, dark color for emphasis over descriptions
+        td = 'style="padding: 5px 8px; font-weight: 600; color: #2D3142;"'
+        td_center = 'style="padding: 5px 8px; text-align: center; font-weight: 600; color: #2D3142;"'
+        td_right = 'style="padding: 5px 8px; text-align: right; font-family: \'Roboto Mono\', monospace; font-weight: 600; color: #2D3142;"'
+
+        # WBS item number: "A.1.1" or fallback to "1"
+        item_num = "{}.{}".format(wbs_prefix, i + 1) if wbs_prefix else str(i + 1)
+
         rows_html += (
             "<tr {row}>"
             "<td {tdc}>{row_num}</td>"
@@ -390,7 +452,7 @@ def render_material_table(material_rows):
             td=td,
             tdc=td_center,
             tdr=td_right,
-            row_num=i + 1,
+            row_num=item_num,
             item_name=row.get("item_name", ""),
             adjusted_qty=num_format(row.get("adjusted_qty", 0)),
             uom=row.get("uom", ""),
@@ -398,14 +460,14 @@ def render_material_table(material_rows):
             amount=php_format(row.get("amount", 0)),
         )
 
-        # Description sub-row — skips No. column, spans remaining 5 columns
+        # Description sub-row — skips No. column, indented under Material Name
         desc = row.get("item_description") or ""
         if desc and desc.strip():
             rows_html += (
                 '<tr style="background-color: {bg};">'
                 '<td style="border-top: none;"></td>'
-                '<td colspan="5" style="padding: 2px 8px 8px 8px; font-size: 8pt; color: #444444; '
-                'border-top: none; line-height: 1.4;">'
+                '<td colspan="5" style="padding: 2px 8px 8px 20px; font-size: 7.5pt; color: #555555; '
+                'border-top: none; line-height: 1.5; font-weight: 400;">'
                 '{desc}'
                 '</td>'
                 '</tr>'
@@ -414,8 +476,8 @@ def render_material_table(material_rows):
     table_html = (
         '<table class="dlia-table" style="width: 100%; border-collapse: collapse; font-size: 0.9em; table-layout: fixed;">'
         "<colgroup>"
-        '<col style="width: 6%;">'
-        '<col style="width: 30%;">'
+        '<col style="width: 8%;">'
+        '<col style="width: 28%;">'
         '<col style="width: 8%;">'
         '<col style="width: 10%;">'
         '<col style="width: 22%;">'

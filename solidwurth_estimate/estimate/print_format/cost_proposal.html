@@ -14,7 +14,6 @@
      Page Setup — A4 Portrait (D9, D10)
   ----------------------------------------------------------------------- */
   @page {
-    size: A4 portrait;
     margin: 15mm 15mm 20mm 20mm;
   }
 
@@ -273,6 +272,7 @@
 
 {% set base_scopes = scopes | selectattr("is_optional", "eq", 0) | list %}
 {% set optional_scopes = scopes | selectattr("is_optional", "ne", 0) | list %}
+{% set wbs = build_scope_wbs(base_scopes, optional_scopes) %}
 
 <div style="page-break-after: always;">
 
@@ -300,7 +300,7 @@
     </thead>
     <tbody>
 
-      {# === BASE SCOPES — grouped by scope_group === #}
+      {# === BASE SCOPES — grouped by scope_group with WBS letters === #}
       {% set current_grp = namespace(value=None) %}
       {% set grp_idx = namespace(value=0) %}
       {% for scope in base_scopes %}
@@ -309,13 +309,13 @@
           {% set grp_idx.value = 0 %}
           <tr>
             <td colspan="4" style="background-color: #1B2E4A; color: #ffffff; font-weight: bold; font-family: 'Montserrat', 'Segoe UI', Arial, sans-serif; padding: 5px 10px; font-size: 9pt; letter-spacing: 0.5px;">
-              {{ scope.scope_group }}
+              {{ wbs._group_numerals[scope.scope_group] }}. {{ scope.scope_group }}
             </td>
           </tr>
         {% endif %}
         {% set grp_idx.value = grp_idx.value + 1 %}
         <tr{% if grp_idx.value % 2 == 0 %} style="background-color: #F4F6F9;"{% endif %}>
-          <td style="padding: 5px 8px 5px 16px; border-bottom: 1px solid #e8e8e8;">{{ scope.scope_name }}</td>
+          <td style="padding: 5px 8px 5px 16px; border-bottom: 1px solid #e8e8e8;">{{ wbs[scope.name].scope_num }} {{ scope.scope_name }}</td>
           <td style="padding: 5px 8px; border-bottom: 1px solid #e8e8e8;">{{ scope.uom if scope.uom and scope.uom != "None" else "&mdash;" }}</td>
           <td class="amount-cell" style="padding: 5px 8px; border-bottom: 1px solid #e8e8e8;">{{ num_format(scope.quantity) }}</td>
           <td class="amount-cell" style="padding: 5px 8px; border-bottom: 1px solid #e8e8e8;">{{ php_format(scope.direct_cost) }}</td>
@@ -345,13 +345,13 @@
           {% set grp_idx_opt.value = 0 %}
           <tr>
             <td colspan="4" style="background-color: #2E5FA3; color: #ffffff; font-weight: bold; font-family: 'Montserrat', 'Segoe UI', Arial, sans-serif; padding: 4px 10px; font-size: 8.5pt; letter-spacing: 0.5px;">
-              {{ scope.scope_group }}
+              {{ wbs._group_numerals[scope.scope_group] }}. {{ scope.scope_group }}
             </td>
           </tr>
         {% endif %}
         {% set grp_idx_opt.value = grp_idx_opt.value + 1 %}
         <tr{% if grp_idx_opt.value % 2 == 0 %} style="background-color: #F4F6F9;"{% endif %}>
-          <td style="padding: 5px 8px 5px 16px; border-bottom: 1px solid #e8e8e8;">{{ scope.scope_name }}</td>
+          <td style="padding: 5px 8px 5px 16px; border-bottom: 1px solid #e8e8e8;">{{ wbs[scope.name].scope_num }} {{ scope.scope_name }}</td>
           <td style="padding: 5px 8px; border-bottom: 1px solid #e8e8e8;">{{ scope.uom if scope.uom and scope.uom != "None" else "&mdash;" }}</td>
           <td class="amount-cell" style="padding: 5px 8px; border-bottom: 1px solid #e8e8e8;">{{ num_format(scope.quantity) }}</td>
           <td class="amount-cell" style="padding: 5px 8px; border-bottom: 1px solid #e8e8e8;">{{ php_format(scope.direct_cost) }}</td>
@@ -424,7 +424,6 @@
 
 {% set scope_count = scopes_detail | length %}
 {% set current_group = namespace(value=None) %}
-{% set scope_num = namespace(value=0) %}
 
 {% if scope_count > 0 %}
 
@@ -433,17 +432,16 @@
    Summary (Private) mode
 ----------------------------------------------------------------------- #}
 {% for scope in scopes_detail %}
-  {% set scope_num.value = scope_num.value + 1 %}
 
   <div style="page-break-before: always;">
 
     {{ cont_header() }}
 
-    {# Scope header — TABLE-based, all text white on navy #}
+    {# Scope header — TABLE-based, all text white on navy, WBS numbered #}
     <table style="width: 100%; background-color: #1B2E4A; color: #ffffff; margin-bottom: 4mm; border-collapse: collapse;">
       <tr>
         <td style="padding: 8px 10px; font-family: 'Montserrat', 'Segoe UI', Arial, sans-serif; font-size: 9pt; color: #ffffff; vertical-align: top;">
-          <strong>{{ scope.scope_name }}</strong>
+          <strong>SCOPE {{ wbs[scope.name].scope_num }}</strong>: {{ scope.scope_name }}
           {% if scope.is_optional %}<span style="font-style: italic; color: #CCCCCC;"> (Optional)</span>{% endif %}
         </td>
         <td style="padding: 8px 10px; text-align: right; font-size: 8.5pt; color: #ffffff; vertical-align: top; white-space: nowrap;">
@@ -452,7 +450,7 @@
       </tr>
       <tr>
         <td colspan="2" style="padding: 0 10px 6px 10px; font-size: 8pt; color: #D0D7E0;">
-          {{ scope.scope_group }}
+          {{ wbs._group_numerals[scope.scope_group] }}. {{ scope.scope_group }}
           {% if scope.dpwh_pay_item %} | Pay Item: {{ scope.dpwh_pay_item }}{% endif %}
         </td>
       </tr>
@@ -492,32 +490,31 @@
    Detailed (DPWH) mode — DLIA sections A/B/C per scope
 ----------------------------------------------------------------------- #}
 {% for scope in scopes_detail %}
-  {% set scope_num.value = scope_num.value + 1 %}
 
   <div style="page-break-before: always;">
 
     {{ cont_header() }}
 
-    {# Scope group header on group change #}
+    {# Scope group header on group change — WBS lettered #}
     {% if scope.scope_group != current_group.value %}
       {% set current_group.value = scope.scope_group %}
       <div style="background-color: #1B2E4A; color: #ffffff; font-weight: bold; font-family: 'Montserrat', 'Segoe UI', Arial, sans-serif; padding: 6px 10px; letter-spacing: 1px; font-size: 9.5pt; margin-bottom: 4mm;">
-        {{ scope.scope_group | upper }}
+        {{ wbs._group_numerals[scope.scope_group] }}. {{ scope.scope_group | upper }}
       </div>
     {% endif %}
 
-    {# Scope header bar — TABLE-based, explicit white text on navy #}
+    {# Scope header bar — WBS numbered #}
     <table style="width: 100%; background-color: #1B2E4A; color: #ffffff; margin-bottom: 4mm; border-collapse: collapse;">
       <tr>
         <td style="padding: 8px 10px; font-family: 'Montserrat', 'Segoe UI', Arial, sans-serif; font-size: 9pt; color: #ffffff; vertical-align: top;">
-          <strong>SCOPE {{ scope_num.value }} of {{ scope_count }}</strong>: {{ scope.scope_name }}
+          <strong>SCOPE {{ wbs[scope.name].scope_num }}</strong>: {{ scope.scope_name }}
           {% if scope.is_optional %}<span style="font-style: italic; color: #CCCCCC;"> (Optional)</span>{% endif %}
           {% if scope.dpwh_pay_item %}
           <div style="font-size: 8pt; color: #D0D7E0; margin-top: 2px;">Pay Item: {{ scope.dpwh_pay_item }}</div>
           {% endif %}
         </td>
         <td style="padding: 8px 10px; text-align: right; font-size: 8.5pt; color: #ffffff; vertical-align: top; white-space: nowrap;">
-          {{ scope.scope_group }}
+          {{ wbs._group_numerals[scope.scope_group] }}. {{ scope.scope_group }}
         </td>
       </tr>
       <tr>
@@ -544,11 +541,11 @@
     {{ render_equipment_table(equipment_rows, scope.duration_days | float) }}
     {% endif %}
 
-    {# Section C — MATERIALS #}
+    {# Section C — MATERIALS — WBS-prefixed item numbers #}
     {% set material_rows = frappe.db.sql("SELECT m.item AS item_code, m.item_name, m.adjusted_qty, m.uom, m.buying_rate, m.amount, i.description AS item_description FROM `tabEstimate Scope Material` m LEFT JOIN `tabItem` i ON m.item = i.name WHERE m.parent = %s ORDER BY m.idx", scope.name, as_dict=True) %}
     {% if material_rows %}
     <div class="section-header">C &mdash; MATERIALS</div>
-    {{ render_material_table(material_rows) }}
+    {{ render_material_table(material_rows, wbs[scope.name].scope_num) }}
     {% endif %}
 
     {# Waterfall — full-width #}
