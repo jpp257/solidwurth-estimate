@@ -2,7 +2,7 @@
 {# Phase 13: wkhtmltopdf-safe rewrite — table layout, Frappe footer-html, no flex/fixed/opacity #}
 {# Accent color: #A52422 (SW red) | Target renderer: wkhtmltopdf (Qt WebKit) #}
 
-{%- set logo_path = frappe.db.get_single_value("Website Settings", "banner_image") -%}
+{%- set logo_path = frappe.db.get_single_value("Website Settings", "banner_image") or frappe.db.get_value("Company", "SolidWurth Corp.", "company_logo") -%}
 {%- set fonts = get_fonts() -%}
 {%- set prepared_by_name = frappe.db.get_value("User", doc.prepared_by, "full_name") if doc.prepared_by else "" -%}
 {%- set checked_by_name = frappe.db.get_value("User", doc.checked_by, "full_name") if doc.checked_by else "" -%}
@@ -317,7 +317,7 @@
         <tr{% if grp_idx.value % 2 == 0 %} style="background-color: #F4F6F9;"{% endif %}>
           <td style="padding: 5px 8px 5px 16px; border-bottom: 1px solid #e8e8e8;">{{ wbs[scope.name].scope_num }} {{ scope.scope_name }}</td>
           <td style="padding: 5px 8px; border-bottom: 1px solid #e8e8e8;">{{ scope.uom if scope.uom and scope.uom != "None" else "&mdash;" }}</td>
-          <td class="amount-cell" style="padding: 5px 8px; border-bottom: 1px solid #e8e8e8;">{{ num_format(scope.quantity) }}</td>
+          <td class="amount-cell" style="padding: 5px 8px; border-bottom: 1px solid #e8e8e8;">{{ num_format(scope.quantity) if (scope.quantity | float) > 0 else "" }}</td>
           <td class="amount-cell" style="padding: 5px 8px; border-bottom: 1px solid #e8e8e8;">{{ php_format(scope.direct_cost) }}</td>
         </tr>
       {% endfor %}
@@ -353,7 +353,7 @@
         <tr{% if grp_idx_opt.value % 2 == 0 %} style="background-color: #F4F6F9;"{% endif %}>
           <td style="padding: 5px 8px 5px 16px; border-bottom: 1px solid #e8e8e8;">{{ wbs[scope.name].scope_num }} {{ scope.scope_name }}</td>
           <td style="padding: 5px 8px; border-bottom: 1px solid #e8e8e8;">{{ scope.uom if scope.uom and scope.uom != "None" else "&mdash;" }}</td>
-          <td class="amount-cell" style="padding: 5px 8px; border-bottom: 1px solid #e8e8e8;">{{ num_format(scope.quantity) }}</td>
+          <td class="amount-cell" style="padding: 5px 8px; border-bottom: 1px solid #e8e8e8;">{{ num_format(scope.quantity) if (scope.quantity | float) > 0 else "" }}</td>
           <td class="amount-cell" style="padding: 5px 8px; border-bottom: 1px solid #e8e8e8;">{{ php_format(scope.direct_cost) }}</td>
         </tr>
       {% endfor %}
@@ -388,8 +388,13 @@
     {{ render_waterfall_block(doc.direct_cost | float, doc.ocm_percent | float, doc.profit_percent | float, doc.vat_inclusive, doc.vat_percent | float, "#A52422") }}
   </div>
 
+  {# Amount in words — formal Philippine construction proposal convention #}
+  <div style="margin-top: 5mm; padding: 4px 8px; font-size: 8.5pt; font-style: italic; color: #2D3142; border-top: 1px solid #e0e0e0;">
+    <strong>Amount in Words:</strong> {{ amount_in_words(doc.grand_total) }}
+  </div>
+
   {% if optional_scopes %}
-  <div style="margin-top: 4mm; font-size: 8pt; font-style: italic; color: #666666; text-align: right;">
+  <div style="margin-top: 3mm; font-size: 8pt; font-style: italic; color: #666666; text-align: right;">
     * Grand Total includes optional scopes ({{ optional_scopes | length }} scope{{ 's' if optional_scopes | length != 1 }}).
     Base-only Grand Total: {{ php_format(doc.base_grand_total) }}
   </div>
@@ -558,3 +563,122 @@
 {% endif %}
 
 {% endif %}{# end scope_count > 0 #}
+
+{# =========================================================================
+   TERMS & CONDITIONS PAGE
+   Standard Philippine construction proposal terms.
+   TODO: Make editable via Estimate DocType field or Terms Template.
+========================================================================= #}
+<div style="page-break-before: always;">
+
+  {{ cont_header() }}
+
+  <div style="background-color: #1B2E4A; color: #ffffff; font-family: 'Montserrat', 'Segoe UI', Arial, sans-serif; font-size: 13pt; font-weight: 700; padding: 8px 12px; letter-spacing: 1px; margin-bottom: 6mm;">
+    TERMS &amp; CONDITIONS
+  </div>
+
+  <div style="font-size: 8.5pt; line-height: 1.6; color: #2D3142;">
+    <table style="width: 100%; border-collapse: collapse;">
+      <tr>
+        <td style="padding: 3px 8px; font-weight: bold; vertical-align: top; width: 5%; color: #1B2E4A;">1.</td>
+        <td style="padding: 3px 8px;">
+          <strong>Validity of Proposal</strong><br/>
+          This cost proposal is valid for thirty (30) calendar days from the date of issuance.
+          Prices are subject to change after the validity period.
+        </td>
+      </tr>
+      <tr>
+        <td style="padding: 3px 8px; font-weight: bold; vertical-align: top; color: #1B2E4A;">2.</td>
+        <td style="padding: 3px 8px;">
+          <strong>Payment Terms</strong><br/>
+          a) Downpayment: Twenty percent (20%) of the contract price upon signing of the agreement.<br/>
+          b) Progress Billing: Based on actual accomplishment, billed bi-monthly.<br/>
+          c) Retention: Five percent (5%) retention on all progress billings, to be released upon project completion and acceptance.
+        </td>
+      </tr>
+      <tr>
+        <td style="padding: 3px 8px; font-weight: bold; vertical-align: top; color: #1B2E4A;">3.</td>
+        <td style="padding: 3px 8px;">
+          <strong>Scope of Work</strong><br/>
+          The scope is limited to items specifically listed in this proposal.
+          Any work not included shall be subject to a separate agreement and additional cost.
+        </td>
+      </tr>
+      <tr>
+        <td style="padding: 3px 8px; font-weight: bold; vertical-align: top; color: #1B2E4A;">4.</td>
+        <td style="padding: 3px 8px;">
+          <strong>Mobilization &amp; Duration</strong><br/>
+          Mobilization shall commence within fourteen (14) calendar days from receipt of downpayment and notice to proceed.
+          The project duration is as stated in the detailed scope breakdown.
+        </td>
+      </tr>
+      <tr>
+        <td style="padding: 3px 8px; font-weight: bold; vertical-align: top; color: #1B2E4A;">5.</td>
+        <td style="padding: 3px 8px;">
+          <strong>Price Escalation</strong><br/>
+          Material prices are based on current market rates. In case of significant price increases
+          (&gt;10%) due to market conditions or government regulation, the Contractor reserves the right
+          to adjust the contract price with prior written notice and mutual agreement.
+        </td>
+      </tr>
+      <tr>
+        <td style="padding: 3px 8px; font-weight: bold; vertical-align: top; color: #1B2E4A;">6.</td>
+        <td style="padding: 3px 8px;">
+          <strong>Warranty</strong><br/>
+          The Contractor shall provide a one (1) year warranty on workmanship from the date of project
+          acceptance, excluding damage caused by force majeure, misuse, or third-party modifications.
+        </td>
+      </tr>
+      <tr>
+        <td style="padding: 3px 8px; font-weight: bold; vertical-align: top; color: #1B2E4A;">7.</td>
+        <td style="padding: 3px 8px;">
+          <strong>Exclusions</strong><br/>
+          Unless otherwise stated, this proposal excludes: government permits and fees,
+          utility connection charges, land development and clearing not specified in the scope,
+          and any work arising from unforeseen site conditions (e.g., hard rock, high water table).
+        </td>
+      </tr>
+      <tr>
+        <td style="padding: 3px 8px; font-weight: bold; vertical-align: top; color: #1B2E4A;">8.</td>
+        <td style="padding: 3px 8px;">
+          <strong>Force Majeure</strong><br/>
+          Neither party shall be liable for delays caused by events beyond reasonable control,
+          including but not limited to natural disasters, epidemics, government orders, and armed conflict.
+        </td>
+      </tr>
+      <tr>
+        <td style="padding: 3px 8px; font-weight: bold; vertical-align: top; color: #1B2E4A;">9.</td>
+        <td style="padding: 3px 8px;">
+          <strong>Dispute Resolution</strong><br/>
+          Any dispute arising from this proposal or subsequent contract shall be settled amicably.
+          If unresolved, disputes shall be referred to arbitration in accordance with Philippine law.
+        </td>
+      </tr>
+    </table>
+  </div>
+
+  {# Acceptance block #}
+  <div style="margin-top: 8mm; border-top: 2px solid #1B2E4A; padding-top: 6mm;">
+    <div style="font-size: 8.5pt; font-style: italic; color: #555555; margin-bottom: 6mm;">
+      Conforme: By signing below, the Client acknowledges and accepts the terms, conditions, and pricing
+      set forth in this Cost Proposal.
+    </div>
+    <table style="width: 100%; border-collapse: collapse;">
+      <tr>
+        <td style="width: 50%; text-align: center; padding: 0 8mm; vertical-align: top;">
+          <div style="font-size: 7.5pt; font-weight: bold; color: #1B2E4A; letter-spacing: 1px; text-transform: uppercase; margin-bottom: 12mm;">For the Contractor</div>
+          <div style="border-bottom: 1px solid #1B2E4A; margin: 0 4mm 2mm 4mm;">&nbsp;</div>
+          <div style="font-size: 8.5pt; color: #2D3142; font-weight: bold;">SolidWurth Corp.</div>
+          <div style="font-size: 7.5pt; color: #555555;">Authorized Representative</div>
+        </td>
+        <td style="width: 50%; text-align: center; padding: 0 8mm; vertical-align: top;">
+          <div style="font-size: 7.5pt; font-weight: bold; color: #1B2E4A; letter-spacing: 1px; text-transform: uppercase; margin-bottom: 12mm;">For the Client</div>
+          <div style="border-bottom: 1px solid #1B2E4A; margin: 0 4mm 2mm 4mm;">&nbsp;</div>
+          <div style="font-size: 8.5pt; color: #2D3142; font-weight: bold;">{{ doc.client or "________________" }}</div>
+          <div style="font-size: 7.5pt; color: #555555;">Authorized Representative</div>
+        </td>
+      </tr>
+    </table>
+  </div>
+
+</div>{# end T&C page #}

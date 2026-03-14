@@ -10,6 +10,71 @@ Registered in hooks.py:
 
 import os
 import base64
+import math
+
+
+# ---------------------------------------------------------------------------
+# Amount in Words (Philippine peso format)
+# ---------------------------------------------------------------------------
+
+def amount_in_words(amount):
+    """Convert numeric amount to words in Philippine peso format.
+
+    E.g. 642390.00 → "Six Hundred Forty-Two Thousand Three Hundred Ninety Pesos and 00/100"
+
+    Args:
+        amount: Numeric value
+    Returns:
+        str: Amount spelled out in words
+    """
+    try:
+        value = float(amount or 0)
+    except (TypeError, ValueError):
+        return ""
+
+    if value < 0:
+        return "Negative " + amount_in_words(-value)
+
+    pesos = int(math.floor(value))
+    centavos = int(round((value - pesos) * 100))
+
+    if pesos == 0:
+        words = "Zero"
+    else:
+        words = _int_to_words(pesos)
+
+    return "{} Pesos and {:02d}/100".format(words, centavos)
+
+
+def _int_to_words(n):
+    """Convert a non-negative integer to English words (up to trillions)."""
+    if n == 0:
+        return "Zero"
+
+    ones = ["", "One", "Two", "Three", "Four", "Five", "Six", "Seven",
+            "Eight", "Nine", "Ten", "Eleven", "Twelve", "Thirteen",
+            "Fourteen", "Fifteen", "Sixteen", "Seventeen", "Eighteen", "Nineteen"]
+    tens = ["", "", "Twenty", "Thirty", "Forty", "Fifty",
+            "Sixty", "Seventy", "Eighty", "Ninety"]
+    scales = [(1_000_000_000_000, "Trillion"), (1_000_000_000, "Billion"),
+              (1_000_000, "Million"), (1_000, "Thousand"), (100, "Hundred")]
+
+    parts = []
+    for scale_val, scale_name in scales:
+        if n >= scale_val:
+            chunk = n // scale_val
+            n %= scale_val
+            parts.append("{} {}".format(_int_to_words(chunk), scale_name))
+
+    if n >= 20:
+        part = tens[n // 10]
+        if n % 10:
+            part += "-" + ones[n % 10]
+        parts.append(part)
+    elif n > 0:
+        parts.append(ones[n])
+
+    return " ".join(parts)
 
 
 # ---------------------------------------------------------------------------
@@ -221,7 +286,7 @@ def render_waterfall_block(direct_cost, ocm_percent, profit_percent, vat_inclusi
         ).format(label=label, letter=letter, amount=php_format(amount), pct=pct_str, style=style)
 
     rows_html += _row("Direct Cost", "G", dc)
-    rows_html += _row("OCM", "H", ocm, pct_str="{:.2f}%".format(ocm_pct))
+    rows_html += _row("Overhead, Contingencies &amp; Misc.", "H", ocm, pct_str="{:.2f}%".format(ocm_pct))
     rows_html += _row("Profit", "I", profit, pct_str="{:.2f}%".format(profit_pct))
     if vat_inclusive:
         rows_html += _row("VAT", "J", vat, pct_str="{:.2f}%".format(vat_pct))
@@ -276,11 +341,13 @@ def render_labor_table(labor_rows, duration_days):
     ).format(h=header_style, hr=header_right)
 
     rows_html = ""
+    labor_total = 0
     for i, row in enumerate(labor_rows or []):
         bg = "#F4F6F9" if i % 2 == 0 else "#ffffff"
         row_style = 'style="background-color: {bg};"'.format(bg=bg)
         td = 'style="padding: 5px 8px;"'
         td_right = 'style="padding: 5px 8px; text-align: right; font-family: \'Roboto Mono\', monospace;"'
+        labor_total += float(row.get("total_cost", 0) or 0)
         rows_html += (
             "<tr {row}>"
             "<td {td}>{role}</td>"
@@ -299,6 +366,14 @@ def render_labor_table(labor_rows, duration_days):
             total_rate=php_format(row.get("total_rate", 0)),
             total_cost=php_format(row.get("total_cost", 0)),
         )
+
+    # Subtotal row
+    rows_html += (
+        '<tr style="border-top: 2px solid #2E5FA3; background-color: #dde4f0;">'
+        '<td colspan="4" style="padding: 5px 8px; font-weight: bold; text-align: right;">Labor Subtotal</td>'
+        '<td style="padding: 5px 8px; text-align: right; font-family: \'Roboto Mono\', monospace; font-weight: bold;">{total}</td>'
+        '</tr>'
+    ).format(total=php_format(labor_total))
 
     table_html = (
         '<table class="dlia-table" style="width: 100%; border-collapse: collapse; font-size: 0.9em;">'
@@ -344,11 +419,13 @@ def render_equipment_table(equipment_rows, duration_days):
     ).format(h=header_style, hr=header_right)
 
     rows_html = ""
+    equip_total = 0
     for i, row in enumerate(equipment_rows or []):
         bg = "#F4F6F9" if i % 2 == 0 else "#ffffff"
         row_style = 'style="background-color: {bg};"'.format(bg=bg)
         td = 'style="padding: 5px 8px;"'
         td_right = 'style="padding: 5px 8px; text-align: right; font-family: \'Roboto Mono\', monospace;"'
+        equip_total += float(row.get("total_cost", 0) or 0)
         rows_html += (
             "<tr {row}>"
             "<td {td}>{item_code}</td>"
@@ -369,6 +446,14 @@ def render_equipment_table(equipment_rows, duration_days):
             total_rate=php_format(row.get("total_rate", 0)),
             total_cost=php_format(row.get("total_cost", 0)),
         )
+
+    # Subtotal row
+    rows_html += (
+        '<tr style="border-top: 2px solid #2E5FA3; background-color: #dde4f0;">'
+        '<td colspan="5" style="padding: 5px 8px; font-weight: bold; text-align: right;">Equipment Subtotal</td>'
+        '<td style="padding: 5px 8px; text-align: right; font-family: \'Roboto Mono\', monospace; font-weight: bold;">{total}</td>'
+        '</tr>'
+    ).format(total=php_format(equip_total))
 
     table_html = (
         '<table class="dlia-table" style="width: 100%; border-collapse: collapse; font-size: 0.9em; table-layout: fixed;">'
@@ -427,6 +512,7 @@ def render_material_table(material_rows, wbs_prefix=""):
     ).format(h=header_style, hr=header_right, hc=header_center)
 
     rows_html = ""
+    mat_total = 0
     for i, row in enumerate(material_rows or []):
         bg = "#F4F6F9" if i % 2 == 0 else "#ffffff"
         row_style = 'style="background-color: {bg};"'.format(bg=bg)
@@ -438,6 +524,12 @@ def render_material_table(material_rows, wbs_prefix=""):
         # WBS item number: "A.1.1" or fallback to "1"
         item_num = "{}.{}".format(wbs_prefix, i + 1) if wbs_prefix else str(i + 1)
 
+        # Zero rate with nonzero amount = lump sum → show "—" instead of "PHP 0.00"
+        rate_val = float(row.get("buying_rate", 0) or 0)
+        amt_val = float(row.get("amount", 0) or 0)
+        rate_display = "&mdash;" if rate_val == 0 and amt_val != 0 else php_format(rate_val)
+
+        mat_total += amt_val
         rows_html += (
             "<tr {row}>"
             "<td {tdc}>{row_num}</td>"
@@ -456,8 +548,8 @@ def render_material_table(material_rows, wbs_prefix=""):
             item_name=row.get("item_name", ""),
             adjusted_qty=num_format(row.get("adjusted_qty", 0)),
             uom=row.get("uom", ""),
-            buying_rate=php_format(row.get("buying_rate", 0)),
-            amount=php_format(row.get("amount", 0)),
+            buying_rate=rate_display,
+            amount=php_format(amt_val),
         )
 
         # Description sub-row — skips No. column, indented under Material Name
@@ -466,12 +558,20 @@ def render_material_table(material_rows, wbs_prefix=""):
             rows_html += (
                 '<tr style="background-color: {bg};">'
                 '<td style="border-top: none;"></td>'
-                '<td colspan="5" style="padding: 2px 8px 8px 20px; font-size: 7.5pt; color: #555555; '
-                'border-top: none; line-height: 1.5; font-weight: 400;">'
+                '<td colspan="5" style="padding: 2px 8px 6px 20px; font-size: 7.5pt; color: #555555; '
+                'border-top: none; line-height: 1.4; font-weight: 400;">'
                 '{desc}'
                 '</td>'
                 '</tr>'
             ).format(bg=bg, desc=desc)
+
+    # Subtotal row
+    rows_html += (
+        '<tr style="border-top: 2px solid #2E5FA3; background-color: #dde4f0;">'
+        '<td colspan="5" style="padding: 5px 8px; font-weight: bold; text-align: right;">Materials Subtotal</td>'
+        '<td style="padding: 5px 8px; text-align: right; font-family: \'Roboto Mono\', monospace; font-weight: bold;">{total}</td>'
+        '</tr>'
+    ).format(total=php_format(mat_total))
 
     table_html = (
         '<table class="dlia-table" style="width: 100%; border-collapse: collapse; font-size: 0.9em; table-layout: fixed;">'
