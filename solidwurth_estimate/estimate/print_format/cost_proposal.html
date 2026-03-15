@@ -679,3 +679,138 @@
   </div>
 
 </div>{# end T&C page #}
+
+{# =====================================================================
+   PAYMENT TERMS PAGE — matches Excel proposal template pattern
+   Shows: per-scope-group rows with milestone sub-rows, summary totals,
+   bank details, mobilization notice.
+   Only renders if doc.payment_terms is non-empty.
+===================================================================== #}
+{%- if doc.payment_terms %}
+<div style="page-break-before: always;"></div>
+
+<!-- Payment Terms Page Header -->
+<table style="width: 100%; border-collapse: collapse; margin-bottom: 16px;">
+  <tr>
+    <td style="font-family: 'Montserrat', 'Segoe UI', Arial, sans-serif; font-size: 13pt; font-weight: 700; color: #A52422; padding-bottom: 4px;">
+      PAYMENT TERMS
+    </td>
+    <td style="text-align: right; font-size: 8pt; color: #666666; vertical-align: bottom;">
+      {{ doc.name }} &mdash; {{ doc.estimate_title }}
+    </td>
+  </tr>
+  <tr>
+    <td colspan="2" style="height: 3px; background-color: #A52422;"></td>
+  </tr>
+</table>
+
+<!-- Payment Schedule Table -->
+{%- set ns = namespace(current_group=None, group_subtotal=0, grand_pct=0, grand_amt=0) %}
+<table style="width: 100%; border-collapse: collapse; font-size: 9pt; margin-bottom: 20px;">
+  <thead>
+    <tr style="background-color: #3B5998; color: #ffffff;">
+      <th style="padding: 6px 8px; text-align: left; width: 30%;">Scope Group</th>
+      <th style="padding: 6px 8px; text-align: left; width: 35%;">Payment Milestone</th>
+      <th style="padding: 6px 8px; text-align: center; width: 12%;">%</th>
+      <th style="padding: 6px 8px; text-align: right; width: 23%;">Amount (PHP)</th>
+    </tr>
+  </thead>
+  <tbody>
+    {%- for term in doc.payment_terms %}
+      {%- set grp = (term.scope_group or '') | trim %}
+      {# Group header row — only when scope_group changes #}
+      {%- if grp != ns.current_group %}
+        {%- if ns.current_group is not none %}
+          {# Subtotal row for previous group #}
+          <tr style="background-color: #dde4f0; border-top: 1px solid #3B5998;">
+            <td colspan="2" style="padding: 4px 8px; font-weight: bold; text-align: right; font-size: 8.5pt;">Subtotal &mdash; {{ ns.current_group or 'General' }}</td>
+            <td style="padding: 4px 8px; text-align: center; font-size: 8.5pt; font-weight: bold;">{{ "%.1f" | format(ns.group_subtotal) }}%</td>
+            <td style="padding: 4px 8px; text-align: right; font-family: 'Roboto Mono', monospace; font-weight: bold; font-size: 8.5pt;"></td>
+          </tr>
+        {%- endif %}
+        {%- set ns.current_group = grp %}
+        {%- set ns.group_subtotal = 0 %}
+        <tr style="background-color: #f0f4f8;">
+          <td colspan="4" style="padding: 5px 8px; font-weight: 700; font-size: 9pt; color: #2D3142; border-top: 2px solid #A52422;">
+            {{ grp if grp else 'General' }}
+          </td>
+        </tr>
+      {%- endif %}
+      {# Milestone sub-row #}
+      <tr style="border-bottom: 1px solid #e8e8e8;">
+        <td style="padding: 4px 8px 4px 20px; font-size: 8.5pt; color: #555555;"></td>
+        <td style="padding: 4px 8px; font-size: 8.5pt;">{{ term.milestone_label }}</td>
+        <td style="padding: 4px 8px; text-align: center; font-size: 8.5pt;">{{ "%.1f" | format(term.percentage or 0) }}%</td>
+        <td style="padding: 4px 8px; text-align: right; font-family: 'Roboto Mono', monospace; font-size: 8.5pt;">{{ methods.php_format(term.amount) }}</td>
+      </tr>
+      {%- set ns.group_subtotal = ns.group_subtotal + (term.percentage or 0) %}
+      {%- set ns.grand_pct = ns.grand_pct + (term.percentage or 0) %}
+      {%- set ns.grand_amt = ns.grand_amt + (term.amount or 0) %}
+    {%- endfor %}
+    {# Final group subtotal row #}
+    {%- if ns.current_group is not none %}
+    <tr style="background-color: #dde4f0; border-top: 1px solid #3B5998;">
+      <td colspan="2" style="padding: 4px 8px; font-weight: bold; text-align: right; font-size: 8.5pt;">Subtotal &mdash; {{ ns.current_group or 'General' }}</td>
+      <td style="padding: 4px 8px; text-align: center; font-size: 8.5pt; font-weight: bold;">{{ "%.1f" | format(ns.group_subtotal) }}%</td>
+      <td style="padding: 4px 8px; text-align: right; font-family: 'Roboto Mono', monospace; font-weight: bold; font-size: 8.5pt;"></td>
+    </tr>
+    {%- endif %}
+    {# Grand total summary row #}
+    <tr style="background-color: #A52422; color: #ffffff;">
+      <td colspan="2" style="padding: 6px 8px; font-weight: bold; font-size: 9.5pt;">TOTAL CONTRACT AMOUNT</td>
+      <td style="padding: 6px 8px; text-align: center; font-weight: bold; font-size: 9.5pt;">{{ "%.1f" | format(ns.grand_pct) }}%</td>
+      <td style="padding: 6px 8px; text-align: right; font-family: 'Roboto Mono', monospace; font-weight: bold; font-size: 9.5pt;">{{ methods.php_format(ns.grand_amt) }}</td>
+    </tr>
+  </tbody>
+</table>
+
+<!-- Bank Details -->
+{%- if doc.bank_name or doc.account_number %}
+<table style="width: 100%; border-collapse: collapse; margin-bottom: 16px;">
+  <tr>
+    <td style="font-family: 'Montserrat', 'Segoe UI', Arial, sans-serif; font-size: 10pt; font-weight: 700; color: #2D3142; padding-bottom: 6px;">
+      REMITTANCE DETAILS
+    </td>
+  </tr>
+  <tr>
+    <td style="height: 2px; background-color: #3B5998; padding-bottom: 10px;"></td>
+  </tr>
+</table>
+<table style="width: 55%; border-collapse: collapse; font-size: 9pt; margin-bottom: 20px;">
+  {%- if doc.bank_name %}
+  <tr>
+    <td style="padding: 4px 8px; color: #666666; width: 40%;">Bank</td>
+    <td style="padding: 4px 8px; font-weight: 600;">{{ doc.bank_name }}</td>
+  </tr>
+  {%- endif %}
+  {%- if doc.bank_branch %}
+  <tr>
+    <td style="padding: 4px 8px; color: #666666;">Branch</td>
+    <td style="padding: 4px 8px; font-weight: 600;">{{ doc.bank_branch }}</td>
+  </tr>
+  {%- endif %}
+  {%- if doc.account_name %}
+  <tr>
+    <td style="padding: 4px 8px; color: #666666;">Account Name</td>
+    <td style="padding: 4px 8px; font-weight: 600;">{{ doc.account_name }}</td>
+  </tr>
+  {%- endif %}
+  {%- if doc.account_number %}
+  <tr style="background-color: #f0f4f8;">
+    <td style="padding: 4px 8px; color: #666666;">Account Number</td>
+    <td style="padding: 4px 8px; font-weight: 700; font-size: 10pt; letter-spacing: 1px;">{{ doc.account_number }}</td>
+  </tr>
+  {%- endif %}
+</table>
+{%- endif %}
+
+<!-- Mobilization Notice -->
+<table style="width: 100%; border-collapse: collapse; background-color: #fff8e1; border: 1px solid #f5c842;">
+  <tr>
+    <td style="padding: 10px 14px; font-size: 8.5pt; color: #5a4a00; line-height: 1.5;">
+      <strong>MOBILIZATION NOTICE:</strong> Works shall commence within seven (7) calendar days from receipt of the Downpayment / Mobilization Fee.
+      All payments are subject to applicable taxes. Please issue checks payable to <strong>SolidWurth Corp.</strong>
+    </td>
+  </tr>
+</table>
+{%- endif %}
