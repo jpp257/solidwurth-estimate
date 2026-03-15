@@ -1,0 +1,58 @@
+{
+ "actions": [],
+ "creation": "2026-03-11 00:00:00.000000",
+ "docstatus": 0,
+ "doctype": "DocType",
+ "editable_grid": 1,
+ "engine": "InnoDB",
+ "field_order": [
+  "scope_group",
+  "milestone_label",
+  "percentage",
+  "amount"
+ ],
+ "fields": [
+  {
+   "description": "Must match a scope_group value on Estimate Scope records linked to this Estimate",
+   "fieldname": "scope_group",
+   "fieldtype": "Data",
+   "in_list_view": 1,
+   "label": "Scope Group"
+  },
+  {
+   "description": "Free text e.g. Downpayment, Before Delivery, Upon Completion",
+   "fieldname": "milestone_label",
+   "fieldtype": "Data",
+   "in_list_view": 1,
+   "label": "Milestone",
+   "reqd": 1
+  },
+  {
+   "fieldname": "percentage",
+   "fieldtype": "Percent",
+   "in_list_view": 1,
+   "label": "Percentage (%)",
+   "reqd": 1
+  },
+  {
+   "description": "Auto-computed: scope group waterfall grand_total \u00d7 percentage",
+   "fieldname": "amount",
+   "fieldtype": "Currency",
+   "in_list_view": 1,
+   "label": "Amount (\u20b1)",
+   "read_only": 1
+  }
+ ],
+ "istable": 1,
+ "links": [],
+ "modified": "2026-03-11 00:00:00.000000",
+ "modified_by": "Administrator",
+ "module": "Estimate",
+ "name": "Estimate Payment Term",
+ "owner": "Administrator",
+ "permissions": [],
+ "quick_entry": 1,
+ "sort_field": "creation",
+ "sort_order": "DESC",
+ "track_changes": 0
+}
