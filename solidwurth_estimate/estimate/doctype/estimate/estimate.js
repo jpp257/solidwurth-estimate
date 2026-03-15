@@ -32,6 +32,15 @@ frappe.ui.form.on("Estimate", {
     bp_profit_percent(frm) { calculate_bp_totals(frm); },
 
     /**
+     * NOTE: Payment Terms amounts are server-computed (read_only field).
+     * Amounts are calculated in estimate.py _calculate_payment_amounts() on each Estimate save.
+     * The amount column is read_only — no client-side calculation is needed or correct here.
+     * Server-only is the right pattern because scope group totals come from a DB query
+     * (tabEstimate Scope), not from child table rows accessible in browser memory.
+     * Do NOT add field_change handlers for the payment_terms.amount column.
+     */
+
+    /**
      * Auto-populate terms from selected template.
      * User can still edit the terms field after — it's per-estimate.
      */

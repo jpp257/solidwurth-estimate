@@ -51,6 +51,7 @@ class Estimate(Document):
         """
         self._validate_status_transition()
         self._calculate_totals()
+        self._calculate_payment_amounts()
 
 
     def _validate_status_transition(self):
@@ -112,6 +113,47 @@ class Estimate(Document):
         _, _, _, _, base_grand = waterfall(base_direct)
         self.base_direct_cost = base_direct
         self.base_grand_total = base_grand
+
+    def _calculate_payment_amounts(self):
+        """
+        Compute amount for each payment term row based on scope group grand total x percentage.
+
+        Per scope group (not per individual item).
+        amount = scope_group_grand_total x (percentage / 100)
+
+        Scope group grand total = waterfall applied to sum of direct_costs for that group.
+        If scope_group is blank/missing in a term row, uses overall estimate grand_total.
+        """
+        if not self.payment_terms:
+            return
+
+        # Build scope group -> direct_cost map
+        group_rows = frappe.db.sql("""
+            SELECT scope_group, SUM(direct_cost) as group_dc
+            FROM `tabEstimate Scope`
+            WHERE estimate = %s
+            GROUP BY scope_group
+        """, self.name, as_dict=True)
+
+        group_dc_map = {r.scope_group: flt(r.group_dc) for r in group_rows}
+
+        def group_grand_total(group_dc):
+            """Apply waterfall to a group's direct cost (same formula as _calculate_totals)."""
+            ocm = flt(group_dc * flt(self.ocm_percent) / 100, 2)
+            profit = flt((group_dc + ocm) * flt(self.profit_percent) / 100, 2)
+            sub = flt(group_dc + ocm + profit, 2)
+            vat = flt(sub * flt(self.vat_percent) / 100, 2) if self.vat_inclusive else 0.0
+            return flt(sub + vat, 2)
+
+        for term in self.payment_terms:
+            grp = (term.scope_group or "").strip()
+            if grp and grp in group_dc_map:
+                base = group_grand_total(group_dc_map[grp])
+            else:
+                # Blank scope_group or unmatched — use overall grand_total
+                base = flt(self.grand_total, 2)
+
+            term.amount = flt(base * flt(term.percentage) / 100, 2)
 
 
 @frappe.whitelist()
