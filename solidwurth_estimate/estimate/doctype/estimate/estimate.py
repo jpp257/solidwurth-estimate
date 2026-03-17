@@ -264,3 +264,62 @@ def create_scopes_from_templates(estimate, template_names, scope_group):
         created_scopes.append(scope_name)
 
     return created_scopes
+
+
+@frappe.whitelist()
+def convert_to_project(estimate_name):
+    """
+    Atomically convert an Approved Estimate into an ERPNext Project.
+
+    Creates the Project, sets bidirectional link, and transitions Estimate to Converted.
+    All within one HTTP request = one DB transaction (auto-rollback on any exception). D18.
+
+    IMPORTANT: Uses frappe.db.set_value (not estimate.save) to update Estimate fields.
+    Reason: _enforce_locked_states() in validate() blocks saves on Approved estimates.
+    frappe.db.set_value bypasses validate() entirely. D11 / Pitfall 3 from RESEARCH.md.
+
+    IMPORTANT: Sets status = "Converted" via db.set_value directly (not apply_workflow).
+    Reason: "Convert to Project" is not a workflow transition (D19 resolution, Pitfall 5).
+
+    Args:
+        estimate_name (str): Name of the Estimate to convert (e.g. "EST-26-0001")
+
+    Returns:
+        dict: {project_name: str, project_url: str}
+    """
+    estimate = frappe.get_doc("Estimate", estimate_name)
+
+    # Guard: must be in Approved state
+    if estimate.status != "Approved":
+        frappe.throw(
+            f"Estimate must be in 'Approved' state before conversion. "
+            f"Current state: {estimate.status}."
+        )
+
+    # Guard: no double-conversion (D14)
+    if estimate.project:
+        frappe.throw(
+            f"Estimate {estimate_name} is already linked to Project {estimate.project}. "
+            "A new Estimate is required for a new Project."
+        )
+
+    # Create Project (D3: minimal data transfer)
+    project = frappe.new_doc("Project")
+    project.project_name = estimate.estimate_title
+    project.estimated_costing = estimate.grand_total
+    project.company = "SolidWurth Corp."
+    project.custom_estimate = estimate_name
+    project.insert(ignore_permissions=False)
+
+    # Set bidirectional link: Estimate.project -> new Project (D5)
+    # Use db.set_value to bypass validate() which throws on locked Approved state
+    frappe.db.set_value("Estimate", estimate_name, "project", project.name)
+
+    # Transition Estimate to Converted state (D8, D11)
+    # Direct db.set_value on status — "Convert to Project" is not a workflow transition
+    frappe.db.set_value("Estimate", estimate_name, "status", "Converted")
+
+    return {
+        "project_name": project.name,
+        "project_url": f"/app/project/{project.name}"
+    }
