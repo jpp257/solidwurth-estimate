@@ -741,7 +741,7 @@
         <td style="padding: 4px 8px 4px 20px; font-size: 8.5pt; color: #555555;"></td>
         <td style="padding: 4px 8px; font-size: 8.5pt;">{{ term.milestone_label }}</td>
         <td style="padding: 4px 8px; text-align: center; font-size: 8.5pt;">{{ "%.1f" | format(term.percentage or 0) }}%</td>
-        <td style="padding: 4px 8px; text-align: right; font-family: 'Roboto Mono', monospace; font-size: 8.5pt;">{{ methods.php_format(term.amount) }}</td>
+        <td style="padding: 4px 8px; text-align: right; font-family: 'Roboto Mono', monospace; font-size: 8.5pt;">{{ php_format(term.amount) }}</td>
       </tr>
       {%- set ns.group_subtotal = ns.group_subtotal + (term.percentage or 0) %}
       {%- set ns.grand_pct = ns.grand_pct + (term.percentage or 0) %}
@@ -759,7 +759,7 @@
     <tr style="background-color: #A52422; color: #ffffff;">
       <td colspan="2" style="padding: 6px 8px; font-weight: bold; font-size: 9.5pt;">TOTAL CONTRACT AMOUNT</td>
       <td style="padding: 6px 8px; text-align: center; font-weight: bold; font-size: 9.5pt;">{{ "%.1f" | format(ns.grand_pct) }}%</td>
-      <td style="padding: 6px 8px; text-align: right; font-family: 'Roboto Mono', monospace; font-weight: bold; font-size: 9.5pt;">{{ methods.php_format(ns.grand_amt) }}</td>
+      <td style="padding: 6px 8px; text-align: right; font-family: 'Roboto Mono', monospace; font-weight: bold; font-size: 9.5pt;">{{ php_format(ns.grand_amt) }}</td>
     </tr>
   </tbody>
 </table>
