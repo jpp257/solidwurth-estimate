@@ -1,0 +1,73 @@
+[
+  {
+    "doctype": "Workflow",
+    "workflow_name": "Estimate Approval",
+    "document_type": "Estimate",
+    "is_active": 1,
+    "override_status": 0,
+    "send_email_alert": 0,
+    "workflow_state_field": "status",
+    "states": [
+      {
+        "state": "Draft",
+        "doc_status": "0",
+        "allow_edit": "Estimate Manager",
+        "is_optional_state": 0
+      },
+      {
+        "state": "Under Review",
+        "doc_status": "0",
+        "allow_edit": "System Manager",
+        "is_optional_state": 0
+      },
+      {
+        "state": "Approved",
+        "doc_status": "0",
+        "allow_edit": "",
+        "is_optional_state": 0
+      },
+      {
+        "state": "Rejected",
+        "doc_status": "0",
+        "allow_edit": "Estimate Manager",
+        "is_optional_state": 0
+      },
+      {
+        "state": "Converted",
+        "doc_status": "0",
+        "allow_edit": "",
+        "is_optional_state": 0
+      }
+    ],
+    "transitions": [
+      {
+        "state": "Draft",
+        "action": "Submit for Review",
+        "next_state": "Under Review",
+        "allowed": "Estimate Manager",
+        "allow_self_approval": 0
+      },
+      {
+        "state": "Under Review",
+        "action": "Approve",
+        "next_state": "Approved",
+        "allowed": "System Manager",
+        "allow_self_approval": 1
+      },
+      {
+        "state": "Under Review",
+        "action": "Reject",
+        "next_state": "Rejected",
+        "allowed": "System Manager",
+        "allow_self_approval": 1
+      },
+      {
+        "state": "Rejected",
+        "action": "Revise",
+        "next_state": "Draft",
+        "allowed": "Estimate Manager",
+        "allow_self_approval": 0
+      }
+    ]
+  }
+]

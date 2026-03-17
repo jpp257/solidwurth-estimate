@@ -24,5 +24,20 @@
     "description": "Auto-filled on Estimate Scope material rows via fetch_from. Adjust per item type (e.g. 5% for rebar, 10% for lumber).",
     "module": "Estimate",
     "modified": "2026-03-11 00:00:00.000000"
+  },
+  {
+    "doctype": "Custom Field",
+    "name": "Project-custom_estimate",
+    "dt": "Project",
+    "label": "Estimate",
+    "fieldname": "custom_estimate",
+    "fieldtype": "Link",
+    "options": "Estimate",
+    "insert_after": "estimated_costing",
+    "read_only": 1,
+    "in_list_view": 0,
+    "description": "The Estimate this Project was created from. Set automatically on conversion.",
+    "module": "Estimate",
+    "modified": "2026-03-17 00:00:00.000000"
   }
 ]
