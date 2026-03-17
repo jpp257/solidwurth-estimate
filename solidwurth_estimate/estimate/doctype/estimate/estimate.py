@@ -267,6 +267,26 @@ def create_scopes_from_templates(estimate, template_names, scope_group):
 
 
 @frappe.whitelist()
+def force_delete_estimate(estimate_name):
+    """Temporary cleanup method: delete an Estimate regardless of workflow state.
+    Uses frappe.db.set_value to bypass _enforce_locked_states validation.
+    TODO: Remove after test data cleanup is complete.
+    """
+    frappe.only_for("System Manager")
+    est = frappe.get_doc("Estimate", estimate_name)
+    # Clear project link via db.set_value (bypasses validate)
+    if est.project:
+        frappe.db.set_value("Estimate", estimate_name, "project", "")
+    # Reset status to Draft so on_trash can run normally
+    frappe.db.set_value("Estimate", estimate_name, "status", "Draft")
+    frappe.db.set_value("Estimate", estimate_name, "workflow_state", "Draft")
+    frappe.db.commit()
+    # Now delete normally (triggers on_trash cascade)
+    frappe.delete_doc("Estimate", estimate_name, force=True)
+    return "ok"
+
+
+@frappe.whitelist()
 def convert_to_project(estimate_name):
     """
     Atomically convert an Approved Estimate into an ERPNext Project.
