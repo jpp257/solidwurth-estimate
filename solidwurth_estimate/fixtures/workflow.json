@@ -1,6 +1,7 @@
 [
   {
     "doctype": "Workflow",
+    "name": "Estimate Approval",
     "workflow_name": "Estimate Approval",
     "document_type": "Estimate",
     "is_active": 1,
@@ -23,7 +24,7 @@
       {
         "state": "Approved",
         "doc_status": "0",
-        "allow_edit": "",
+        "allow_edit": "System Manager",
         "is_optional_state": 0
       },
       {
@@ -35,7 +36,7 @@
       {
         "state": "Converted",
         "doc_status": "0",
-        "allow_edit": "",
+        "allow_edit": "System Manager",
         "is_optional_state": 0
       }
     ],

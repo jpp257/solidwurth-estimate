@@ -1,26 +1,31 @@
 [
   {
     "doctype": "Workflow State",
+    "name": "Draft",
     "workflow_state_name": "Draft",
     "style": ""
   },
   {
     "doctype": "Workflow State",
+    "name": "Under Review",
     "workflow_state_name": "Under Review",
     "style": "Warning"
   },
   {
     "doctype": "Workflow State",
+    "name": "Approved",
     "workflow_state_name": "Approved",
     "style": "Success"
   },
   {
     "doctype": "Workflow State",
+    "name": "Rejected",
     "workflow_state_name": "Rejected",
     "style": "Danger"
   },
   {
     "doctype": "Workflow State",
+    "name": "Converted",
     "workflow_state_name": "Converted",
     "style": "Primary"
   }
