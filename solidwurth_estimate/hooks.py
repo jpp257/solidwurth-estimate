@@ -255,6 +255,16 @@ fixtures = [
     {"dt": "Price List", "filters": [["name", "=", "Estimate Selling"]]},
     {"dt": "Custom Field", "filters": [["module", "=", "Estimate"]]},
     {"dt": "Role", "filters": [["name", "in", ["Estimate Manager", "Estimate User"]]]},
-    {"dt": "Print Format", "filters": [["name", "in", ["Cost Proposal", "Cost Proposal (BP)", "Cost Proposal - Long", "Cost Proposal (BP) - Long"]]]}
+    {"dt": "Print Format", "filters": [["name", "in", ["Cost Proposal", "Cost Proposal (BP)", "Cost Proposal - Long", "Cost Proposal (BP) - Long"]]]},
+    # Phase 14: Workflow fixtures
+    {"dt": "Workflow", "filters": [["document_type", "=", "Estimate"]]},  # CRITICAL: document_type not dt
+    {"dt": "Workflow State", "filters": [["workflow_state_name", "in", ["Draft", "Under Review", "Approved", "Rejected", "Converted"]]]},
+    {"dt": "Workflow Action Master", "filters": [["workflow_action_name", "in", ["Submit for Review", "Approve", "Reject", "Revise"]]]},
 ]
+
+doc_events = {
+    "Project": {
+        "before_delete": "solidwurth_estimate.controllers.project_events.before_delete_project"
+    }
+}
 
