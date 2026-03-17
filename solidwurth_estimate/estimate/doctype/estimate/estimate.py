@@ -17,16 +17,13 @@ class Estimate(Document):
     - on_trash: cascade delete all linked Estimate Scopes
     - validate: enforce valid status transitions
     - (Phase 12 will add calculate() and beforeSave total computation)
-    """
 
-    # Valid status transitions (D30 from CONTEXT.md)
-    VALID_TRANSITIONS = {
-        "Draft": ["Under Review"],
-        "Under Review": ["Approved", "Rejected"],
-        "Rejected": ["Draft"],
-        "Approved": ["Converted"],
-        "Converted": [],
-    }
+    Phase 14 changes:
+    - status transitions removed — Frappe Workflow handles state validation
+    - status transition method removed — replaced by Frappe Workflow engine
+    - _enforce_locked_states() added — blocks field edits on Approved/Converted
+    - on_update() added — auto-increments revision on Rejected->Draft transition
+    """
 
     def on_trash(self):
         """
@@ -44,38 +41,48 @@ class Estimate(Document):
 
     def validate(self):
         """
-        Enforce valid status transitions and compute waterfall totals.
-        D30 from CONTEXT.md: Invalid transitions throw error.
+        Enforce locked-state guard and compute waterfall totals.
         D9/D10/D11: Dual waterfall — all scopes and non-optional scopes.
-        Phase 14 replaces status transitions with Frappe native Workflow.
+        Phase 14: status transition check removed — Frappe Workflow handles state validation.
         """
-        self._validate_status_transition()
+        # Phase 14: status transition check removed — Frappe Workflow handles state validation
+        self._enforce_locked_states()   # D11, D12: block edits on Approved/Converted
         self._calculate_totals()
         self._calculate_payment_amounts()
 
-
-    def _validate_status_transition(self):
-        """Enforce valid status transitions (D30). Extracted from original validate."""
+    def _enforce_locked_states(self):
+        """Block any field edits when Estimate is Approved or Converted. D11, D12.
+        Uses DB comparison to distinguish workflow transitions (allowed) from field edits (blocked).
+        Pitfall 3 from RESEARCH.md: only throw if workflow_state has NOT changed (i.e. not a transition).
+        """
         if self.is_new():
             return
-
-        previous_status = frappe.db.get_value("Estimate", self.name, "status")
-
-        if previous_status is None:
-            # Document not yet in DB (shouldn't happen after is_new() check, but guard anyway)
+        locked_states = {"Approved", "Converted"}
+        if self.status not in locked_states:
             return
-
-        if previous_status == self.status:
-            # No status change — nothing to validate
-            return
-
-        allowed = self.VALID_TRANSITIONS.get(previous_status, [])
-        if self.status not in allowed:
-            allowed_str = ", ".join(allowed) if allowed else "none"
+        previous = frappe.db.get_value(
+            "Estimate", self.name,
+            ["status"],
+            as_dict=True
+        )
+        if previous and previous.status == self.status:
+            # status unchanged — someone is editing a field on a locked document
             frappe.throw(
-                f"Cannot transition Estimate from '{previous_status}' to '{self.status}'. "
-                f"Allowed next status: {allowed_str}."
+                f"Estimate is {self.status} and cannot be edited. "
+                "To make changes, ask the CEO to reject and revise."
             )
+
+    def on_update(self):
+        """Detect Rejected -> Draft transition and auto-increment revision. D10.
+        Uses db_set (not save) to avoid recursive on_update trigger. Pitfall 4 from RESEARCH.md.
+        """
+        previous = self.get_doc_before_save()
+        if (
+            previous
+            and getattr(previous, "status", None) == "Rejected"
+            and self.status == "Draft"
+        ):
+            self.db_set("revision", (self.revision or 0) + 1)
 
     def _calculate_totals(self):
         """
