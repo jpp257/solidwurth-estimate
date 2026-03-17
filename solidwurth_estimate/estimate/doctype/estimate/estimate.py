@@ -309,6 +309,8 @@ def convert_to_project(estimate_name):
     project.estimated_costing = estimate.grand_total
     project.company = "SolidWurth Corp."
     project.custom_estimate = estimate_name
+    if estimate.client:
+        project.customer = estimate.client
     project.insert(ignore_permissions=False)
 
     # Set bidirectional link: Estimate.project -> new Project (D5)

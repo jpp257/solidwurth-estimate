@@ -46,7 +46,7 @@
         "action": "Submit for Review",
         "next_state": "Under Review",
         "allowed": "Estimate Manager",
-        "allow_self_approval": 0
+        "allow_self_approval": 1
       },
       {
         "state": "Under Review",
@@ -67,7 +67,7 @@
         "action": "Revise",
         "next_state": "Draft",
         "allowed": "Estimate Manager",
-        "allow_self_approval": 0
+        "allow_self_approval": 1
       }
     ]
   }
