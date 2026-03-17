@@ -9,10 +9,20 @@ frappe.ui.form.on("Estimate", {
      */
     refresh(frm) {
         // Only show picker button on Draft estimates (not submitted/cancelled)
-        if (frm.doc.docstatus === 0 && frm.doc.status === "Draft") {
+        // Uses workflow_state (not status) — workflow_state_field = "status" so they are the same field,
+        // but workflow_state is the canonical check per 14-01 critical context.
+        if (frm.doc.docstatus === 0 && frm.doc.workflow_state === "Draft") {
             frm.add_custom_button(
                 __("Add Scope from Template"),
                 () => show_template_picker(frm)
+            );
+        }
+
+        // Convert to Project button — D15: visible only when Approved AND no linked Project
+        if (frm.doc.workflow_state === "Approved" && !frm.doc.project) {
+            frm.add_custom_button(
+                __("Convert to Project"),
+                () => show_conversion_dialog(frm)
             );
         }
 
@@ -165,6 +175,40 @@ function show_template_picker(frm) {
     });
 
     dialog.show();
+}
+
+
+/**
+ * Show confirmation dialog before converting Estimate to Project. D16.
+ * Displays: Estimate name, proposed project name, estimated costing.
+ * On confirm: calls convert_to_project() whitelist method. D17, D18.
+ */
+function show_conversion_dialog(frm) {
+    const costing = format_currency(frm.doc.grand_total, "PHP");
+    frappe.confirm(
+        `Create Project from <strong>${frm.doc.name}</strong>?<br><br>
+         Project name: <strong>${frappe.utils.escape_html(frm.doc.estimate_title)}</strong><br>
+         Estimated costing: <strong>${costing}</strong>`,
+        () => {
+            frappe.call({
+                method: "solidwurth_estimate.estimate.doctype.estimate.estimate.convert_to_project",
+                args: { estimate_name: frm.doc.name },
+                freeze: true,
+                freeze_message: __("Creating project..."),
+                callback(r) {
+                    if (!r.exc && r.message) {
+                        const link = `<a href="${r.message.project_url}">${frappe.utils.escape_html(r.message.project_name)}</a>`;
+                        frappe.msgprint({
+                            title: __("Project Created"),
+                            message: __("Project {0} created successfully.", [link]),
+                            indicator: "green"
+                        });
+                        frm.reload_doc();
+                    }
+                }
+            });
+        }
+    );
 }
 
 
